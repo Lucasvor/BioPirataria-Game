@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="50" height="240" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="map.tsx"/>
+ <layer name="pista" width="50" height="240">
+  <data encoding="base64" compression="zlib">
+   eJzt3DFSFEEYR/GGTfYSIJfA5RIKVxC5BGrAFQATgSpjlUTlDFCKZ4BbaOq/4QK7QX/1ZusFv5pga3b6o3jbyVTPWzv5vNHalM1baztrMEdmaHtrMEdmaAdrMEdm6P9bk5/DPlgq+vgUF3EZV4OeUdHH9/gRP+Nm0DMq+vgVv+M+/gx6hn2wuH+w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9sNgHi32w2AeLfbDYB4t9LKfirIxudB8VZ2V0o/uoOCujsw8W9w8W+2CxDxb7YLEPFvtgsQ8W+2CxDxb7YLEPFvtgsQ8W+2CxDxb7YLEPFvtgsQ8W+2CxDxb7YLEPFvtgsQ8W+2CxDxb7YKnoo+Jd/Yo+Kt7Vr+ij4l19+2Bx/2CxDxb7YLEPFvtgsQ8W+2CxDxb7YLEPFvtgsQ8W+2CxDxb7YLEPlpF9VJ1F1o3so+ossm5kH1VnkXX2weL+wWIfLPbBYh8s9sFiHyz2wWIfLPbBYh8s9sFiHyz2wWIfLPbBYh8s9sFiHyy9j51ZO3kRt5ut3cVUrluz1rYja+8ztL3MsIiHfPYYU7nuZu0vY/E8w9Pv1X7m+JvP/sVUrq+y9teRtbeD2fr87o6c403+TofxNo5mY+dYZv84zhrexfv4sMJ6qu5bdv84zXedxXl8XGE9Vfctu398yXd9jW9xvcJ6qu7r+8d/fOULMA==
+  </data>
+ </layer>
+</map>
