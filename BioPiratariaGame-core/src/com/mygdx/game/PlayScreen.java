@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +27,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Player;
 
+import Sprites.Heroi;
+import Tools.B2WorldCreator;
+
 public class PlayScreen implements Screen{
 
 	@SuppressWarnings("unused")
@@ -44,6 +48,9 @@ public class PlayScreen implements Screen{
 	
 	private Player player;
 	
+	private Heroi heroi;
+	
+	
 	PlayScreen(BioPirataria game) {
 		this.game = game;
 		gamecam = new OrthographicCamera();
@@ -57,30 +64,35 @@ public class PlayScreen implements Screen{
 		
         world = new World(new Vector2(0,0), true);
         b2ddr = new Box2DDebugRenderer();
-
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() / 2);
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
+        
+        new B2WorldCreator(world,map);
+        
+        heroi = new Heroi(world);
 	}
 	public void handleInput(float dt){
 	    if(Gdx.input.isTouched())
 	        gamecam.position.y += 300 *dt;
+	    
+	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
+	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+		 //   if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
+	  //heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0), heroi.b2body.getWorldCenter(), true);
+	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && heroi.b2body.getLinearVelocity().x <= 30)
+	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0),heroi.b2body.getWorldCenter(), true);
+	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && heroi.b2body.getLinearVelocity().x >= -30)
+	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(-30.4f,0),heroi.b2body.getWorldCenter(), true);
+	    
+	    
     }
 	public void update(float dt){
 	    handleInput(dt);
+	    world.step(1/60f, 60, 2);
 	    gamecam.update();
 	    renderer.setView(gamecam);
     }
@@ -163,6 +175,12 @@ public class PlayScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		player.getTexture().dispose();
+		map.dispose();
+		renderer.dispose();
+		world.dispose();
+		b2ddr.dispose();
+		hud.dispose();
+		
 	}
 
 }
