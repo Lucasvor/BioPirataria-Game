@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,6 +35,7 @@ public class PlayScreen implements Screen{
 
 	@SuppressWarnings("unused")
 	private BioPirataria game;
+	private TextureAtlas atlas;
 	//Sprite player;
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
@@ -52,6 +54,7 @@ public class PlayScreen implements Screen{
 	
 	
 	PlayScreen(BioPirataria game) {
+		atlas = new TextureAtlas("Heroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT,gamecam);
@@ -67,14 +70,22 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
-        heroi = new Heroi(world);
+        heroi = new Heroi(world,this);
 	}
+	
+	public TextureAtlas getAtlas() {
+		return atlas;
+	}
+	
 	public void handleInput(float dt){
 	    if(Gdx.input.isTouched())
 	        gamecam.position.y += 300 *dt;
 	    
 	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
 	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+	    	//heroi.b2body.applyForce(new Vector2(0,100), heroi.b2body.getWorldCenter(), true);
+	    	//heroi.b2body.applyAngularImpulse(100, true);
+	    	//
 	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
 	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
@@ -88,14 +99,31 @@ public class PlayScreen implements Screen{
 	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && heroi.b2body.getLinearVelocity().x >= -30)
 	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(-30.4f,0),heroi.b2body.getWorldCenter(), true);
 	    
-	    
+	    // personagem com desenho
+		
+		if(Gdx.input.isKeyPressed(Keys.W)) {
+			player.setY(player.getY()+5);
+		}
+		if(Gdx.input.isKeyPressed(Keys.S)) {
+			player.setY(player.getY()-5);
+		}
+		if(Gdx.input.isKeyPressed(Keys.A)) {
+			player.setX(player.getX()-5);
+		}
+		if(Gdx.input.isKeyPressed(Keys.D)) {
+			player.setX(player.getX()+5);
+		}
+
     }
 	public void update(float dt){
 	    handleInput(dt);
 	    world.step(1/60f, 60, 2);
+	    heroi.update(dt);
 	    gamecam.update();
+	    
 	    renderer.setView(gamecam);
     }
+
 
 	@Override
 	public void show() {
@@ -123,23 +151,9 @@ public class PlayScreen implements Screen{
 	//	player.batch.end();
 	
 		hud.stage.draw();
-		
-		if(Gdx.input.isKeyPressed(Keys.W)) {
-			player.setY(player.getY()+5);
-		}
-		if(Gdx.input.isKeyPressed(Keys.S)) {
-			player.setY(player.getY()-5);
-		}
-		if(Gdx.input.isKeyPressed(Keys.A)) {
-			player.setX(player.getX()-5);
-		}
-		if(Gdx.input.isKeyPressed(Keys.D)) {
-			player.setX(player.getX()+5);
-		}
-
-	
 		BioPirataria.batch.begin();
 		BioPirataria.batch.draw(player, player.getX(), player.getY());
+		heroi.draw(game.batch);
 		BioPirataria.batch.end();
 		
 		
