@@ -1,5 +1,5 @@
 package com.mygdx.game.desktop;
-//...
+//... teste outra conta
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.BioPirataria;
