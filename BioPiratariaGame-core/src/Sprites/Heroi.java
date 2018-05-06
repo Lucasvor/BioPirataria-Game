@@ -28,16 +28,23 @@ public class Heroi extends Sprite {
 		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
 	}
 	
+	public Body getBody() {
+		return this.b2body;
+	}
 	public void defineHeroi() {
 		BodyDef bdef = new BodyDef();
+		
 		//bdef.position.set(32 / BioPirataria.PPM,32 / BioPirataria.PPM);
-		bdef.position.set(128,128);
+		//bdef.position.set(128,128);
+		//bdef.position.set(getX() / BioPirataria.PPM, getY() / BioPirataria.PPM);
+		bdef.position.set(120,120);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(23,64);
+		//shape.setAsBox((getWidth()/2)/BioPirataria.PPM,(getHeight()/2)/ BioPirataria.PPM);
+		shape.setAsBox(getWidth()/4, getHeight()/2);
 		//shape.setRadius(20/BioPirataria.PPM);
 		
 		fdef.shape = shape;

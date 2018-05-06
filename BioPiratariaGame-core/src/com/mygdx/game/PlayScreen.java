@@ -81,24 +81,27 @@ public class PlayScreen implements Screen{
 	    if(Gdx.input.isTouched())
 	        gamecam.position.y += 300 *dt;
 	    
-	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
-	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    	//heroi.b2body.applyForce(new Vector2(0,100), heroi.b2body.getWorldCenter(), true);
-	    	//heroi.b2body.applyAngularImpulse(100, true);
-	    	//
-	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
-	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-		 //   if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
-	  //heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0), heroi.b2body.getWorldCenter(), true);
-	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && heroi.b2body.getLinearVelocity().x <= 30)
-	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0),heroi.b2body.getWorldCenter(), true);
-	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && heroi.b2body.getLinearVelocity().x >= -30)
-	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(-30.4f,0),heroi.b2body.getWorldCenter(), true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+//	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+//	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+//	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
+//	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+
 	    
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+    	heroi.getBody().applyLinearImpulse(new Vector2(-30,0), heroi.getBody().getWorldCenter(), true);
+    }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(30,0), heroi.getBody().getWorldCenter(), true);
+	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,30), heroi.getBody().getWorldCenter(), true);
+    }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-30), heroi.getBody().getWorldCenter(), true);
+	    }
+	    
+
 	    // personagem com desenho
 		
 		if(Gdx.input.isKeyPressed(Keys.W)) {
@@ -113,6 +116,8 @@ public class PlayScreen implements Screen{
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			player.setX(player.getX()+5);
 		}
+		//heroi.b2body.getLinearVelocityFromLocalPoint(new Vector2(0,0));
+		//heroi.getBody().setLinearVelocity(new Vector2(0,0));
 
     }
 	public void update(float dt){
