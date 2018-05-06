@@ -50,12 +50,12 @@ public class MenuScreen implements Screen{
 		table.setFillParent(true);
 		
 		title = new Texture("biopiratariatitle.png");
-		playbtnactive = new Texture("playbtnactv.png");
-		playbtninactive = new Texture("playbtninactv.png");
-		creditsbtnactive = new Texture("creditsbtnactv.png");
-		creditsbtninactive = new Texture("creditsbtninactv.png");
-		quitbtnactive = new Texture("quitbtnactv.png");
-		quitbtninactive = new Texture("quitbtninactv.png");
+		playbtnactive = new Texture("playbtnactv.png"); //JOGAR ATIVO
+		playbtninactive = new Texture("playbtninactv.png"); //JOGAR INATIVO
+		creditsbtnactive = new Texture("creditsbtnactv.png"); //CRÉDITOS ATIVO
+		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
+		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
+		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
 
 		stage.addActor(table);
 	}
