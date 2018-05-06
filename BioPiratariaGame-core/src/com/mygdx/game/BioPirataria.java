@@ -1,5 +1,5 @@
 package com.mygdx.game;
-
+//main.Game
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +15,7 @@ public class BioPirataria extends Game {
         batch = new SpriteBatch();
         //player = new Sprite(new Texture("Human.jpg"));
         //setScreen(new PlayScreen(this));
-        setScreen(new PlayScreen(this));
+        this.setScreen(new MenuScreen(this));
 	}
 
 	@Override
