@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,6 +56,11 @@ public class PlayScreen implements Screen{
 	private Heroi heroi;
 	
 	
+	
+	private Bullet bullet;
+	Texture bulletTexture;
+	ArrayList<Bullet> bulletManager;
+	
 	PlayScreen(BioPirataria game) {
 		atlas = new TextureAtlas("Heroi.pack");
 		this.game = game;
@@ -71,6 +79,13 @@ public class PlayScreen implements Screen{
         new B2WorldCreator(world,map);
         
         heroi = new Heroi(world,this);
+        
+        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
+        bulletTexture = new Texture("laser.png");
+        
+        bulletManager = new ArrayList<Bullet>();
+        
+        //Gdx.input.setCursorImage
 	}
 	
 	public TextureAtlas getAtlas() {
@@ -78,27 +93,35 @@ public class PlayScreen implements Screen{
 	}
 	
 	public void handleInput(float dt){
-	    if(Gdx.input.isTouched())
-	        gamecam.position.y += 300 *dt;
+	   // if(Gdx.input.isTouched())
+	    //    gamecam.position.y += 300 *dt;
 	    
-	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
-	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    	//heroi.b2body.applyForce(new Vector2(0,100), heroi.b2body.getWorldCenter(), true);
-	    	//heroi.b2body.applyAngularImpulse(100, true);
-	    	//
-	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
-	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-		 //   if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
-	  //heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0), heroi.b2body.getWorldCenter(), true);
-	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && heroi.b2body.getLinearVelocity().x <= 30)
-	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(30.4f,0),heroi.b2body.getWorldCenter(), true);
-	  	  //  if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && heroi.b2body.getLinearVelocity().x >= -30)
-	  	  //  	heroi.b2body.applyLinearImpulse(new Vector2(-30.4f,0),heroi.b2body.getWorldCenter(), true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+//	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+//	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+//	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+//	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
+//	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
+
 	    
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+    	heroi.getBody().applyLinearImpulse(new Vector2(-30,0), heroi.getBody().getWorldCenter(), true);
+    }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(30,0), heroi.getBody().getWorldCenter(), true);
+	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,30), heroi.getBody().getWorldCenter(), true);
+    }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-30), heroi.getBody().getWorldCenter(), true);
+	    }
+    //else if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+	//    	new Bullet(world, this, new Texture("laser.png"), 100, 100);
+	    
+    	if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
+    		bulletManager.add(myBullet);
+    	}
 	    // personagem com desenho
 		
 		if(Gdx.input.isKeyPressed(Keys.W)) {
@@ -113,6 +136,8 @@ public class PlayScreen implements Screen{
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			player.setX(player.getX()+5);
 		}
+		//heroi.b2body.getLinearVelocityFromLocalPoint(new Vector2(0,0));
+		//heroi.getBody().setLinearVelocity(new Vector2(0,0));
 
     }
 	public void update(float dt){
@@ -136,7 +161,8 @@ public class PlayScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
-
+		
+		
 	    update(delta);
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -153,7 +179,26 @@ public class PlayScreen implements Screen{
 		hud.stage.draw();
 		BioPirataria.batch.begin();
 		BioPirataria.batch.draw(player, player.getX(), player.getY());
+		int counter = 0;
+		while(counter < bulletManager.size())
+		{
+			Bullet currenteBullet = bulletManager.get(counter);
+			currenteBullet.Update();
+			if(currenteBullet.bulletLocation.x > 0 && currenteBullet.bulletLocation.x < Gdx.graphics.getWidth() && currenteBullet.bulletLocation.y > 0 && currenteBullet.bulletLocation.y < Gdx.graphics.getHeight())
+			{
+				BioPirataria.batch.draw(bulletTexture,currenteBullet.bulletLocation.x,currenteBullet.bulletLocation.y);
+			}else {
+				bulletManager.remove(counter);
+				if(bulletManager.size() > 0) {
+					counter--;
+				}
+			}
+			
+			counter ++;
+		}
 		heroi.draw(game.batch);
+
+		
 		BioPirataria.batch.end();
 		
 		
