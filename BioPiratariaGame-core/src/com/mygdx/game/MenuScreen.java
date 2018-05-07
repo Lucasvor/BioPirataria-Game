@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuScreen implements Screen{
-	
+	//tela Menu Principal
 	private static final int PLAY_BUTTOM_WIDTH = 100;
 	private static final int PLAY_BUTTOM_HEIGHT = 30;
 	
@@ -24,10 +24,7 @@ public class MenuScreen implements Screen{
 	private static final int QUIT_BUTTOM_WIDTH = 95;
 	private static final int QUIT_BUTTOM_HEIGHT = 26;
 
-
-	
 	private Viewport viewport;
-	private Stage stage;
 	
 	private Texture title;
 	private Texture playbtnactive;
@@ -35,7 +32,6 @@ public class MenuScreen implements Screen{
 	private Texture creditsbtnactive;
 	private Texture creditsbtninactive;
 	private Texture quitbtnactive;
-	
 	private Texture quitbtninactive;
 	
 	private Game game;
@@ -43,12 +39,8 @@ public class MenuScreen implements Screen{
 	public MenuScreen (Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
-		stage = new Stage (viewport, ((BioPirataria) game).batch);
-				
-		Table table = new Table();
-		table.center();
-		table.setFillParent(true);
 		
+				
 		title = new Texture("biopiratariatitle.png");
 		playbtnactive = new Texture("playbtnactv.png"); //JOGAR ATIVO
 		playbtninactive = new Texture("playbtninactv.png"); //JOGAR INATIVO
@@ -56,8 +48,6 @@ public class MenuScreen implements Screen{
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
-
-		stage.addActor(table);
 	}
 	
 
