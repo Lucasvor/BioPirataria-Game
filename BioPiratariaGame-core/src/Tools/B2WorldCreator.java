@@ -27,9 +27,9 @@ public class B2WorldCreator {
             body = world.createBody(bdef);
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
-            body.createFixture(fdef);
+            body.createFixture(fdef).setUserData("Terreno");
             
         }
 	}
-        }
+ }
 }

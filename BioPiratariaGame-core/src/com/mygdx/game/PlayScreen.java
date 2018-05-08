@@ -84,10 +84,14 @@ public class PlayScreen implements Screen
         
         heroi = new Heroi(world,this);
         
+        // bullet
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
         bulletTexture = new Texture("bala1.png");
         
         bulletManager = new ArrayList<Bullet>();
+        
+        //Pegando colisão
+        world.setContactListener(new WorldContactListener());
         
         //Gdx.input.setCursorImage
 	}
@@ -144,6 +148,8 @@ public class PlayScreen implements Screen
 	    handleInput(dt);
 	    world.step(1/60f, 60, 2);
 	    heroi.update(dt);
+	    //atualiza vida/score e tempo.
+	    hud.update(dt);
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
 	    gamecam.update();
 	    

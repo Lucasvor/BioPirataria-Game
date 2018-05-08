@@ -18,15 +18,15 @@ public Stage stage;
 private Viewport viewport;
 
 //variaveis da HUD (tabela de pontos , vida etc.)//
-
-private Integer timeCount;
+private Integer worldTimer;
+private float timeCount;
 private Integer pontos;
-private Integer vida;
+private static Integer vida;
 private Integer level;
 
 Label timeCountLabel;
 Label pontosLabel;
-Label vidaLabel;
+static Label  vidaLabel;
 Label levelLabel;
 Label pontosTextLabel;
 Label timeCountTextLabel;
@@ -36,8 +36,8 @@ Label levelTextLabel;
 public Hud(SpriteBatch sb) {
 	
 	//contadores da HUD//
-	
-	timeCount = 90;
+	worldTimer = 90;
+	timeCount = 0;
 	pontos = 0;
 	vida = 100;
 	level = 0;
@@ -51,7 +51,7 @@ public Hud(SpriteBatch sb) {
 	Table table = new Table();
 	table.top();
 	table.setFillParent(true);
-    timeCountLabel = new Label(String.format("%03d",timeCount), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+    timeCountLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     pontosLabel = new Label(String.format("%05d",pontos), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     vidaLabel = new Label(String.format("%02d",vida), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     levelLabel = new Label(String.format("%02d",level), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
@@ -88,7 +88,18 @@ public Hud(SpriteBatch sb) {
 	
 	stage.addActor(table);
 }
-
+public void update(float dt) {
+	timeCount += dt;
+	if(timeCount >= 1) {
+		worldTimer--;
+		timeCountLabel.setText(String.format("%03d",worldTimer));
+		timeCount=0;
+	}
+}
+public static void lostLife(int life) {
+	vida -= life;
+	vidaLabel.setText(String.format("%02d",vida));
+}
 @Override
 public void dispose() {
 	// TODO Auto-generated method stub

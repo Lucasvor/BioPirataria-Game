@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>assets/esse3.tmx</name>
-			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/esse3.tmx</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
