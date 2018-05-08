@@ -21,8 +21,8 @@ public class Heroi extends Sprite {
 		super(screen.getAtlas().findRegion("heroi"));
 		this.world = world;
 		defineHeroi();
-		heroiStand = new TextureRegion(getTexture(),0,0,128,128);
-		setBounds(0, 0, 128, 128);
+		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
+		setBounds(0, 0, 32, 60);
 		setRegion(heroiStand);
 	}
 	public void update(float dt) {
