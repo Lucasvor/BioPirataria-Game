@@ -112,7 +112,8 @@ public class PlayScreen implements Screen
 	     //faz a camera se mover e  velocidade do heroi//
     if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
     	//gamecam.position.x -= 100 * dt;
-    	heroi.getBody().applyLinearImpulse(new Vector2(-50,0), heroi.getBody().getWorldCenter(), true);
+    heroi.getBody().applyLinearImpulse(new Vector2(-50,0), heroi.getBody().getWorldCenter(), true);
+    	
     }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
     	//gamecam.position.x += 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(50,0), heroi.getBody().getWorldCenter(), true);
@@ -122,6 +123,8 @@ public class PlayScreen implements Screen
     }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
     	//gamecam.position.y -= 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-50), heroi.getBody().getWorldCenter(), true);
+	    }else {
+	    	heroi.getBody().setLinearVelocity(0,0);
 	    }
     //else if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
 	//    	new Bullet(world, this, new Texture("laser.png"), 100, 100);
