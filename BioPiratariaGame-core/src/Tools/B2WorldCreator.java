@@ -16,8 +16,9 @@ public class B2WorldCreator {
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
-
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+// local onde aplica as coliões no mapa.
+        for(int i = 1;i <= 2;i++) {
+        for(MapObject object: map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -27,6 +28,8 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
             body.createFixture(fdef);
+            
         }
 	}
+        }
 }

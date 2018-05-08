@@ -107,10 +107,10 @@ public class PlayScreen implements Screen{
 //	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
 		
 	     //faz a camera se mover e  velocidade do heroi//
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && heroi.b2body.getLinearVelocity().x <= 100f) {
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
     	//gamecam.position.x -= 100 * dt;
     	heroi.getBody().applyLinearImpulse(new Vector2(-50,0), heroi.getBody().getWorldCenter(), true);
-    }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && heroi.b2body.getLinearVelocity().x >= -100f) {
+    }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
     	//gamecam.position.x += 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(50,0), heroi.getBody().getWorldCenter(), true);
 	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
