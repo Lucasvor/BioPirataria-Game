@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Bullet {
+public class Bullet 
+{
 	
 	//definições de velocidade da bala //
 
