@@ -34,8 +34,11 @@ import com.mygdx.game.entities.Player;
 import Sprites.Heroi;
 import Tools.B2WorldCreator;
 
-public class PlayScreen implements Screen{
+public class PlayScreen implements Screen
+{
 
+	//texturas do jogo // 
+	
 	@SuppressWarnings("unused")
 	private BioPirataria game;
 	private TextureAtlas atlas;
@@ -70,7 +73,7 @@ public class PlayScreen implements Screen{
 		hud = new Hud(BioPirataria.batch);
 
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("esse2.tmx");
+		map = mapLoader.load("esse3.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map);
 		gamecam.position.set(BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2, 0);
 		
@@ -147,8 +150,11 @@ public class PlayScreen implements Screen{
 
 
 	@Override
-	public void show() {
+	public void show() 
+	{
 		// TODO Auto-generated method stub
+		
+		// textura do personagem principal //
 		
 		player = new Player(new Sprite(new Texture("player1sprite.png")));
 		Gdx.input.setInputProcessor(player);
@@ -156,8 +162,10 @@ public class PlayScreen implements Screen{
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) 
+	{
 		
+		// definições de renderização do jogo //
 		
 	    update(delta);
 		// TODO Auto-generated method stub

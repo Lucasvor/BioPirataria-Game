@@ -15,7 +15,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuScreen implements Screen{
-	//tela Menu Principal
+	
+	//tela Menu Principal//
+	
 	private static final int PLAY_BUTTOM_WIDTH = 100;
 	private static final int PLAY_BUTTOM_HEIGHT = 30;
 	

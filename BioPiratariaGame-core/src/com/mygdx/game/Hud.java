@@ -13,8 +13,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Hud implements Disposable{
 
+	
 public Stage stage;
 private Viewport viewport;
+
+//variaveis da HUD (tabela de pontos , vida etc.)//
 
 private Integer timeCount;
 private Integer pontos;
@@ -31,10 +34,16 @@ Label vidatextLabel;
 Label levelTextLabel;
 
 public Hud(SpriteBatch sb) {
-	timeCount = 0;
+	
+	//contadores da HUD//
+	
+	timeCount = 90;
 	pontos = 0;
-	vida = 0;
+	vida = 100;
 	level = 0;
+	
+	//configurações de tamanho , cor do contador e da fonte da HUD //
+	
 	
 	viewport = new FitViewport(BioPirataria.V_WIDTH,BioPirataria.V_HEIGHT, new OrthographicCamera());
 	stage = new Stage(viewport,sb);
