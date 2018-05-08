@@ -19,9 +19,9 @@ public class Heroi extends Sprite {
 	public Body b2body;
 	private TextureRegion heroiStand;
 	
-	public Heroi(World world,PlayScreen screen) {
+	public Heroi(PlayScreen screen) {
 		super(screen.getAtlas().findRegion("heroi"));
-		this.world = world;
+		this.world = screen.getWorld();
 		defineHeroi();
 		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
 		setBounds(0, 0, 32, 60);

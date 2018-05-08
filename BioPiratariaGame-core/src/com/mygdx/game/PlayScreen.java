@@ -80,9 +80,9 @@ public class PlayScreen implements Screen
         world = new World(new Vector2(0,0), true);
         b2ddr = new Box2DDebugRenderer();
         
-        new B2WorldCreator(world,map);
+        new B2WorldCreator(this);
         
-        heroi = new Heroi(world,this);
+        heroi = new Heroi(this);
         
         // bullet
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
@@ -240,7 +240,13 @@ public class PlayScreen implements Screen
 		// TODO Auto-generated method stub
 		
 	}
-
+	public TiledMap getMap() {
+		return map;
+	}
+	public World getWorld() {
+		return world;
+	}
+	
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
