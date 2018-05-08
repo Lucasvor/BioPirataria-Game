@@ -5,12 +5,13 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class Player extends Sprite implements InputProcessor
 {
 
 	private Vector2 velocity = new Vector2();
-	float speed = 60*2 , gravity = 60*0.8f;
+	float speed = 40*2 , gravity = 40*0.8f;
 	public SpriteBatch batch;
 	private int pontox=0 , pontoy=0;
 	public boolean movendox1 = false; // x positivo
@@ -106,5 +107,6 @@ public class Player extends Sprite implements InputProcessor
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	
 }

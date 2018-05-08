@@ -61,7 +61,8 @@ public class PlayScreen implements Screen{
 	Texture bulletTexture;
 	ArrayList<Bullet> bulletManager;
 	
-	PlayScreen(BioPirataria game) {
+	PlayScreen(BioPirataria game) 
+	{
 		atlas = new TextureAtlas("Heroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
@@ -81,7 +82,7 @@ public class PlayScreen implements Screen{
         heroi = new Heroi(world,this);
         
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
-        bulletTexture = new Texture("laser.png");
+        bulletTexture = new Texture("bala1.png");
         
         bulletManager = new ArrayList<Bullet>();
         
@@ -104,21 +105,25 @@ public class PlayScreen implements Screen{
 //	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
 //	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
 //	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-
-	    
+		
+	     //faz a camera se mover e  velocidade do heroi//
     if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+    	gamecam.position.x -= 100 * dt;
     	heroi.getBody().applyLinearImpulse(new Vector2(-30,0), heroi.getBody().getWorldCenter(), true);
     }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+    	gamecam.position.x += 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(30,0), heroi.getBody().getWorldCenter(), true);
 	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+	    	gamecam.position.y += 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(0,30), heroi.getBody().getWorldCenter(), true);
     }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+    	gamecam.position.y -= 100 * dt;
 	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-30), heroi.getBody().getWorldCenter(), true);
 	    }
     //else if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
 	//    	new Bullet(world, this, new Texture("laser.png"), 100, 100);
 	    
-    	if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+    	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
     		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
     		bulletManager.add(myBullet);
     	}
