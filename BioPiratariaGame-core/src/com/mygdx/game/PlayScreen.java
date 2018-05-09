@@ -213,9 +213,27 @@ public class PlayScreen implements Screen
 		BioPirataria.batch.end();
 		
 		
-
+		
+		if(gameOver()) {
+			game.setScreen(new GameOverScreen(game));
+			dispose();
+		}
+		
+		
 	}
 
+	private boolean gameOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	//public boolean gameOver() {
+	//	if (player.currenteState == Heroi.State.DEAD && player.getStateTimer() > 3){
+	//		return true;
+	//	}
+	//	return false;
+	//}
+	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub

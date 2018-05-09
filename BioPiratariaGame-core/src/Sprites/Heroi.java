@@ -19,6 +19,9 @@ public class Heroi extends Sprite {
 	public Body b2body;
 	private TextureRegion heroiStand;
 	
+	private float stateTimer; //variável de condição para o game over 
+	private boolean heroiIsDead; //variável de condição para o game over
+	
 	public Heroi(PlayScreen screen) {
 		super(screen.getAtlas().findRegion("heroi"));
 		this.world = screen.getWorld();
@@ -50,6 +53,15 @@ public class Heroi extends Sprite {
 		return b2body;
 	
 	}
+	
+	public boolean isDead() {
+		return heroiIsDead;
+	}
+	
+	public float getStateTimer() {
+		return stateTimer;
+	}
+	
 	public void defineHeroi() {
 		BodyDef bdef = new BodyDef();
 		

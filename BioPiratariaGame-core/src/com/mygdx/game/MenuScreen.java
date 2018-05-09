@@ -17,17 +17,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MenuScreen implements Screen{
 	
 	//tela Menu Principal//
-	
+	//ALTURA E LARGURA DOS BOTÕES DO MENU
 	private static final int PLAY_BUTTOM_WIDTH = 100;
 	private static final int PLAY_BUTTOM_HEIGHT = 30;
 	
 	private static final int CREDITS_BUTTOM_WIDTH = 130;
 	private static final int CREDITS_BUTTOM_HEIGHT = 30;
+	
 	private static final int QUIT_BUTTOM_WIDTH = 95;
 	private static final int QUIT_BUTTOM_HEIGHT = 26;
-
+	//VARIÁVEIS PARA AS IMAGENS DOS BOTÕES 
 	private Viewport viewport;
-	
 	private Texture title;
 	private Texture playbtnactive;
 	private Texture playbtninactive;
@@ -69,12 +69,12 @@ public class MenuScreen implements Screen{
 	public void render(float delta) {
 		
 		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
-		BioPirataria.batch.draw(title, 110, 345);
+		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO
 		
-		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35;
+		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; 
 		
 		if(Gdx.input.getX() < x + PLAY_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 340 + PLAY_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 325) {
