@@ -35,7 +35,7 @@ public class Vilao extends Enemy{
 		
 		//posição inicial antiga//
 		//bdef.position.set(120,120);
-		bdef.position.set(450,400);
+		bdef.position.set(450, 550);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
