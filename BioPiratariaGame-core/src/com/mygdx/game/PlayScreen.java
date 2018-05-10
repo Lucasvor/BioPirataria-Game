@@ -74,7 +74,7 @@ public class PlayScreen implements Screen
 		hud = new Hud(BioPirataria.batch);
 
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("esse3.tmx");
+		map = mapLoader.load("atual.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map);
 		gamecam.position.set(BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2, 0);
 		
