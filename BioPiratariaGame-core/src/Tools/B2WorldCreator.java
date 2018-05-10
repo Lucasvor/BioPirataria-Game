@@ -21,8 +21,9 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 // local onde aplica as coliões no mapa.
-        for(int i = 1;i <= 2;i++) {
-        for(MapObject object: map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)){
+        //for(int i = 1;i <= 3;i++) {
+        // objetos do mapa
+        for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -35,6 +36,20 @@ public class B2WorldCreator {
             body.createFixture(fdef).setUserData("Terreno");
             
         }
-	}
+        // borda do jogo
+        for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() / 2);
+
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = BioPirataria.BORDAS_BIT;
+            body.createFixture(fdef).setUserData("Terreno");
+            
+        }
+	
  }
 }

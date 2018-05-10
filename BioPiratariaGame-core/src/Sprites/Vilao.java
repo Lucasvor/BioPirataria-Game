@@ -53,7 +53,7 @@ public class Vilao extends Enemy{
 		
 		fdef.shape = dynamicCircle;
 		fdef.filter.categoryBits = BioPirataria.ENEMY_BIT;
-		fdef.filter.maskBits = BioPirataria.HEROI_BIT;
+		fdef.filter.maskBits = BioPirataria.HEROI_BIT | BioPirataria.BORDAS_BIT;
 		
 		b2body.createFixture(fdef).setUserData("Enemy");
 		
