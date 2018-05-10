@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Player;
 
 import Sprites.Heroi;
+import Sprites.Vilao;
 import Tools.B2WorldCreator;
 
 public class PlayScreen implements Screen
@@ -57,7 +58,7 @@ public class PlayScreen implements Screen
 	private Player player;
 	
 	private Heroi heroi;
-	
+	private Vilao vilao;
 	
 	
 	private Bullet bullet;
@@ -83,7 +84,7 @@ public class PlayScreen implements Screen
         new B2WorldCreator(this);
         
         heroi = new Heroi(this);
-        
+        vilao = new Vilao(this, 200,200);
         // bullet
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
         bulletTexture = new Texture("bala1.png");
@@ -92,6 +93,7 @@ public class PlayScreen implements Screen
         
         //Pegando colisão
         world.setContactListener(new WorldContactListener());
+        
         
         //Gdx.input.setCursorImage
 	}
@@ -148,6 +150,7 @@ public class PlayScreen implements Screen
 	    handleInput(dt);
 	    world.step(1/60f, 60, 2);
 	    heroi.update(dt);
+	    vilao.update(dt);
 	    //atualiza vida/score e tempo.
 	    hud.update(dt);
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
@@ -197,7 +200,7 @@ public class PlayScreen implements Screen
 		{
 			Bullet currenteBullet = bulletManager.get(counter);
 			currenteBullet.Update();
-			if(currenteBullet.bulletLocation.x > 0 && currenteBullet.bulletLocation.x < Gdx.graphics.getWidth() && currenteBullet.bulletLocation.y > 0 && currenteBullet.bulletLocation.y < Gdx.graphics.getHeight())
+			if(currenteBullet.bulletLocation.x > 0 && currenteBullet.bulletLocation.x < Gdx.graphics.getWidth() && currenteBullet.bulletLocation.y > 0 && currenteBullet.bulletLocation.y < Gdx.graphics.getHeight()+100)
 			{
 				BioPirataria.batch.draw(bulletTexture,currenteBullet.bulletLocation.x,currenteBullet.bulletLocation.y);
 			}else {
@@ -206,10 +209,10 @@ public class PlayScreen implements Screen
 					counter--;
 				}
 			}
-			
 			counter ++;
 		}
 		heroi.draw(game.batch);
+		vilao.draw(game.batch);
 		BioPirataria.batch.end();
 		
 		

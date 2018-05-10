@@ -10,6 +10,11 @@ public class BioPirataria extends Game {
 	public static final int V_HEIGHT = 600;
 	public static final float PPM =100;
 
+	// Filtro para colisão.
+	public static final short HEROI_BIT = 2;
+	public static final short ENEMY_BIT = 64;
+	public static final short TERRAIN_BIT = 1;
+	
 	@Override
 	public void create () {
         batch = new SpriteBatch();

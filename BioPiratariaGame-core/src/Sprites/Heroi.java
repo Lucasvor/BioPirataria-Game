@@ -38,21 +38,21 @@ public class Heroi extends Sprite {
 		return this.b2body;
 	}
 	
-	public Body getBulletBody() {
-		BodyDef bodDef = new BodyDef();
-		bodDef.type = BodyType.KinematicBody;
-		bodDef.position.set(getX() + 10,getY() + 10);
-		
-		b2body = world.createBody(bodDef);
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(10, 10);
-		FixtureDef fdef = new FixtureDef();
-		fdef.shape = shape;
-		fdef.density = 2f;
-		shape.dispose();
-		return b2body;
-	
-	}
+//	public Body getBulletBody() {
+//		BodyDef bodDef = new BodyDef();
+//		bodDef.type = BodyType.KinematicBody;
+//		bodDef.position.set(getX() + 10,getY() + 10);
+//		
+//		b2body = world.createBody(bodDef);
+//		PolygonShape shape = new PolygonShape();
+//		shape.setAsBox(10, 10);
+//		FixtureDef fdef = new FixtureDef();
+//		fdef.shape = shape;
+//		fdef.density = 2f;
+//		shape.dispose();
+//		return b2body;
+//	
+//	}
 	
 	public boolean isDead() {
 		return heroiIsDead;
@@ -82,6 +82,8 @@ public class Heroi extends Sprite {
 		//shape.setRadius(20/BioPirataria.PPM);
 		
 		fdef.shape = shape;
+		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
+		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT;
 		b2body.createFixture(fdef).setUserData("Corpo");;
 		
 		EdgeShape head = new EdgeShape();

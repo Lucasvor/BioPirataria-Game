@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.BioPirataria;
 import com.mygdx.game.PlayScreen;
 
 public class B2WorldCreator {
@@ -30,6 +31,7 @@ public class B2WorldCreator {
             body = world.createBody(bdef);
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
+            fdef.filter.categoryBits = BioPirataria.TERRAIN_BIT;
             body.createFixture(fdef).setUserData("Terreno");
             
         }
