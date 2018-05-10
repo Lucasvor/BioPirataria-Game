@@ -47,7 +47,7 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
             fdef.filter.categoryBits = BioPirataria.BORDAS_BIT;
-            body.createFixture(fdef).setUserData("Terreno");
+            body.createFixture(fdef).setUserData("Borda");
             
         }
 	
