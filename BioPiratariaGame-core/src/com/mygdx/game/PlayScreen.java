@@ -67,7 +67,7 @@ public class PlayScreen implements Screen
 	
 	PlayScreen(BioPirataria game) 
 	{
-		atlas = new TextureAtlas("Heroi.pack");
+		atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT,gamecam);
@@ -83,7 +83,7 @@ public class PlayScreen implements Screen
         
         new B2WorldCreator(this);
         
-        heroi = new Heroi(this);
+        heroi = new Heroi(world, this);
         vilao = new Vilao(this, 200,200);
         // bullet
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
@@ -93,6 +93,7 @@ public class PlayScreen implements Screen
         
         //Pegando colisão
         world.setContactListener(new WorldContactListener());
+        
         
         
         //Gdx.input.setCursorImage

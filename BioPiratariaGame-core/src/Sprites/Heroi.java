@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -11,28 +12,118 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
 import com.mygdx.game.PlayScreen;
 
 public class Heroi extends Sprite {
+	public enum State {STANDING , RUNNING};
+	public State currentState;
+	public State previousState;
 	public World world;
 	public Body b2body;
+	// variaveis da animação//
 	private TextureRegion heroiStand;
+	private Animation heroiRun;
+	private float stateTimer1;
+	private boolean runningRigth;
+	private boolean runningUP;
 	
 	private float stateTimer; //variável de condição para o game over 
 	private boolean heroiIsDead; //variável de condição para o game over
 	
-	public Heroi(PlayScreen screen) {
-		super(screen.getAtlas().findRegion("heroi"));
+	public Heroi(World world , PlayScreen screen) {
+		super(screen.getAtlas().findRegion("somenteHeroi"));
 		this.world = screen.getWorld();
+		
+		//ANIMAÇÕES//
+		
+		currentState = State.STANDING;
+		previousState = State.STANDING;
+		stateTimer1 = 0;
+		runningRigth = true;
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for(int i = 1 ; i < 4 ; i++)
+			frames.add(new TextureRegion(getTexture(),i*0,0,32,205));
+		heroiRun = new Animation (0.1f , frames);
+		frames.clear();
+		
 		defineHeroi();
-		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
-		setBounds(0, 0, 32, 60);
+		
+		/*heroiStand = new TextureRegion(getTexture(),33,152,29,50);
+		setBounds(33,152, 29, 50);
+		setRegion(heroiStand);*/
+		/*heroiStand = new TextureRegion(getTexture(),0,0,32,205);
+		setBounds(0,0, 32, 205);
+		setRegion(heroiStand);*/
+		
+		heroiStand = new TextureRegion(getTexture(),32,0,32,205);
+		setBounds(32,0, 32, 205);
 		setRegion(heroiStand);
+		
+		//ANIMAÇÕES//
+		
 	}
+	
+	
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
+		setRegion(getFrame(dt));
 	}
+	
+	public TextureRegion getFrame(float dt) 
+	{
+		currentState = getState();
+		TextureRegion region;
+		switch(currentState) 
+		{
+		   case RUNNING:
+			   region = (TextureRegion) heroiRun.getKeyFrame(stateTimer1 , true);
+			   break;
+		   case STANDING:
+			   default:
+				   region = heroiStand; //possivel erro//
+				   break;
+		}
+		
+		if((b2body.getLinearVelocity().x < 0 || !runningRigth) && !region.isFlipX()) 
+		{
+			region.flip(true, false);
+			runningRigth = false;
+		}
+		else if((b2body.getLinearVelocity().x > 0 || runningRigth) && region.isFlipX()) 
+		{
+			region.flip(true , false);
+			runningRigth = true;
+		}
+		
+		/*POSSIVEL ERRO DE MOVIMENTAÇÃO PARA CIMA E PARA BAIXO//
+		if((b2body.getLinearVelocity().y < 0 || !runningUP) && !region.isFlipY()) 
+		{
+			region.flip(true, false);
+			runningUP = false;
+		}
+		else if((b2body.getLinearVelocity().y > 0 || runningUP) && region.isFlipY()) 
+		{
+			region.flip(true , false);
+			runningUP = true;
+		}
+		//POSSIVEL ERRO DE MOVIMENTAÇÃO PARA CIMA E PARA BAIXO*/
+		
+		stateTimer1 = currentState == previousState ? stateTimer1 + dt : 0 ;
+		previousState = currentState;
+		return region;
+	}
+	
+	public State getState() //possivel erro//
+	{
+		if(b2body.getLinearVelocity().x != 0)
+			return State.RUNNING;
+		else
+			return State.STANDING;
+		
+	}
+	
 	
 	public Body getBody() {
 		return this.b2body;

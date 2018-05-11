@@ -1,0 +1,12 @@
+
+somenteHeroi.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+somenteHeroi
+  rotate: false
+  xy: 1, 1
+  size: 30, 203
+  orig: 30, 203
+  offset: 0, 0
+  index: -1
