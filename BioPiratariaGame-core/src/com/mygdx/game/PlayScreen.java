@@ -116,8 +116,17 @@ public class PlayScreen implements Screen
 //	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
 		
 	     //faz a camera se mover e  velocidade do heroi//
+	if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){	
+		heroi.getBody().applyLinearImpulse(new Vector2(-50,50), heroi.getBody().getWorldCenter(), true);
 		
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+	}else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		heroi.getBody().applyLinearImpulse(new Vector2(-50,-50), heroi.getBody().getWorldCenter(), true);
+	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+		heroi.getBody().applyLinearImpulse(new Vector2(50,50), heroi.getBody().getWorldCenter(), true);
+	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		heroi.getBody().applyLinearImpulse(new Vector2(50,-50), heroi.getBody().getWorldCenter(), true);
+	}
+	else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
     	//gamecam.position.x -= 100 * dt;
     heroi.getBody().applyLinearImpulse(new Vector2(-50,0), heroi.getBody().getWorldCenter(), true);
     	
@@ -148,7 +157,7 @@ public class PlayScreen implements Screen
     }
 	public void update(float dt){
 	    handleInput(dt);
-	    world.step(1/60f, 60, 2);
+	    world.step(1/60f, 6, 2);
 	    heroi.update(dt);
 	    vilao.update(dt);
 	    //atualiza vida/score e tempo.

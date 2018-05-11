@@ -1,6 +1,7 @@
 package Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -21,6 +22,7 @@ public class Vilao extends Enemy{
 	}
 
 	public void update(float dt) {
+		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		
 	}
@@ -35,7 +37,7 @@ public class Vilao extends Enemy{
 		
 		//posição inicial antiga//
 		//bdef.position.set(120,120);
-		bdef.position.set(450, 550);
+		bdef.position.set(getX(), getY()+350);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
@@ -57,6 +59,12 @@ public class Vilao extends Enemy{
 		
 		b2body.createFixture(fdef).setUserData("Enemy");
 		
+		
+		
 	}
+	public void draw(Batch batch){
+		super.draw(batch);
+	}
+
 
 }

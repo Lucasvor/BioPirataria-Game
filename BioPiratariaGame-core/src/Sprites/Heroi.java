@@ -86,11 +86,11 @@ public class Heroi extends Sprite {
 		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT;
 		b2body.createFixture(fdef).setUserData("Corpo");;
 		
-		EdgeShape head = new EdgeShape();
-		head.set(new Vector2(-10,35),new Vector2(10,35));
-		fdef.shape = head;
-		fdef.isSensor = true;
-		b2body.createFixture(fdef).setUserData("Head");
+//		EdgeShape head = new EdgeShape();
+//		head.set(new Vector2(-10,35),new Vector2(10,35));
+//		fdef.shape = head;
+//		fdef.isSensor = true;
+//		b2body.createFixture(fdef).setUserData("Head");
 		
 	}
 }
