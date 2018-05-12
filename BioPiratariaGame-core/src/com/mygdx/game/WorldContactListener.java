@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class WorldContactListener implements ContactListener {
 
+	public static boolean tiroContato;
 	@Override
 	public void beginContact(Contact contact) {
 		// TODO Auto-generated method stub
@@ -46,6 +47,13 @@ public class WorldContactListener implements ContactListener {
         	Gdx.app.log("Enemy encostou na borda. - Inicio", "");
             Vilao.reverseVelocity(true,false);
         	break;
+        case BioPirataria.HEROI_BIT | BioPirataria.ENEMY_BIT:
+        	Gdx.app.log("Heroi perdeu vida por causa do vilão", "Morreu");
+        	Hud.lostLife(80);
+        case BioPirataria.TIRO_BIT | BioPirataria.TERRAIN_BIT:
+        	Gdx.app.log("Bala encostou no terreno", "");
+        	tiroContato = true;
+        	break;
         }
 	}
 
@@ -65,7 +73,6 @@ public class WorldContactListener implements ContactListener {
         	break;
         case BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT:
         	Gdx.app.log("Enemy saiu da borda. - Inicio", "");
-            
         	break;
         }
 	}

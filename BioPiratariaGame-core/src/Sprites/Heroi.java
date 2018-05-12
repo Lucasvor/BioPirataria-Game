@@ -1,6 +1,7 @@
 package Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -14,10 +15,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
+import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
+import com.mygdx.game.Tiro;
 
 public class Heroi extends Sprite {
 	public enum State {STANDING , RUNNING};
+	public PlayScreen screen;
 	public State currentState;
 	public State previousState;
 	public World world;
@@ -32,9 +36,12 @@ public class Heroi extends Sprite {
 	private float stateTimer; //variável de condição para o game over 
 	private boolean heroiIsDead; //variável de condição para o game over
 	
-	public Heroi(World world , PlayScreen screen) {
+	private Array<Tiro> tiros;
+	
+	public Heroi(PlayScreen screen) {
 		super(screen.getAtlas().findRegion("somenteHeroi"));
 		this.world = screen.getWorld();
+		this.screen = screen;
 		
 		//ANIMAÇÕES//
 		
@@ -61,6 +68,8 @@ public class Heroi extends Sprite {
 		setBounds(32,0, 32, 205);
 		setRegion(heroiStand);
 		
+		tiros = new Array<Tiro>();
+		
 		//ANIMAÇÕES//
 		
 	}
@@ -69,8 +78,21 @@ public class Heroi extends Sprite {
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
 		setRegion(getFrame(dt));
+		
+		for(Tiro tiro: tiros) {
+			tiro.update(dt);
+			if(tiro.isDestroyed())
+				tiros.removeValue(tiro, true);
+		}
 	}
-	
+	public void atirar() {
+		tiros.add(new Tiro(screen,b2body.getPosition().x,b2body.getPosition().y,true));
+	}
+	public void draw(Batch batch) {
+		super.draw(batch);
+		for(Tiro tiro:tiros)
+			tiro.draw(batch);
+	}
 	public TextureRegion getFrame(float dt) 
 	{
 		currentState = getState();
@@ -146,7 +168,11 @@ public class Heroi extends Sprite {
 //	}
 	
 	public boolean isDead() {
-		return heroiIsDead;
+		if(Hud.getLife() <= 0) {
+		return true;
+		}else {
+			return false;
+		}
 	}
 	
 	public float getStateTimer() {
@@ -175,7 +201,7 @@ public class Heroi extends Sprite {
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
 		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT;
-		b2body.createFixture(fdef).setUserData("Corpo");;
+		b2body.createFixture(fdef).setUserData("Corpo");
 		
 //		EdgeShape head = new EdgeShape();
 //		head.set(new Vector2(-10,35),new Vector2(10,35));

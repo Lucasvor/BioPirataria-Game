@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,8 +13,19 @@ import com.mygdx.game.PlayScreen;
 
 public class Vilao extends Enemy{
 	private TextureRegion vilaoStand;
-	
-	public Vilao(PlayScreen screen, float x, float y) {
+	private int vida;
+	public int getVida() {
+		return vida;
+	}
+
+	public void lostVida(int vida) {
+		vida -= vida;
+	}
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+	public Vilao(PlayScreen screen, float x, float y, int vida) {
 		super(screen, x, y);
 		// TODO Auto-generated constructor stub
 		vilaoStand = new TextureRegion(new Texture("Human1.png"),0,0,100,100);
@@ -22,9 +34,16 @@ public class Vilao extends Enemy{
 	}
 
 	public void update(float dt) {
+//		if(getVida() <= 0) {
+//			Gdx.app.log("Vilão morreu, parabens!", "");
+//			world.destroyBody(b2body);
+//		}else {
+//		b2body.setLinearVelocity(velocity);
+//		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
+//		}
+		
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
-		
 	}
 	@Override
 	protected void defineEnemy() {
@@ -54,6 +73,7 @@ public class Vilao extends Enemy{
 		//shape.setRadius(20/BioPirataria.PPM);
 		
 		fdef.shape = dynamicCircle;
+		fdef.restitution = 80;
 		fdef.filter.categoryBits = BioPirataria.ENEMY_BIT;
 		fdef.filter.maskBits = BioPirataria.HEROI_BIT | BioPirataria.BORDAS_BIT;
 		
@@ -64,6 +84,12 @@ public class Vilao extends Enemy{
 	}
 	public void draw(Batch batch){
 		super.draw(batch);
+	}
+
+	@Override
+	public void vida() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

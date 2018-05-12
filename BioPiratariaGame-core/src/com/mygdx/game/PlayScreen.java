@@ -83,8 +83,8 @@ public class PlayScreen implements Screen
         
         new B2WorldCreator(this);
         
-        heroi = new Heroi(world, this);
-        vilao = new Vilao(this, 200,200);
+        heroi = new Heroi(this);
+        vilao = new Vilao(this, 200,200,1000);
         // bullet
         bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
         bulletTexture = new Texture("bala1.png");
@@ -147,8 +147,9 @@ public class PlayScreen implements Screen
 	//    	new Bullet(world, this, new Texture("laser.png"), 100, 100);
 	    
     	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
-    		bulletManager.add(myBullet);
+//    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
+//    		bulletManager.add(myBullet);
+    		heroi.atirar();
     	}
 	    // personagem com desenho
 		

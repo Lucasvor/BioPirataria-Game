@@ -15,6 +15,7 @@ public class BioPirataria extends Game {
 	public static final short ENEMY_BIT = 64;
 	public static final short TERRAIN_BIT = 1;
 	public static final short BORDAS_BIT = 50;
+	public static final short TIRO_BIT = 32;
 	
 	@Override
 	public void create () {

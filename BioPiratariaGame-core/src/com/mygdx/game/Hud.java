@@ -100,6 +100,9 @@ public static void lostLife(int life) {
 	vida -= life;
 	vidaLabel.setText(String.format("%02d",vida));
 }
+public static Integer getLife() {
+	return vida;
+}
 @Override
 public void dispose() {
 	// TODO Auto-generated method stub
