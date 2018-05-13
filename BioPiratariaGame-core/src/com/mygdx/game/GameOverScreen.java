@@ -36,16 +36,17 @@ public class GameOverScreen implements Screen {
 		table.center();
 		table.setFillParent(true);
 		Label clickToReturn = new Label("Click para Retornar ao Menu ", font);
-		table.add(clickToReturn).expandX().padTop(10f);
+		table.add(clickToReturn).expandX().padTop(500f);
 		table.row();
 		stage.addActor(table);
 	}
 	//
 	@Override
 	public void dispose() {
+		game.setScreen(new MenuScreen((BioPirataria)game));
 		stage.dispose();
 	}
-
+//
 	@Override
 	public void hide() {}
 
@@ -55,7 +56,6 @@ public class GameOverScreen implements Screen {
 	@Override
 	public void render(float dt) {
 		if (Gdx.input.justTouched()) { 
-			game.setScreen(new MenuScreen((BioPirataria)game));
 			dispose();
 		}
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO

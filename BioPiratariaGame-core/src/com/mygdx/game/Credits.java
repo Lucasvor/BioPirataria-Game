@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -33,6 +35,7 @@ public class Credits implements Screen {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, ((BioPirataria)game).batch);
+		Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
 		unip = new Texture("creditsImages/unip.png");
 		semestres = new Texture("creditsImages/semestres.png");
@@ -45,7 +48,10 @@ public class Credits implements Screen {
 		phelipet = new Texture("creditsImages/phelipet.png");
 		
 		Table table = new Table();
+		table.center();
 		table.setFillParent(true);
+		Label clickToReturn = new Label("Click para Retornar ao Menu ", font);
+		table.add(clickToReturn).expandX().padTop(500f);
 		table.row();
 		stage.addActor(table);
 	}
@@ -62,11 +68,14 @@ public class Credits implements Screen {
 	public void pause() {}
 
 	@Override
+	//ONDE ESTÁ O POSSÍVEL ERRO
 	public void render(float dt) {
 		if (Gdx.input.justTouched()) { 
 			game.setScreen(new MenuScreen((BioPirataria)game));
 			dispose();
 		}
+	//ONDE ESTÁ O POSSÍVEEL ERRO	
+	
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();

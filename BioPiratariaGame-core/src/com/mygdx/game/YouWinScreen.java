@@ -36,7 +36,7 @@ public class YouWinScreen implements Screen {
 		table.setFillParent(true);
 		
 		Label clickToReturn = new Label("Click para Retornar ao Menu ", font);
-		table.add(clickToReturn).expandX().padTop(10f);
+		table.add(clickToReturn).expandX().padTop(500f);
 		table.row();
 		stage.addActor(table);
 	}
