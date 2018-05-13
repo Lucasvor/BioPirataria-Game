@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -35,6 +36,7 @@ public class Heroi extends Sprite {
 	
 	private float stateTimer; //variável de condição para o game over 
 	private boolean heroiIsDead; //variável de condição para o game over
+	private boolean afastaheroi; //afasta o heroi quando encosta nele
 	
 	private Array<Tiro> tiros;
 	
@@ -73,17 +75,33 @@ public class Heroi extends Sprite {
 		//ANIMAÇÕES//
 		
 	}
-	
+	public void afastaheroi() {
+		Gdx.app.log("Afasta heroi", "");
+		afastaheroi = true;
+		//setPosition(b2body.getPosition().x - 200, b2body.getPosition().y);
+	}
 	
 	public void update(float dt) {
-		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
-		setRegion(getFrame(dt));
+		if(afastaheroi) {
+			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
+			
+			//setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
+			setRegion(getFrame(dt));
+			afastaheroi= false;
+		}else {
+			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
+			setRegion(getFrame(dt));
+		}
+		
+		
 		
 		for(Tiro tiro: tiros) {
 			tiro.update(dt);
-			if(tiro.isDestroyed())
+			
+			if(tiro.isDestroyed()) {
 				tiros.removeValue(tiro, true);
-		}
+			}
+			}
 	}
 	public void atirar() {
 		tiros.add(new Tiro(screen,b2body.getPosition().x,b2body.getPosition().y,true));

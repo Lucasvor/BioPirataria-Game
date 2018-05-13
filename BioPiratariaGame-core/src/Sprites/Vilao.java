@@ -9,17 +9,20 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.BioPirataria;
+import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
 
 public class Vilao extends Enemy{
 	private TextureRegion vilaoStand;
-	private int vida;
-	public int getVida() {
+	private static int vida;
+	public static int getVida() {
 		return vida;
 	}
 
-	public void lostVida(int vida) {
-		vida -= vida;
+	public static void lostVida(int life) {
+		
+		vida -= life;
+		Hud.setvidaInimigo(vida);
 	}
 
 	public void setVida(int vida) {
@@ -31,6 +34,7 @@ public class Vilao extends Enemy{
 		vilaoStand = new TextureRegion(new Texture("Human1.png"),0,0,100,100);
 		setBounds(0, 0, 32, 60);
 		setRegion(vilaoStand);
+		this.vida = vida;
 	}
 
 	public void update(float dt) {
@@ -86,11 +90,7 @@ public class Vilao extends Enemy{
 		super.draw(batch);
 	}
 
-	@Override
-	public void vida() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 }

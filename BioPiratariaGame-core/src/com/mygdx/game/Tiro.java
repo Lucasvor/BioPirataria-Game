@@ -19,7 +19,7 @@ public class Tiro extends Sprite{
     //Animation fireAnimation;
     float stateTime;
     boolean destroyed;
-    static boolean setToDestroy;
+    boolean setToDestroy=false;
     boolean fireRight;
     Body b2body;
     private TextureRegion tiroStand;
@@ -48,21 +48,21 @@ public class Tiro extends Sprite{
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.TIRO_BIT;
 		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT;
-		b2body.createFixture(fdef).setUserData("Tiro");
+		b2body.createFixture(fdef).setUserData(this);
 		b2body.setLinearVelocity(new Vector2(0,200));
 	}
 	public void update(float dt) {
 		stateTime += dt;
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() /2);
-		if((stateTime > 3 || setToDestroy || WorldContactListener.tiroContato)&& !destroyed) {
+		if((stateTime > 3 || setToDestroy)&& !destroyed) {
 			world.destroyBody(b2body);
 			destroyed = true;
 			Gdx.app.log("Bala foi destruida", "");
 		}
-		WorldContactListener.tiroContato = false;
+		
 		
 	}
-	public static void setToDestroy(){
+	public  void setToDestroy(){
         setToDestroy = true;
     }
 

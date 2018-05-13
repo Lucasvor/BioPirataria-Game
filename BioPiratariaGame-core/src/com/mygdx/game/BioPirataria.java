@@ -2,6 +2,9 @@ package com.mygdx.game;
 //main.Game
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BioPirataria extends Game {
@@ -17,9 +20,19 @@ public class BioPirataria extends Game {
 	public static final short BORDAS_BIT = 50;
 	public static final short TIRO_BIT = 32;
 	
+	
+	//Audio
+	public static AssetManager manager;
+	
 	@Override
 	public void create () {
         batch = new SpriteBatch();
+        manager = new AssetManager();
+        manager.load("Songs/Venus.ogg", Music.class);
+        manager.load("Songs/sfx_weapon_singleshot13.wav", Sound.class);
+        manager.load("Songs/sfx_movement_jump2.wav", Sound.class);
+        manager.load("Songs/Mercury.wav", Sound.class);
+        manager.finishLoading();
         //player = new Sprite(new Texture("Human.jpg"));
         //setScreen(new PlayScreen(this));
         this.setScreen(new MenuScreen(this));

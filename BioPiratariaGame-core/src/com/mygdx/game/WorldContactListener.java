@@ -1,9 +1,11 @@
 package com.mygdx.game;
 
 import Sprites.Enemy;
+import Sprites.Heroi;
 import Sprites.Vilao;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -13,8 +15,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class WorldContactListener implements ContactListener {
 
-	public static boolean tiroContato;
-	@Override
+	private Heroi heroi;
+	
+	public WorldContactListener(Heroi heroi) {
+		this.heroi = heroi;
+	}
 	public void beginContact(Contact contact) {
 		// TODO Auto-generated method stub
 //		Fixture fixA = contact.getFixtureA();
@@ -38,21 +43,43 @@ public class WorldContactListener implements ContactListener {
         case BioPirataria.BORDAS_BIT | BioPirataria.HEROI_BIT:
         	Gdx.app.log("Corpo encostou na borda. - Inicio", "");
         	Hud.lostLife(10);
+        	BioPirataria.manager.get("Songs/sfx_movement_jump2.wav", Sound.class).play();
         	break;
         case BioPirataria.TERRAIN_BIT | BioPirataria.HEROI_BIT:
         	Gdx.app.log("Corpo encostou no terreno. - Inicio", "");
         	Hud.lostLife(10);
+        	BioPirataria.manager.get("Songs/sfx_movement_jump2.wav", Sound.class).play();
         	break;
         case BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT:
-        	Gdx.app.log("Enemy encostou na borda. - Inicio", "");
+        	Vilao.lostVida(10);
+        	Gdx.app.log("Enemy encostou na borda. - Inicio \nVida: "+Vilao.getVida(), "");
             Vilao.reverseVelocity(true,false);
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.ENEMY_BIT:
         	Gdx.app.log("Heroi perdeu vida por causa do vilão", "Morreu");
         	Hud.lostLife(80);
+        	BioPirataria.manager.get("Songs/sfx_movement_jump2.wav", Sound.class).play();
+        	heroi.afastaheroi();
+        	break;
         case BioPirataria.TIRO_BIT | BioPirataria.TERRAIN_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.TIRO_BIT) {
+        	//((Tiro)fixA.getUserData()).Destroytiro(((Tiro)fixA.getUserData()).b2body);
+        		((Tiro)fixA.getUserData()).setToDestroy();
+        		
+        	}else {
+        		//((Tiro)fixB.getUserData()).Destroytiro(((Tiro)fixB.getUserData()).b2body);
+        		 ((Tiro)fixB.getUserData()).setToDestroy();
+        	}
         	Gdx.app.log("Bala encostou no terreno", "");
-        	tiroContato = true;
+        	break;
+        case BioPirataria.TIRO_BIT | BioPirataria.ENEMY_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.TIRO_BIT) {
+        		((Tiro)fixA.getUserData()).setToDestroy();
+        	}else {
+        		((Tiro)fixB.getUserData()).setToDestroy();
+        	}
+        	Vilao.lostVida(50);
+        	Gdx.app.log("Bala encostou no Inimigo", "");
         	break;
         }
 	}

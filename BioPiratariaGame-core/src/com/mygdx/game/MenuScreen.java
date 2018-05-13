@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,6 +42,7 @@ public class MenuScreen implements Screen{
 	public MenuScreen (Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
+		BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).play();
 		
 				
 		title = new Texture("biopiratariatitle.png");
@@ -80,6 +82,7 @@ public class MenuScreen implements Screen{
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 340 + PLAY_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 325) {
 		BioPirataria.batch.draw(playbtnactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 210 , PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT);
 		if(Gdx.input.isTouched()) {
+			BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).pause();
 			game.setScreen(new PlayScreen(null));
 		}
 		}else {

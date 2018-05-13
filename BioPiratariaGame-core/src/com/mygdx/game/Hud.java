@@ -22,16 +22,16 @@ private Integer worldTimer;
 private float timeCount;
 private Integer pontos;
 private static Integer vida;
-private Integer level;
+private Integer vidaInimigo;
 
 Label timeCountLabel;
 Label pontosLabel;
 static Label  vidaLabel;
-Label levelLabel;
+static Label vidaInimigoLabel;
 Label pontosTextLabel;
 Label timeCountTextLabel;
 Label vidatextLabel;
-Label levelTextLabel;
+Label vidaInimigoTextLabel;
 
 public Hud(SpriteBatch sb) {
 	
@@ -40,7 +40,7 @@ public Hud(SpriteBatch sb) {
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
-	level = 0;
+	vidaInimigo = 1000;
 	
 	//configurações de tamanho , cor do contador e da fonte da HUD //
 	
@@ -54,23 +54,23 @@ public Hud(SpriteBatch sb) {
     timeCountLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     pontosLabel = new Label(String.format("%05d",pontos), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     vidaLabel = new Label(String.format("%02d",vida), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-    levelLabel = new Label(String.format("%02d",level), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+    vidaInimigoLabel = new Label(String.format("%02d",vidaInimigo), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     pontosTextLabel = new Label(String.format("Pontos",pontosTextLabel), new Label.LabelStyle(new BitmapFont(),Color.BLUE));
     timeCountTextLabel = new Label(String.format("Tempo",timeCountTextLabel), new Label.LabelStyle(new BitmapFont(),Color.GREEN));
     vidatextLabel = new Label(String.format("Vida",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.RED));
-    levelTextLabel = new Label(String.format("Nivel",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.YELLOW));
+    vidaInimigoTextLabel = new Label(String.format("Vida Inimigo",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.YELLOW));
     
     
 
     table.add(vidatextLabel).expandX().padTop(10);
     table.add(pontosTextLabel).expandX().padTop(10);
     table.add(timeCountTextLabel).expandX().padTop(10);
-    table.add(levelTextLabel).expandX().padTop(10);
+    table.add(vidaInimigoTextLabel).expandX().padTop(10);
     table.row();
     table.add(vidaLabel).expandX();
     table.add(pontosLabel).expandX();
     table.add(timeCountLabel).expandX();
-    table.add(levelLabel).expandX();
+    table.add(vidaInimigoLabel).expandX();
 //
 //			countdownLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 //			scoreLabel = new Label(String.format("%05d",score), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
@@ -95,6 +95,9 @@ public void update(float dt) {
 		timeCountLabel.setText(String.format("%03d",worldTimer));
 		timeCount=0;
 	}
+}
+public static void setvidaInimigo(int vida) {
+	vidaInimigoLabel.setText(String.format("%02d",vida));
 }
 public static void lostLife(int life) {
 	vida -= life;

@@ -20,7 +20,6 @@ public abstract class Enemy extends Sprite{
 		velocity = new Vector2(90,0);
 	}
 	protected abstract void defineEnemy();
-	public abstract void vida();
 	public static void reverseVelocity(boolean x, boolean y){
 		if(x)
 			velocity.x = -velocity.x;
