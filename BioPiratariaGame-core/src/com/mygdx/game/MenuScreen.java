@@ -19,7 +19,7 @@ public class MenuScreen implements Screen{
 	
 	//tela Menu Principal//
 	//ALTURA E LARGURA DOS BOTÕES DO MENU
-	private static final int PLAY_BUTTOM_WIDTH = 100;
+	private static final int PLAY_BUTTOM_WIDTH = 92;
 	private static final int PLAY_BUTTOM_HEIGHT = 30;
 	
 	private static final int CREDITS_BUTTOM_WIDTH = 130;
@@ -27,6 +27,7 @@ public class MenuScreen implements Screen{
 	
 	private static final int QUIT_BUTTOM_WIDTH = 95;
 	private static final int QUIT_BUTTOM_HEIGHT = 26;
+	
 	//VARIÁVEIS PARA AS IMAGENS DOS BOTÕES 
 	private Viewport viewport;
 	private Texture title;
@@ -42,9 +43,9 @@ public class MenuScreen implements Screen{
 	public MenuScreen (Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
+		//Música do menu
 		BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).play();
 		
-				
 		title = new Texture("biopiratariatitle.png");
 		playbtnactive = new Texture("playbtnactv.png"); //JOGAR ATIVO
 		playbtninactive = new Texture("playbtninactv.png"); //JOGAR INATIVO
@@ -54,30 +55,22 @@ public class MenuScreen implements Screen{
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
 	}
 	
+	@Override
+	public void hide() {}
 
 	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void pause() {}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render(float delta) {
-		
-		
+	public void render(float dt) {
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
-		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO
+		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		
-		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; 
+		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis
 		
+		//se o botão JOGAR for ativado, passará para tela PlayScreen
 		if(Gdx.input.getX() < x + PLAY_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 340 + PLAY_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 325) {
 		BioPirataria.batch.draw(playbtnactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 210 , PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT);
@@ -89,13 +82,18 @@ public class MenuScreen implements Screen{
 			BioPirataria.batch.draw(playbtninactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 210, PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT);
 		}
 		
+		//Se a tela de créditos for ativada , passará para CreditsScreen
 		 if(Gdx.input.getX() < x + CREDITS_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 288 + CREDITS_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 280) {
 			BioPirataria.batch.draw(creditsbtnactive, x, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
+			if(Gdx.input.isTouched()) {
+			game.setScreen(new Credits(null));
+			}
 		}else {
 			BioPirataria.batch.draw(creditsbtninactive, BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
 		}
 		
+		//sair
 		if(Gdx.input.getX() < x + QUIT_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 230 + QUIT_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 227) {
 			BioPirataria.batch.draw(quitbtnactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 110, QUIT_BUTTOM_WIDTH, QUIT_BUTTOM_HEIGHT);
@@ -105,33 +103,20 @@ public class MenuScreen implements Screen{
 		}else {
 			BioPirataria.batch.draw(quitbtninactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 110, QUIT_BUTTOM_WIDTH, QUIT_BUTTOM_HEIGHT);
 		}
-		
-		
+	
 		BioPirataria.batch.end();
 	}
 
 	@Override
-	public void resize(int width, int heigth) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resize(int width, int heigth) {}
 
 	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resume() {}
 
 	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void show() {}
 	
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void dispose() {}
 
 }

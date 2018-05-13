@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,12 +17,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
+import com.mygdx.game.GameOverScreen;
 import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.Tiro;
 
 public class Heroi extends Sprite {
-	public enum State {STANDING , RUNNING};
+	public enum State {STANDING , RUNNING, DEAD};
 	public PlayScreen screen;
 	public State currentState;
 	public State previousState;
@@ -35,7 +37,8 @@ public class Heroi extends Sprite {
 	private boolean runningUP;
 	
 	private float stateTimer; //variável de condição para o game over 
-	private boolean heroiIsDead; //variável de condição para o game over
+	private TextureRegion heroiDead; //variável de condição para o game over
+	private Game game;
 	private boolean afastaheroi; //afasta o heroi quando encosta nele
 	
 	private Array<Tiro> tiros;
@@ -64,7 +67,9 @@ public class Heroi extends Sprite {
 		setRegion(heroiStand);*/
 		/*heroiStand = new TextureRegion(getTexture(),0,0,32,205);
 		setBounds(0,0, 32, 205);
-		setRegion(heroiStand);*/
+		setRegion(heroiStand);
+		heroiDead = new TextureRegion(getTexture(), 96, 0, 16, 16);
+		 */
 		
 		heroiStand = new TextureRegion(getTexture(),32,0,32,205);
 		setBounds(32,0, 32, 205);
@@ -82,6 +87,7 @@ public class Heroi extends Sprite {
 	}
 	
 	public void update(float dt) {
+		
 		if(afastaheroi) {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
@@ -117,7 +123,10 @@ public class Heroi extends Sprite {
 		TextureRegion region;
 		switch(currentState) 
 		{
-		   case RUNNING:
+		case DEAD:
+			region = heroiDead;
+			break;
+			case RUNNING:
 			   region = (TextureRegion) heroiRun.getKeyFrame(stateTimer1 , true);
 			   break;
 		   case STANDING:
@@ -161,7 +170,6 @@ public class Heroi extends Sprite {
 			return State.RUNNING;
 		else
 			return State.STANDING;
-		
 	}
 	
 	

@@ -14,36 +14,36 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class GameOverScreen implements Screen {
+public class YouWinScreen implements Screen {
 	private Viewport viewport;
 	private Stage stage;
 	private Game game;
 	
-	private static final int gameOver_width = 190;
-	private static final int gameOver_height = 70;
+	private static final int youWin_width = 190;
+	private static final int youWin_height = 70;
 	
-	private Texture gameOverBanner;
+	private Texture youWinBanner;
 	
-	public GameOverScreen(Game game) {
+	public YouWinScreen(Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, ((BioPirataria)game).batch);
 		Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 		
-		gameOverBanner = new Texture("gameover.png");
-		
+		youWinBanner = new Texture("youwin.png");
 		Table table = new Table();
 		table.center();
 		table.setFillParent(true);
+		
 		Label clickToReturn = new Label("Click para Retornar ao Menu ", font);
 		table.add(clickToReturn).expandX().padTop(10f);
 		table.row();
 		stage.addActor(table);
 	}
-	//
+	
 	@Override
 	public void dispose() {
-		stage.dispose();
+		stage.dispose();	
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class GameOverScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
-		BioPirataria.batch.draw(gameOverBanner, 242, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
+		BioPirataria.batch.draw(youWinBanner, 270, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		BioPirataria.batch.end();
 		stage.draw();
 	}

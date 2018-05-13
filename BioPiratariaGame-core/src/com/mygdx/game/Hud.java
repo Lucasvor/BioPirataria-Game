@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Hud implements Disposable{
 
-	
 public Stage stage;
 private Viewport viewport;
 
@@ -23,6 +23,8 @@ private float timeCount;
 private Integer pontos;
 private static Integer vida;
 private Integer vidaInimigo;
+private Game game;
+private boolean timeUp;
 
 Label timeCountLabel;
 Label pontosLabel;
@@ -36,7 +38,7 @@ Label vidaInimigoTextLabel;
 public Hud(SpriteBatch sb) {
 	
 	//contadores da HUD//
-	worldTimer = 90;
+	worldTimer = 20;
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
@@ -88,14 +90,19 @@ public Hud(SpriteBatch sb) {
 	
 	stage.addActor(table);
 }
-public void update(float dt) {
-	timeCount += dt;
-	if(timeCount >= 1) {
-		worldTimer--;
-		timeCountLabel.setText(String.format("%03d",worldTimer));
-		timeCount=0;
-	}
+public void update(float dt){
+    timeCount += dt;
+    if(timeCount >= 1){
+        if (worldTimer > 0) {
+            worldTimer--;
+        } else {
+            timeUp = true;
+        }
+        timeCountLabel.setText(String.format("%03d", worldTimer));
+        timeCount = 0;
+    }
 }
+
 public static void setvidaInimigo(int vida) {
 	vidaInimigoLabel.setText(String.format("%02d",vida));
 }
@@ -103,6 +110,7 @@ public static void lostLife(int life) {
 	vida -= life;
 	vidaLabel.setText(String.format("%02d",vida));
 }
+
 public static Integer getLife() {
 	return vida;
 }
@@ -111,4 +119,8 @@ public void dispose() {
 	// TODO Auto-generated method stub
 	stage.dispose();
 }
+public boolean isTimeUp() { 
+	return timeUp; 
+	}
+
 }

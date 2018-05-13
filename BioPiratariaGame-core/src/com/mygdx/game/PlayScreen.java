@@ -31,7 +31,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Player;
-
 import Sprites.Heroi;
 import Sprites.Vilao;
 import Tools.B2WorldCreator;
@@ -62,12 +61,7 @@ public class PlayScreen implements Screen
 	private Heroi heroi;
 	private Vilao vilao;
 	
-	
-	
-	
-	
-	PlayScreen(BioPirataria game) 
-	{
+	PlayScreen(BioPirataria game) {
 		atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
@@ -230,28 +224,18 @@ public class PlayScreen implements Screen
 		vilao.draw(game.batch);
 		BioPirataria.batch.end();
 		
-		
-		
 		if(gameOver()) {
 			game.setScreen(new GameOverScreen(game));
 			dispose();
 		}
-		
-		
 	}
 
-	
-	private boolean gameOver() {
-		// TODO Auto-generated method stub
+	public boolean gameOver() {
+		if (player.currentState == Heroi.State.DEAD && player.getStateTimer() > 3){
+			return true;
+		}
 		return false;
 	}
-
-	//public boolean gameOver() {
-	//	if (player.currenteState == Heroi.State.DEAD && player.getStateTimer() > 3){
-	//		return true;
-	//	}
-	//	return false;
-	//}
 	
 	@Override
 	public void resize(int width, int height) {

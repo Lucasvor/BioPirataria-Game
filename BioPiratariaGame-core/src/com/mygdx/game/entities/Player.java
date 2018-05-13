@@ -18,6 +18,7 @@ public class Player extends Sprite implements InputProcessor
 	public boolean movendox2 = false; // x negativo
 	public boolean movendoy1 = false; // y positivo
 	public boolean movendoy2 = false; // y negativo
+	public Object currentState;
 	
 	public Player(Sprite sprite) 
 	{
@@ -106,6 +107,10 @@ public class Player extends Sprite implements InputProcessor
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getStateTimer() {
+		return 0;
 	}
 
 	
