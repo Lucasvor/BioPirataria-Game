@@ -41,6 +41,9 @@ public class Heroi extends Sprite {
 	private Game game;
 	private boolean afastaheroi; //afasta o heroi quando encosta nele
 	
+	
+	
+	
 	private Array<Tiro> tiros;
 	
 	public Heroi(PlayScreen screen) {
@@ -242,4 +245,5 @@ public class Heroi extends Sprite {
 //		b2body.createFixture(fdef).setUserData("Head");
 		
 	}
+
 }

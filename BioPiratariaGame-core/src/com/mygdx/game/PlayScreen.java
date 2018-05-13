@@ -31,7 +31,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.entities.Player;
 import Sprites.Heroi;
 import Sprites.Vilao;
 import Tools.B2WorldCreator;
@@ -56,7 +55,7 @@ public class PlayScreen implements Screen
 	private World world;
 	private Box2DDebugRenderer b2ddr;
 	
-	private Player player;
+	//private Player player;
 	private Music music;
 	
 	private Heroi heroi;
@@ -219,19 +218,19 @@ public class PlayScreen implements Screen
 		hud.stage.draw();
 		
 
-		if(gameOver()) {
-			game.setScreen(new GameOverScreen(game));
-			dispose();
-		}
+//		if(gameOver()) {
+//			game.setScreen(new GameOverScreen(game));
+//			dispose();
+//		}
 	}
 
-	public boolean gameOver() {
-		if (player.currentState == Heroi.State.DEAD && player.getStateTimer() > 3){
-			return true;
-		}
-		return false;
-	}
-	
+//	public boolean gameOver() {
+//		if (player.currentState == Heroi.State.DEAD && player.getStateTimer() > 3){
+//			return true;
+//		}
+//		return false;
+//	}
+//	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -266,7 +265,7 @@ public class PlayScreen implements Screen
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		player.getTexture().dispose();
+		//player.getTexture().dispose(); tirei ele pq ta tudo agora no Heroi.
 		map.dispose();
 		renderer.dispose();
 		world.dispose();
