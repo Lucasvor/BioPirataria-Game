@@ -21,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -60,18 +61,19 @@ public class PlayScreen implements Screen
 	
 	private Heroi heroi;
 	private Vilao vilao;
+	float stateTime;
 	
 	PlayScreen(BioPirataria game) {
 		atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT,gamecam);
+		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
 		hud = new Hud(BioPirataria.batch);
 
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("atual.tmx");
+		map = mapLoader.load("JogoFINALLLLLL.tmx");
 		renderer = new OrthogonalTiledMapRenderer(map);
-		gamecam.position.set(BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2, 0);
+		gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2, 0);
 		
         world = new World(new Vector2(0,0), true);
         b2ddr = new Box2DDebugRenderer();
@@ -127,17 +129,17 @@ public class PlayScreen implements Screen
 	}
 	else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
     	//gamecam.position.x -= 100 * dt;
-    heroi.getBody().applyLinearImpulse(new Vector2(-50,0), heroi.getBody().getWorldCenter(), true);
+    heroi.getBody().applyLinearImpulse(new Vector2(-80,0), heroi.getBody().getWorldCenter(), true);
     	
     }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
     	//gamecam.position.x += 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(50,0), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(80,0), heroi.getBody().getWorldCenter(), true);
 	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
 	    	//gamecam.position.y += 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(0,50), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,80), heroi.getBody().getWorldCenter(), true);
     }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
     	//gamecam.position.y -= 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-50), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-80), heroi.getBody().getWorldCenter(), true);
 	    }else {
 	    	heroi.getBody().setLinearVelocity(0,0);
 	    }
@@ -163,6 +165,14 @@ public class PlayScreen implements Screen
 	    //atualiza vida/score e tempo.
 	    hud.update(dt);
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
+	    stateTime += dt;
+	    if(stateTime > 3) {
+	    	Vector3 position = gamecam.position;
+		    position.y = gamecam.position.y+1;
+		    gamecam.position.set(position);
+		}
+	    
+	    //gamecam.position.x = heroi.b2body.getPosition().y;
 	    gamecam.update();
 	    
 	    //gamecam.position.y *= 5;
@@ -178,8 +188,8 @@ public class PlayScreen implements Screen
 		
 		// textura do personagem principal //
 		
-		player = new Player(new Sprite(new Texture("player1sprite.png")));
-		Gdx.input.setInputProcessor(player);
+	//	player = new Player(new Sprite(new Texture("player1sprite.png")));
+	//	Gdx.input.setInputProcessor(player);
 		
 	}
 
@@ -189,41 +199,26 @@ public class PlayScreen implements Screen
 		
 		// definições de renderização do jogo //
 		
+		
 	    update(delta);
 		// TODO Auto-generated method stub
+	    
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.setProjectionMatrix(gamecam.combined);
-		BioPirataria.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+		
 		renderer.render();
 		b2ddr.render(world,gamecam.combined);
-		
-//		player.batch.begin();
-//		player.draw(new SpriteBatch(1000));
-	//	player.batch.end();
-	
-		hud.stage.draw();
 		BioPirataria.batch.begin();
-//		int counter = 0;
-//		while(counter < bulletManager.size())
-//		{
-//			Bullet currenteBullet = bulletManager.get(counter);
-//			currenteBullet.Update();
-//			if(currenteBullet.bulletLocation.x > 0 && currenteBullet.bulletLocation.x < Gdx.graphics.getWidth() && currenteBullet.bulletLocation.y > 0 && currenteBullet.bulletLocation.y < Gdx.graphics.getHeight()+100)
-//			{
-//				BioPirataria.batch.draw(bulletTexture,currenteBullet.bulletLocation.x,currenteBullet.bulletLocation.y);
-//			}else {
-//				bulletManager.remove(counter);
-//				if(bulletManager.size() > 0) {
-//					counter--;
-//				}
-//			}
-//			counter ++;
-//		}
 		heroi.draw(game.batch);
 		vilao.draw(game.batch);
 		BioPirataria.batch.end();
 		
+
+		BioPirataria.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+		hud.stage.draw();
+		
+
 		if(gameOver()) {
 			game.setScreen(new GameOverScreen(game));
 			dispose();

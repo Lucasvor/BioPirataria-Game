@@ -48,20 +48,27 @@ public class Heroi extends Sprite {
 		this.world = screen.getWorld();
 		this.screen = screen;
 		
+		
+		
+		
 		//ANIMAÇÕES//
 		
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer1 = 0;
 		runningRigth = true;
-		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for(int i = 1 ; i < 4 ; i++)
-			frames.add(new TextureRegion(getTexture(),i*0,0,32,205));
-		heroiRun = new Animation (0.1f , frames);
-		frames.clear();
+		//Array<TextureRegion> frames = new Array<TextureRegion>();
+		//for(int i = 1 ; i < 4 ; i++)
+		//	frames.add(new TextureRegion(getTexture(),i*0,0,32,205));
+		//heroiRun = new Animation (0.1f , frames);
+		//frames.clear();
 		
 		defineHeroi();
 		
+		
+		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
+		setBounds(0,0, 32, 60);
+		setRegion(heroiStand);
 		/*heroiStand = new TextureRegion(getTexture(),33,152,29,50);
 		setBounds(33,152, 29, 50);
 		setRegion(heroiStand);*/
@@ -71,9 +78,7 @@ public class Heroi extends Sprite {
 		heroiDead = new TextureRegion(getTexture(), 96, 0, 16, 16);
 		 */
 		
-		heroiStand = new TextureRegion(getTexture(),32,0,32,205);
-		setBounds(32,0, 32, 205);
-		setRegion(heroiStand);
+		
 		
 		tiros = new Array<Tiro>();
 		
@@ -92,14 +97,15 @@ public class Heroi extends Sprite {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
 			//setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
-			setRegion(getFrame(dt));
+			//setRegion(getFrame(dt));
 			afastaheroi= false;
 		}else {
-			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
-			setRegion(getFrame(dt));
+			//setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
+			setPosition(b2body.getPosition().x, b2body.getPosition().y);
+			//setRegion(getFrame(dt));
 		}
 		
-		
+		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y- getHeight() /2);
 		
 		for(Tiro tiro: tiros) {
 			tiro.update(dt);
@@ -214,7 +220,7 @@ public class Heroi extends Sprite {
 		
 		//posição inicial antiga//
 		//bdef.position.set(120,120);
-		bdef.position.set(450,20);
+		bdef.position.set(400,180);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		

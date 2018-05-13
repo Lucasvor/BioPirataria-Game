@@ -17,6 +17,8 @@ public class BioPirataria extends Game {
 	public static final short HEROI_BIT = 2;
 	public static final short ENEMY_BIT = 64;
 	public static final short TERRAIN_BIT = 1;
+	public static final short AGUA_BIT = 128;
+	public static final short LAVA_BIT = 256;
 	public static final short BORDAS_BIT = 50;
 	public static final short TIRO_BIT = 32;
 	

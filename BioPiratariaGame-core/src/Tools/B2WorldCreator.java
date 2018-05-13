@@ -25,7 +25,7 @@ public class B2WorldCreator {
 // local onde aplica as coliões no mapa.
         //for(int i = 1;i <= 3;i++) {
         // objetos do mapa
-        for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -40,7 +40,7 @@ public class B2WorldCreator {
         }
 
         // borda do jogo
-        for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -51,6 +51,35 @@ public class B2WorldCreator {
             fdef.shape = shape;
             fdef.filter.categoryBits = BioPirataria.BORDAS_BIT;
             body.createFixture(fdef).setUserData("Borda");
+            
+        }
+        //agua do jogo
+        
+        for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() / 2);
+
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = BioPirataria.AGUA_BIT;
+            body.createFixture(fdef).setUserData("Agua");
+            
+        }
+        // lava do jogo
+        for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() / 2);
+
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = BioPirataria.LAVA_BIT;
+            body.createFixture(fdef).setUserData("Lava");
             
         }
 	
