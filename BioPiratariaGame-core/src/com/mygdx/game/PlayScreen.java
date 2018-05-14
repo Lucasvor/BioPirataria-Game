@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -151,6 +152,7 @@ public class PlayScreen implements Screen
     	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 //    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
 //    		bulletManager.add(myBullet);
+    		BioPirataria.manager.get("Songs/sfx_weapon_singleshot13.wav",Sound.class).play();
     		heroi.atirar();
     	}
 	    // personagem com desenho
