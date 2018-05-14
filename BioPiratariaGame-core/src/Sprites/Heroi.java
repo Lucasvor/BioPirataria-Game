@@ -47,12 +47,10 @@ public class Heroi extends Sprite {
 	private Array<Tiro> tiros;
 	
 	public Heroi(PlayScreen screen) {
+		//super(screen.getAtlas().findRegion("somenteHeroi"));
 		super(screen.getAtlas().findRegion("somenteHeroi"));
 		this.world = screen.getWorld();
 		this.screen = screen;
-		
-		
-		
 		
 		//ANIMAÇÕES//
 		
@@ -60,18 +58,21 @@ public class Heroi extends Sprite {
 		previousState = State.STANDING;
 		stateTimer1 = 0;
 		runningRigth = true;
-		//Array<TextureRegion> frames = new Array<TextureRegion>();
-		//for(int i = 1 ; i < 4 ; i++)
-		//	frames.add(new TextureRegion(getTexture(),i*0,0,32,205));
-		//heroiRun = new Animation (0.1f , frames);
-		//frames.clear();
+		//runningUP = true;
+		
+		
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for(int i = 0 ; i < 1 ; i++)
+			frames.add(new TextureRegion(getTexture(),i*0,0,32,60));
+		heroiRun = new Animation (0.1f , frames);
+		frames.clear();
 		
 		defineHeroi();
-		
 		
 		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
 		setBounds(0,0, 32, 60);
 		setRegion(heroiStand);
+		
 		/*heroiStand = new TextureRegion(getTexture(),33,152,29,50);
 		setBounds(33,152, 29, 50);
 		setRegion(heroiStand);*/
@@ -80,7 +81,6 @@ public class Heroi extends Sprite {
 		setRegion(heroiStand);
 		heroiDead = new TextureRegion(getTexture(), 96, 0, 16, 16);
 		 */
-		
 		
 		
 		tiros = new Array<Tiro>();
@@ -99,13 +99,13 @@ public class Heroi extends Sprite {
 		if(afastaheroi) {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
-			//setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
-			//setRegion(getFrame(dt));
+			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
+			setRegion(getFrame(dt));
 			afastaheroi= false;
 		}else {
-			//setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
+			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
 			setPosition(b2body.getPosition().x, b2body.getPosition().y);
-			//setRegion(getFrame(dt));
+			setRegion(getFrame(dt));
 		}
 		
 		setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y- getHeight() /2);
@@ -136,7 +136,7 @@ public class Heroi extends Sprite {
 			region = heroiDead;
 			break;
 			case RUNNING:
-			   region = (TextureRegion) heroiRun.getKeyFrame(stateTimer1 , true);
+			   region =  (TextureRegion) heroiRun.getKeyFrame(stateTimer1 , true);
 			   break;
 		   case STANDING:
 			   default:

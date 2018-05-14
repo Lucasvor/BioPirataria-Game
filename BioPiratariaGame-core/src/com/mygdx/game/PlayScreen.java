@@ -64,6 +64,7 @@ public class PlayScreen implements Screen
 	
 	PlayScreen(BioPirataria game) {
 		atlas = new TextureAtlas("somenteHeroi.pack");
+		//atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
