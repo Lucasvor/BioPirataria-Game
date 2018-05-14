@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
@@ -43,6 +44,7 @@ public class PlayScreen implements Screen
 	
 	@SuppressWarnings("unused")
 	private BioPirataria game;
+	private Game gm;
 	private TextureAtlas atlas;
 	//Sprite player;
 	private OrthographicCamera gamecam;
@@ -65,10 +67,11 @@ public class PlayScreen implements Screen
 	private Vilao vilao;
 	float stateTime;
 	
-	PlayScreen(BioPirataria game) {
+	PlayScreen(BioPirataria game, Game gm) {
 		atlas = new TextureAtlas("heroi.pack");
 		//atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
+		this.gm = gm;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
 		hud = new Hud(BioPirataria.batch);
@@ -84,7 +87,7 @@ public class PlayScreen implements Screen
         new B2WorldCreator(this);
         
         heroi = new Heroi(this);
-        vilao = new Vilao(this, 100,200,1000);
+        vilao = new Vilao(this, 100,200,10,gm);
         // bullet
 //        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
 //        bulletTexture = new Texture("bala1.png");
@@ -176,6 +179,7 @@ public class PlayScreen implements Screen
 		    position.y = gamecam.position.y+1;
 		    gamecam.position.set(position);
 		    Hud.addPontos(5);
+		    
 		}
 	    //gamecam.position.x = heroi.b2body.getPosition().y;
 	    gamecam.update();
@@ -260,6 +264,9 @@ public class PlayScreen implements Screen
 	}
 	public World getWorld() {
 		return world;
+	}
+	public Game getGame() {
+		return game;
 	}
 	
 	@Override

@@ -30,20 +30,21 @@ public class Vilao extends Enemy{
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
-	public Vilao(PlayScreen screen, float x, float y, int vida) {
+	public Vilao(PlayScreen screen, float x, float y, int vida,Game gm) {
 		super(screen, x, y);
 		// TODO Auto-generated constructor stub
 		vilaoStand = new TextureRegion(new Texture("Human1.png"),0,0,100,100);
 		setBounds(0, 0, 32, 60);
 		setRegion(vilaoStand);
 		this.vida = vida;
+		this.game = gm;
 	}
 
 	public void update(float dt) {
 		if(getVida() <= 0) {
 			Gdx.app.log("Vilão morreu, youwin!", "");
-			game.setScreen(new YouWinScreen(game));
 			world.destroyBody(b2body);
+			game.setScreen(new YouWinScreen(game));
 		}else{
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
