@@ -58,13 +58,15 @@ public class Heroi extends Sprite {
 		previousState = State.STANDING;
 		stateTimer1 = 0;
 		runningDown = true;
+		runningRigth = true;
+		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for(int i = 1; i < 4;i++)
 			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
 		heroiRun = new Animation(0.1f,frames);
 		frames.clear();
 		
-		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
+		heroiStand = new TextureRegion(getTexture(),2,33,15,31);
 		setBounds(0,0, 29, 62);
 		setRegion(heroiStand);
 		
@@ -151,12 +153,12 @@ public class Heroi extends Sprite {
 				   break;
 		}
 		
-		if((b2body.getLinearVelocity().x < 0 || !runningRigth) && !region.isFlipX()) 
+		if((b2body.getLinearVelocity().x > 0 || !runningRigth) && !region.isFlipX()) 
 		{
 			region.flip(true, false);
 			runningRigth = false;
 		}
-		else if((b2body.getLinearVelocity().x > 0 || runningRigth) && region.isFlipX()) 
+		else if((b2body.getLinearVelocity().x < 0 || runningRigth) && region.isFlipX()) 
 		{
 			region.flip(true , false);
 			runningRigth = true;
