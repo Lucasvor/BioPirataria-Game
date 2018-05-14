@@ -87,7 +87,7 @@ public class MenuScreen implements Screen{
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 288 + CREDITS_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 280) {
 			BioPirataria.batch.draw(creditsbtnactive, x, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
 			if(Gdx.input.isTouched()) {
-			game.setScreen(new Credits(null));
+			game.setScreen(new Credits(game));
 			}
 		}else {
 			BioPirataria.batch.draw(creditsbtninactive, BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
