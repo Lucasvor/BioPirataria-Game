@@ -166,6 +166,7 @@ public class PlayScreen implements Screen
 	    world.step(1/60f, 6, 2);
 	    heroi.update(dt);
 	    vilao.update(dt);
+	    hud.update(dt);
 	    //atualiza vida/score e tempo.
 	    hud.update(dt);
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
@@ -176,15 +177,12 @@ public class PlayScreen implements Screen
 		    gamecam.position.set(position);
 		    Hud.addPontos(5);
 		}
-	    
 	    //gamecam.position.x = heroi.b2body.getPosition().y;
 	    gamecam.update();
 	    
 	    //gamecam.position.y *= 5;
-	    
 	    renderer.setView(gamecam);
     }
-
 
 	@Override
 	public void show() 
@@ -194,19 +192,15 @@ public class PlayScreen implements Screen
 		// textura do personagem principal //
 		
 	//	player = new Player(new Sprite(new Texture("player1sprite.png")));
-	//	Gdx.input.setInputProcessor(player);
-		
+	//	Gdx.input.setInputProcessor(player);		
 	}
 
 	@Override
-	public void render(float delta) 
+	public void render(float dt) 
 	{
-		
 		// definições de renderização do jogo //
 		
-		
-	    update(delta);
-		// TODO Auto-generated method stub
+	    update(dt);
 	    
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

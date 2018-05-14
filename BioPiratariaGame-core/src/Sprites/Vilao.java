@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,8 +12,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.BioPirataria;
 import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
+import com.mygdx.game.YouWinScreen;
 
 public class Vilao extends Enemy{
+	private Game game;
 	private TextureRegion vilaoStand;
 	private static int vida;
 	public static int getVida() {
@@ -20,7 +23,6 @@ public class Vilao extends Enemy{
 	}
 
 	public static void lostVida(int life) {
-		
 		vida -= life;
 		Hud.setvidaInimigo(vida);
 	}
@@ -38,17 +40,20 @@ public class Vilao extends Enemy{
 	}
 
 	public void update(float dt) {
-//		if(getVida() <= 0) {
-//			Gdx.app.log("Vilão morreu, parabens!", "");
-//			world.destroyBody(b2body);
-//		}else {
-//		b2body.setLinearVelocity(velocity);
-//		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
-//		}
+		if(getVida() <= 0) {
+			Gdx.app.log("Vilão morreu, youwin!", "");
+			game.setScreen(new YouWinScreen(game));
+			world.destroyBody(b2body);
+		}else{
+		b2body.setLinearVelocity(velocity);
+		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
+		}
 		
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 	}
+
+
 	@Override
 	protected void defineEnemy() {
 		// TODO Auto-generated method stub

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,26 +20,30 @@ private Viewport viewport;
 
 //variaveis da HUD (tabela de pontos , vida etc.)//
 private Integer worldTimer;
-private float timeCount;
+private static float timeCount;
 private static Integer pontos;
-private static Integer vida;
+private static Integer vida; 
 private Integer vidaInimigo;
 private Game game;
 private boolean timeUp;
 
-Label timeCountLabel;
-static Label pontosLabel;
-static Label  vidaLabel;
-static Label vidaInimigoLabel;
-Label pontosTextLabel;
-Label timeCountTextLabel;
-Label vidatextLabel;
-Label vidaInimigoTextLabel;
+static Label timeCountLabel; // contagem Jogo
+static Label pontosLabel; // pontos Heroi = score
+static Label  vidaLabel; // vida Heroi
+static Label vidaInimigoLabel; // vida Inimigo
+Label timeCountTextLabel; // contagem Jogo
+Label pontosTextLabel; // pontos Heroi = score
+Label vidatextLabel; // vida Heroi
+Label vidaInimigoTextLabel; // vida Inimigo
+
+public static float getTimeCount() {
+	return timeCount;
+}
 
 public Hud(SpriteBatch sb) {
 	
 	//contadores da HUD//
-	worldTimer = 90;
+	worldTimer = 40;
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
@@ -100,7 +105,14 @@ public void update(float dt){
         }
         timeCountLabel.setText(String.format("%03d", worldTimer));
         timeCount = 0;
+    }  
+    if(worldTimer == 0) {
+    	Gdx.app.log("Seu tempo acabou, gameover!", "");
+    	game.setScreen(new GameOverScreen(game));
     }
+} 
+public static void setvidaHeroi(int vida) {
+	vidaLabel.setText(String.format("%02d",vida));
 }
 
 public static void setvidaInimigo(int vida) {

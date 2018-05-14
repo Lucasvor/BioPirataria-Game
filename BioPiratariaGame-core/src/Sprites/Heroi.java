@@ -21,6 +21,7 @@ import com.mygdx.game.GameOverScreen;
 import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.Tiro;
+import com.mygdx.game.YouWinScreen;
 
 public class Heroi extends Sprite {
 	public enum State {STANDING , RUNNING, DEAD};
@@ -38,22 +39,20 @@ public class Heroi extends Sprite {
 	private boolean runningUP;
 	private boolean runningLeft;
 	private boolean runningDown;
+	private boolean heroiIsDead;
 	
-	private float stateTimer; //variável de condição para o game over 
-	private TextureRegion heroiDead; //variável de condição para o game over
-	private Game game;
 	private boolean afastaheroi; //afasta o heroi quando encosta nele
 	
-	
-	
-	
 	private Array<Tiro> tiros;
+	
+	private float stateTimer; //variável de condição para o game over 
 	
 	public Heroi(PlayScreen screen) {
 		//super(screen.getAtlas().findRegion("heroifrente"));
 		super(screen.getAtlas().findRegion("heroicosta"));
 		this.world = screen.getWorld();
 		this.screen = screen;
+		
 		
 		currentState = State.STANDING;
 		previousState = State.STANDING;
@@ -108,7 +107,6 @@ public class Heroi extends Sprite {
 	}
 	
 	public void update(float dt) {
-		
 		if(afastaheroi) {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
@@ -129,7 +127,7 @@ public class Heroi extends Sprite {
 			if(tiro.isDestroyed()) {
 				tiros.removeValue(tiro, true);
 			}
-			}
+		}
 	}
 	public void atirar() {
 		tiros.add(new Tiro(screen,b2body.getPosition().x,b2body.getPosition().y,true));
@@ -139,15 +137,11 @@ public class Heroi extends Sprite {
 		for(Tiro tiro:tiros)
 			tiro.draw(batch);
 	}
-	public TextureRegion getFrame(float dt) 
-	{
+	public TextureRegion getFrame(float dt) {
 		currentState = getState();
 		TextureRegion region;
 		switch(currentState) 
 		{
-		case DEAD:
-			region = heroiDead;
-			break;
 			case RUNNING:
 			   region =  heroiRun.getKeyFrame(stateTimer1,true);
 			   break;
@@ -188,12 +182,13 @@ public class Heroi extends Sprite {
 	
 	public State getState() //possivel erro//
 	{
-		if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0)
+		if(heroiIsDead)
+	        return State.DEAD;
+	    else if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0)
 			return State.RUNNING;
 		else
 			return State.STANDING;
 	}
-	
 	
 	public Body getBody() {
 		return this.b2body;
@@ -216,11 +211,7 @@ public class Heroi extends Sprite {
 //	}
 	
 	public boolean isDead() {
-		if(Hud.getLife() <= 0) {
-		return true;
-		}else {
-			return false;
-		}
+		return heroiIsDead;
 	}
 	
 	public float getStateTimer() {
