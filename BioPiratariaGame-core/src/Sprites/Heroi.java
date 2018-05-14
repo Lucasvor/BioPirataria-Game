@@ -31,10 +31,13 @@ public class Heroi extends Sprite {
 	public Body b2body;
 	// variaveis da animação//
 	private TextureRegion heroiStand;
-	private Animation heroiRun;
+	private Animation<TextureRegion> heroiRun;
+	
 	private float stateTimer1;
 	private boolean runningRigth;
 	private boolean runningUP;
+	private boolean runningLeft;
+	private boolean runningDown;
 	
 	private float stateTimer; //variável de condição para o game over 
 	private TextureRegion heroiDead; //variável de condição para o game over
@@ -47,10 +50,25 @@ public class Heroi extends Sprite {
 	private Array<Tiro> tiros;
 	
 	public Heroi(PlayScreen screen) {
-		//super(screen.getAtlas().findRegion("somenteHeroi"));
-		super(screen.getAtlas().findRegion("somenteHeroi"));
+		//super(screen.getAtlas().findRegion("heroifrente"));
+		super(screen.getAtlas().findRegion("heroicosta"));
 		this.world = screen.getWorld();
 		this.screen = screen;
+		
+		currentState = State.STANDING;
+		previousState = State.STANDING;
+		stateTimer1 = 0;
+		runningDown = true;
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for(int i = 1; i < 4;i++)
+			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
+		heroiRun = new Animation(0.1f,frames);
+		frames.clear();
+		
+		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
+		setBounds(0,0, 29, 62);
+		setRegion(heroiStand);
+		
 		
 		//ANIMAÇÕES//
 		
@@ -61,18 +79,13 @@ public class Heroi extends Sprite {
 		//runningUP = true;
 		
 		
-		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for(int i = 0 ; i < 1 ; i++)
-			frames.add(new TextureRegion(getTexture(),i*0,0,32,60));
-		heroiRun = new Animation (0.1f , frames);
-		frames.clear();
+//		Array<TextureRegion> frames = new Array<TextureRegion>();
+//		for(int i = 0 ; i < 1 ; i++)
+//			frames.add(new TextureRegion(getTexture(),i*0,0,32,60));
+//		heroiRun = new Animation (0.1f , frames);
+//		frames.clear();
 		
 		defineHeroi();
-		
-		heroiStand = new TextureRegion(getTexture(),0,0,32,60);
-		setBounds(0,0, 32, 60);
-		setRegion(heroiStand);
-		
 		/*heroiStand = new TextureRegion(getTexture(),33,152,29,50);
 		setBounds(33,152, 29, 50);
 		setRegion(heroiStand);*/
@@ -100,11 +113,11 @@ public class Heroi extends Sprite {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
 			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
-			setRegion(getFrame(dt));
+			//setRegion(getFrame(dt));
 			afastaheroi= false;
 		}else {
 			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
-			setPosition(b2body.getPosition().x, b2body.getPosition().y);
+			//setPosition(b2body.getPosition().x, b2body.getPosition().y);
 			setRegion(getFrame(dt));
 		}
 		
@@ -136,7 +149,7 @@ public class Heroi extends Sprite {
 			region = heroiDead;
 			break;
 			case RUNNING:
-			   region =  (TextureRegion) heroiRun.getKeyFrame(stateTimer1 , true);
+			   region =  heroiRun.getKeyFrame(stateTimer1,true);
 			   break;
 		   case STANDING:
 			   default:
@@ -175,7 +188,7 @@ public class Heroi extends Sprite {
 	
 	public State getState() //possivel erro//
 	{
-		if(b2body.getLinearVelocity().x != 0)
+		if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0)
 			return State.RUNNING;
 		else
 			return State.STANDING;

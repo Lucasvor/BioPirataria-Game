@@ -65,7 +65,7 @@ public class PlayScreen implements Screen
 	float stateTime;
 	
 	PlayScreen(BioPirataria game) {
-		atlas = new TextureAtlas("somenteHeroi.pack");
+		atlas = new TextureAtlas("heroi.pack");
 		//atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		gamecam = new OrthographicCamera();
