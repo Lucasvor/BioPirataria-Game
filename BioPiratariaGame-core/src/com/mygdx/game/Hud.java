@@ -43,7 +43,7 @@ public static float getTimeCount() {
 public Hud(SpriteBatch sb) {
 	
 	//contadores da HUD//
-	worldTimer = 40;
+	worldTimer = 100 ;
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
