@@ -55,6 +55,8 @@ public class PlayScreen implements Screen
 	private World world;
 	private Box2DDebugRenderer b2ddr;
 	
+	public int velocity = 80;
+	
 	//private Player player;
 	private Music music;
 	
@@ -89,7 +91,7 @@ public class PlayScreen implements Screen
 //        bulletManager = new ArrayList<Bullet>();
         
         //Pegando colisão
-        world.setContactListener(new WorldContactListener(heroi));
+        world.setContactListener(new WorldContactListener(heroi,this));
         
         music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
         music.setLooping(true);
@@ -170,6 +172,7 @@ public class PlayScreen implements Screen
 	    	Vector3 position = gamecam.position;
 		    position.y = gamecam.position.y+1;
 		    gamecam.position.set(position);
+		    Hud.addPontos(5);
 		}
 	    
 	    //gamecam.position.x = heroi.b2body.getPosition().y;

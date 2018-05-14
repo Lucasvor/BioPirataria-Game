@@ -16,9 +16,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class WorldContactListener implements ContactListener {
 
 	private Heroi heroi;
+	private PlayScreen screen;
 	
-	public WorldContactListener(Heroi heroi) {
+	public WorldContactListener(Heroi heroi,PlayScreen screen) {
 		this.heroi = heroi;
+		this.screen = screen;
 	}
 	public void beginContact(Contact contact) {
 		// TODO Auto-generated method stub
@@ -80,6 +82,14 @@ public class WorldContactListener implements ContactListener {
         	}
         	Vilao.lostVida(50);
         	Gdx.app.log("Bala encostou no Inimigo", "");
+        	break;
+        case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
+        	screen.velocity = 30;
+        	Gdx.app.log("Heroi encostou na agua", "");
+        	break;
+        case BioPirataria.HEROI_BIT | BioPirataria.LAVA_BIT:
+        	Hud.lostLife(1);
+        	Gdx.app.log("Heroi encostou na lava", "");
         	break;
         }
 	}

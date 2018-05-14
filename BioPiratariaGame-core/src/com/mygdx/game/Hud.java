@@ -20,14 +20,14 @@ private Viewport viewport;
 //variaveis da HUD (tabela de pontos , vida etc.)//
 private Integer worldTimer;
 private float timeCount;
-private Integer pontos;
+private static Integer pontos;
 private static Integer vida;
 private Integer vidaInimigo;
 private Game game;
 private boolean timeUp;
 
 Label timeCountLabel;
-Label pontosLabel;
+static Label pontosLabel;
 static Label  vidaLabel;
 static Label vidaInimigoLabel;
 Label pontosTextLabel;
@@ -38,7 +38,7 @@ Label vidaInimigoTextLabel;
 public Hud(SpriteBatch sb) {
 	
 	//contadores da HUD//
-	worldTimer = 20;
+	worldTimer = 90;
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
@@ -109,6 +109,10 @@ public static void setvidaInimigo(int vida) {
 public static void lostLife(int life) {
 	vida -= life;
 	vidaLabel.setText(String.format("%02d",vida));
+}
+public static void addPontos(int ponto) {
+	pontos += ponto;
+	pontosLabel.setText(String.format("%02d",pontos));
 }
 
 public static Integer getLife() {
