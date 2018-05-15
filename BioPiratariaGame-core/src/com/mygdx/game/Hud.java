@@ -40,14 +40,14 @@ public static float getTimeCount() {
 	return timeCount;
 }
 
-public Hud(SpriteBatch sb) {
-	
+public Hud(SpriteBatch sb, Game gm) {
+	this.game = gm;
 	//contadores da HUD//
-	worldTimer = 100 ;
+	worldTimer = 40 ;
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
-	vidaInimigo = 1000;
+	vidaInimigo = 500;
 	
 	//configurações de tamanho , cor do contador e da fonte da HUD //
 	

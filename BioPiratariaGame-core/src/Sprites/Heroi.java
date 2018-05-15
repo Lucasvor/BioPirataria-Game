@@ -25,7 +25,7 @@ import com.mygdx.game.YouWinScreen;
 
 public class Heroi extends Sprite {
 	public enum State {STANDING , RUNNING, DEAD};
-	public PlayScreen screen;
+	public PlayScreen screen1;
 	public State currentState;
 	public State previousState;
 	public World world;
@@ -44,15 +44,27 @@ public class Heroi extends Sprite {
 	private boolean afastaheroi; //afasta o heroi quando encosta nele
 	
 	private Array<Tiro> tiros;
+	private Game game;
 	
-	private float stateTimer; //variável de condição para o game over 
+	private static int vida;
+	public static int getVida() {
+		return vida;
+	}
+	public static void lostVida(int life) {
+		vida -= life;
+		Hud.setvidaHeroi(vida);
+	}
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
 	
-	public Heroi(PlayScreen screen) {
+	public Heroi(PlayScreen screen1, int vida, Game gm) {
 		//super(screen.getAtlas().findRegion("heroifrente"));
-		super(screen.getAtlas().findRegion("heroicosta"));
-		this.world = screen.getWorld();
-		this.screen = screen;
-		
+		super(screen1.getAtlas().findRegion("heroicosta"));
+		this.world = screen1.getWorld();
+		this.screen1 = screen1;
+		this.vida = vida;
+		this.game = gm;
 		
 		currentState = State.STANDING;
 		previousState = State.STANDING;
@@ -102,6 +114,7 @@ public class Heroi extends Sprite {
 		//ANIMAÇÕES//
 		
 	}
+
 	public void afastaheroi() {
 		Gdx.app.log("Afasta heroi", "");
 		afastaheroi = true;
@@ -109,6 +122,10 @@ public class Heroi extends Sprite {
 	}
 	
 	public void update(float dt) {
+		if(getVida() <= 0) {
+			Gdx.app.log("Acabaram suas vidas, gameover!", "");
+			game.setScreen(new GameOverScreen(game));
+		}
 		if(afastaheroi) {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
 			
@@ -132,7 +149,7 @@ public class Heroi extends Sprite {
 		}
 	}
 	public void atirar() {
-		tiros.add(new Tiro(screen,b2body.getPosition().x,b2body.getPosition().y,true));
+		tiros.add(new Tiro(screen1,b2body.getPosition().x,b2body.getPosition().y,true));
 	}
 	public void draw(Batch batch) {
 		super.draw(batch);
@@ -214,10 +231,6 @@ public class Heroi extends Sprite {
 	
 	public boolean isDead() {
 		return heroiIsDead;
-	}
-	
-	public float getStateTimer() {
-		return stateTimer;
 	}
 	
 	public void defineHeroi() {

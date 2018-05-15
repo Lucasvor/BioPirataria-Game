@@ -49,7 +49,6 @@ public class PlayScreen implements Screen
 	//Sprite player;
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
-	private Hud hud;
 
 	private TmxMapLoader mapLoader;
 	private TiledMap map;
@@ -62,7 +61,7 @@ public class PlayScreen implements Screen
 	
 	//private Player player;
 	private Music music;
-	
+	private Hud hud;
 	private Heroi heroi;
 	private Vilao vilao;
 	float stateTime;
@@ -74,7 +73,7 @@ public class PlayScreen implements Screen
 		this.gm = gm;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
-		hud = new Hud(BioPirataria.batch);
+
 
 		mapLoader = new TmxMapLoader();
 		map = mapLoader.load("JogoFINALLLLLL.tmx");
@@ -86,8 +85,9 @@ public class PlayScreen implements Screen
         
         new B2WorldCreator(this);
         
-        heroi = new Heroi(this);
-        vilao = new Vilao(this, 100,200,10,gm);
+		hud = new Hud(BioPirataria.batch, gm);
+        heroi = new Heroi(this, 100, gm);
+        vilao = new Vilao(this, 100,400,500,gm);
         // bullet
 //        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
 //        bulletTexture = new Texture("bala1.png");
