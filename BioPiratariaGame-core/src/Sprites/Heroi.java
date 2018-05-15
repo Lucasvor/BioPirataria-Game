@@ -24,7 +24,7 @@ import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
 
 public class Heroi extends Sprite {
-	public enum State {STANDING , RUNNING, DEAD};
+	public enum State {STANDING , RUNNING, RUNNING2, DEAD};
 	public PlayScreen screen1;
 	public State currentState;
 	public State previousState;
@@ -33,6 +33,7 @@ public class Heroi extends Sprite {
 	// variaveis da animação//
 	private TextureRegion heroiStand;
 	private Animation<TextureRegion> heroiRun;
+	private Animation<TextureRegion> heroiRun2;
 	
 	private float stateTimer1;
 	private boolean runningRigth;
@@ -69,7 +70,7 @@ public class Heroi extends Sprite {
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer1 = 0;
-		runningDown = true;
+		runningUP = true;
 		runningRigth = true;
 		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -77,8 +78,17 @@ public class Heroi extends Sprite {
 			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
 		heroiRun = new Animation(0.1f,frames);
 		frames.clear();
+	
+		for(int i = 8; i < 12;i++)
+			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
+		heroiRun2 = new Animation(0.1f,frames);
+		//frames.clear();
 		
-		heroiStand = new TextureRegion(getTexture(),2,33,15,31);
+		/*heroiStand = new TextureRegion(getTexture(),2,33,15,31);
+		setBounds(0,0, 29, 62);
+		setRegion(heroiStand);*/
+		
+		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
 		setBounds(0,0, 29, 62);
 		setRegion(heroiStand);
 		
@@ -164,6 +174,9 @@ public class Heroi extends Sprite {
 			case RUNNING:
 			   region =  heroiRun.getKeyFrame(stateTimer1,true);
 			   break;
+			case RUNNING2:
+				region = heroiRun2.getKeyFrame(stateTimer1,true);
+				break;
 		   case STANDING:
 			   default:
 				   region = heroiStand; //possivel erro//
@@ -181,8 +194,8 @@ public class Heroi extends Sprite {
 			runningRigth = true;
 		}
 		
-		/*POSSIVEL ERRO DE MOVIMENTAÇÃO PARA CIMA E PARA BAIXO//
-		if((b2body.getLinearVelocity().y < 0 || !runningUP) && !region.isFlipY()) 
+		
+		/*if((b2body.getLinearVelocity().y < 0 || !runningUP) && !region.isFlipY()) 
 		{
 			region.flip(true, false);
 			runningUP = false;
@@ -191,8 +204,8 @@ public class Heroi extends Sprite {
 		{
 			region.flip(true , false);
 			runningUP = true;
-		}
-		//POSSIVEL ERRO DE MOVIMENTAÇÃO PARA CIMA E PARA BAIXO*/
+		}*/
+		
 		
 		stateTimer1 = currentState == previousState ? stateTimer1 + dt : 0 ;
 		previousState = currentState;
@@ -203,8 +216,10 @@ public class Heroi extends Sprite {
 	{
 		if(heroiIsDead)
 	        return State.DEAD;
-	    else if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0)
+	    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().y != 0)
 			return State.RUNNING;
+	    else if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().x != 0)
+	    	return State.RUNNING2;
 		else
 			return State.STANDING;
 	}

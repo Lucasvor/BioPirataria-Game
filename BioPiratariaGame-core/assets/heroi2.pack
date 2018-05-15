@@ -1,0 +1,33 @@
+
+heroi2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+heroicosta
+  rotate: false
+  xy: 1, 1
+  size: 62, 29
+  orig: 62, 29
+  offset: 0, 0
+  index: -1
+heroifrente
+  rotate: false
+  xy: 65, 1
+  size: 62, 29
+  orig: 62, 29
+  offset: 0, 0
+  index: -1
+heroiladoesquerdo
+  rotate: false
+  xy: 129, 1
+  size: 62, 29
+  orig: 62, 29
+  offset: 0, 0
+  index: -1
+heroiladodireito
+  rotate: false
+  xy: 193, 1
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1

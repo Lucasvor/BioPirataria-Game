@@ -4,28 +4,28 @@ size: 256,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-heroicosta
+heroicosta1
   rotate: false
   xy: 2, 33
   size: 62, 29
   orig: 62, 29
   offset: 0, 0
   index: -1
-heroifrente
+heroifrente2
   rotate: false
   xy: 66, 33
   size: 62, 29
   orig: 62, 29
   offset: 0, 0
   index: -1
-heroiladodireito
+heroiladodireito3
   rotate: false
   xy: 66, 2
   size: 61, 29
   orig: 61, 29
   offset: 0, 0
   index: -1
-heroiladoesquerdo
+heroiladoesquerdo4
   rotate: false
   xy: 2, 2
   size: 62, 29

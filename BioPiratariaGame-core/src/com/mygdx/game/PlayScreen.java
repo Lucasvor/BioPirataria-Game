@@ -72,7 +72,7 @@ public class PlayScreen implements Screen
 	private float tempolava;
 	
 	PlayScreen(BioPirataria game, Game gm) {
-		atlas = new TextureAtlas("heroi.pack");
+		atlas = new TextureAtlas("heroi2.pack");
 		//atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		this.gm = gm;
@@ -183,7 +183,7 @@ public class PlayScreen implements Screen
 	    stateTime += dt;
 	    tempolava += dt;
 	    timePontos += dt;
-	    if(stateTime > 3) {
+	    if(stateTime > 5) {
 	    	vilao.startgamevilao();
 	    	Vector3 position = gamecam.position;
 		    position.y = gamecam.position.y+1.5f;
@@ -210,12 +210,8 @@ public class PlayScreen implements Screen
 	@Override
 	public void show() 
 	{
-		// TODO Auto-generated method stub
 		
-		// textura do personagem principal //
-		
-	//	player = new Player(new Sprite(new Texture("player1sprite.png")));
-	//	Gdx.input.setInputProcessor(player);		
+		// textura do personagem principal //	
 	}
 
 	@Override
