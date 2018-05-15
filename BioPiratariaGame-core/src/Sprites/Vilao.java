@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -18,6 +19,7 @@ public class Vilao extends Enemy{
 	private Game game;
 	private TextureRegion vilaoStand;
 	private static int vida;
+	private boolean startgamevilao = false;
 	public static int getVida() {
 		return vida;
 	}
@@ -50,9 +52,10 @@ public class Vilao extends Enemy{
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		}
 		
-		b2body.setLinearVelocity(velocity);
-		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
+//		b2body.setLinearVelocity(velocity);
+//		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 	}
+
 
 
 	@Override
@@ -92,6 +95,12 @@ public class Vilao extends Enemy{
 		
 		
 	}
+	public void startgamevilao() {
+		if(!startgamevilao) {
+			setVelocity(90, 90);
+			startgamevilao = true;
+	}
+		}
 	public void draw(Batch batch){
 		super.draw(batch);
 	}

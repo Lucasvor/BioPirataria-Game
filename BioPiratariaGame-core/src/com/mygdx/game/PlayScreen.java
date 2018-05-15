@@ -57,7 +57,7 @@ public class PlayScreen implements Screen
 	private World world;
 	private Box2DDebugRenderer b2ddr;
 	
-	public int velocity = 80;
+	public int velocity = 50;
 	
 	//private Player player;
 	private Music music;
@@ -65,6 +65,11 @@ public class PlayScreen implements Screen
 	private Heroi heroi;
 	private Vilao vilao;
 	float stateTime;
+	float timePontos;
+	//avisa se o heroi está na lava
+	public boolean heroiLava;
+	// tempo para o heroi leva dano continuo
+	private float tempolava;
 	
 	PlayScreen(BioPirataria game, Game gm) {
 		atlas = new TextureAtlas("heroi.pack");
@@ -85,9 +90,11 @@ public class PlayScreen implements Screen
         
         new B2WorldCreator(this);
         
+
 		hud = new Hud(BioPirataria.batch, gm);
         heroi = new Heroi(this, 100, gm);
-        vilao = new Vilao(this, 100,400,500,gm);
+        vilao = new Vilao(this, 100,200,1000,gm);
+
         // bullet
 //        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
 //        bulletTexture = new Texture("bala1.png");
@@ -95,7 +102,7 @@ public class PlayScreen implements Screen
 //        bulletManager = new ArrayList<Bullet>();
         
         //Pegando colisão
-        world.setContactListener(new WorldContactListener(heroi,this));
+        world.setContactListener(new WorldContactListener(heroi,this,vilao));
         
         music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
         music.setLooping(true);
@@ -124,28 +131,28 @@ public class PlayScreen implements Screen
 		
 	     //faz a camera se mover e  velocidade do heroi//
 	if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){	
-		heroi.getBody().applyLinearImpulse(new Vector2(-50,50), heroi.getBody().getWorldCenter(), true);
+		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,velocity), heroi.getBody().getWorldCenter(), true);
 		
 	}else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-		heroi.getBody().applyLinearImpulse(new Vector2(-50,-50), heroi.getBody().getWorldCenter(), true);
+		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,-velocity), heroi.getBody().getWorldCenter(), true);
 	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-		heroi.getBody().applyLinearImpulse(new Vector2(50,50), heroi.getBody().getWorldCenter(), true);
+		heroi.getBody().applyLinearImpulse(new Vector2(velocity,velocity), heroi.getBody().getWorldCenter(), true);
 	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-		heroi.getBody().applyLinearImpulse(new Vector2(50,-50), heroi.getBody().getWorldCenter(), true);
+		heroi.getBody().applyLinearImpulse(new Vector2(velocity,-velocity), heroi.getBody().getWorldCenter(), true);
 	}
 	else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
     	//gamecam.position.x -= 100 * dt;
-    heroi.getBody().applyLinearImpulse(new Vector2(-80,0), heroi.getBody().getWorldCenter(), true);
+    heroi.getBody().applyLinearImpulse(new Vector2(-velocity,0), heroi.getBody().getWorldCenter(), true);
     	
     }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
     	//gamecam.position.x += 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(80,0), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(velocity,0), heroi.getBody().getWorldCenter(), true);
 	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
 	    	//gamecam.position.y += 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(0,80), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,velocity), heroi.getBody().getWorldCenter(), true);
     }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
     	//gamecam.position.y -= 100 * dt;
-	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-80), heroi.getBody().getWorldCenter(), true);
+	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-velocity), heroi.getBody().getWorldCenter(), true);
 	    }else {
 	    	heroi.getBody().setLinearVelocity(0,0);
 	    }
@@ -174,13 +181,25 @@ public class PlayScreen implements Screen
 	    hud.update(dt);
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
 	    stateTime += dt;
+	    tempolava += dt;
+	    timePontos += dt;
 	    if(stateTime > 3) {
+	    	vilao.startgamevilao();
 	    	Vector3 position = gamecam.position;
-		    position.y = gamecam.position.y+1;
-		    gamecam.position.set(position);
-		    Hud.addPontos(5);
+		    position.y = gamecam.position.y+1.5f;
 		    
+		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
+		    
+		}else {
+			gamecam.position.set(gamecam.position.x,gamecam.position.y+1,0);
 		}
+	    if(stateTime > 3) {
+	    	Hud.addPontos(1);
+	    }
+	    if(tempolava > 1 && heroiLava) {
+	    	Hud.lostLife(1);
+	    	tempolava = 0;
+	    }
 	    //gamecam.position.x = heroi.b2body.getPosition().y;
 	    gamecam.update();
 	    

@@ -127,9 +127,9 @@ public class Heroi extends Sprite {
 			game.setScreen(new GameOverScreen(game));
 		}
 		if(afastaheroi) {
-			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200), 0);// move o personagem para baixo.
+			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100), 0);// move o personagem para baixo.
 			
-			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-200);
+			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100);
 			//setRegion(getFrame(dt));
 			afastaheroi= false;
 		}else {
@@ -254,7 +254,7 @@ public class Heroi extends Sprite {
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
-		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT;
+		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT;
 		b2body.createFixture(fdef).setUserData("Corpo");
 		
 //		EdgeShape head = new EdgeShape();

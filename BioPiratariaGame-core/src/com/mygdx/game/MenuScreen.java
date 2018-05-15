@@ -13,12 +13,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import Tools.GifDecoder;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MenuScreen implements Screen{
 	
 	//tela Menu Principal//
 	//ALTURA E LARGURA DOS BOTÕES DO MENU
+	Animation<TextureRegion> animation;;
+	
+	float stateTime;
 	private static final int PLAY_BUTTOM_WIDTH = 92;
 	private static final int PLAY_BUTTOM_HEIGHT = 30;
 	
@@ -40,6 +48,7 @@ public class MenuScreen implements Screen{
 	
 	private Game game;
 	
+	
 	public MenuScreen (Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
@@ -53,6 +62,7 @@ public class MenuScreen implements Screen{
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
+		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read());
 	}
 	
 	@Override
@@ -63,9 +73,11 @@ public class MenuScreen implements Screen{
 
 	@Override
 	public void render(float dt) {
-		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
+		//Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
+		stateTime += dt;
+		BioPirataria.batch.draw(animation.getKeyFrame(stateTime),-30,-40);
 		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		
 		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis

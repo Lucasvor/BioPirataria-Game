@@ -64,6 +64,7 @@ public class B2WorldCreator {
             body = world.createBody(bdef);
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
+            fdef.isSensor = true;
             fdef.filter.categoryBits = BioPirataria.AGUA_BIT;
             body.createFixture(fdef).setUserData("Agua");
             
@@ -79,6 +80,7 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape = shape;
             fdef.filter.categoryBits = BioPirataria.LAVA_BIT;
+            fdef.isSensor = true;
             body.createFixture(fdef).setUserData("Lava");
             
         }

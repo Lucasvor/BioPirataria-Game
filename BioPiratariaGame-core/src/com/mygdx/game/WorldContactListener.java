@@ -6,6 +6,7 @@ import Sprites.Vilao;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -17,10 +18,12 @@ public class WorldContactListener implements ContactListener {
 
 	private Heroi heroi;
 	private PlayScreen screen;
+	private Vilao vilao;
 	
-	public WorldContactListener(Heroi heroi,PlayScreen screen) {
+	public WorldContactListener(Heroi heroi,PlayScreen screen,Vilao vilao) {
 		this.heroi = heroi;
 		this.screen = screen;
+		this.vilao = vilao;
 	}
 	public void beginContact(Contact contact) {
 		// TODO Auto-generated method stub
@@ -77,18 +80,21 @@ public class WorldContactListener implements ContactListener {
         case BioPirataria.TIRO_BIT | BioPirataria.ENEMY_BIT:
         	if(fixA.getFilterData().categoryBits == BioPirataria.TIRO_BIT) {
         		((Tiro)fixA.getUserData()).setToDestroy();
+        		Vilao.reverseVelocity(true,false);
         	}else {
         		((Tiro)fixB.getUserData()).setToDestroy();
+        		Vilao.reverseVelocity(true,false);
         	}
         	Vilao.lostVida(50);
         	Gdx.app.log("Bala encostou no Inimigo", "");
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
-        	screen.velocity = 30;
-        	Gdx.app.log("Heroi encostou na agua", "");
+        	screen.velocity = 2;
+        	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.LAVA_BIT:
-        	Hud.lostLife(1);
+        	//Hud.lostLife(1);
+        	screen.heroiLava = true;
         	Gdx.app.log("Heroi encostou na lava", "");
         	break;
         }
@@ -110,6 +116,15 @@ public class WorldContactListener implements ContactListener {
         	break;
         case BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT:
         	Gdx.app.log("Enemy saiu da borda. - Inicio", "");
+        	break;
+        case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
+        	screen.velocity = 80;
+        	Gdx.app.log("Heroi saiu da agua" + screen.velocity, "");
+        	break;
+        case BioPirataria.HEROI_BIT | BioPirataria.LAVA_BIT:
+        	//Hud.lostLife(1);
+        	screen.heroiLava= false;
+        	Gdx.app.log("Heroi saiu da lava", "");
         	break;
         }
 	}

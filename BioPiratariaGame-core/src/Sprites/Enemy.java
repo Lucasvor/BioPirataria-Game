@@ -17,7 +17,7 @@ public abstract class Enemy extends Sprite{
 		this.screen = screen;
 		setPosition(x,y);
 		defineEnemy();
-		velocity = new Vector2(90,0);
+		velocity = new Vector2(0,0);
 	}
 	protected abstract void defineEnemy();
 	public static void reverseVelocity(boolean x, boolean y){
@@ -26,4 +26,8 @@ public abstract class Enemy extends Sprite{
 		if(y)
 			velocity.y = -velocity.y;
 	}
+	public void setVelocity(float x, float y) {
+		velocity = new Vector2(x,y);
+	}
+	
 }
