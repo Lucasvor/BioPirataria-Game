@@ -72,39 +72,18 @@ public class Heroi extends Sprite {
 		heroiRun2 = new Animation(0.1f,frames);
 		//frames.clear();
 		
-		/*heroiStand = new TextureRegion(getTexture(),2,33,15,31);
-		setBounds(0,0, 29, 62);
-		setRegion(heroiStand);*/
-		
 		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
 		setBounds(0,0, 29, 62);
 		setRegion(heroiStand);
 		
 		
-		//ANIMAÇÕES//
-		
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer1 = 0;
 		runningRigth = true;
-		//runningUP = true;
 		
-		
-//		Array<TextureRegion> frames = new Array<TextureRegion>();
-//		for(int i = 0 ; i < 1 ; i++)
-//			frames.add(new TextureRegion(getTexture(),i*0,0,32,60));
-//		heroiRun = new Animation (0.1f , frames);
-//		frames.clear();
 		
 		defineHeroi();
-		/*heroiStand = new TextureRegion(getTexture(),33,152,29,50);
-		setBounds(33,152, 29, 50);
-		setRegion(heroiStand);*/
-		/*heroiStand = new TextureRegion(getTexture(),0,0,32,205);
-		setBounds(0,0, 32, 205);
-		setRegion(heroiStand);
-		heroiDead = new TextureRegion(getTexture(), 96, 0, 16, 16);
-		 */
 		
 		
 		tiros = new Array<Tiro>();
@@ -179,19 +158,6 @@ public class Heroi extends Sprite {
 			runningRigth = true;
 		}
 		
-		
-		/*if((b2body.getLinearVelocity().y < 0 || !runningUP) && !region.isFlipY()) 
-		{
-			region.flip(true, false);
-			runningUP = false;
-		}
-		else if((b2body.getLinearVelocity().y > 0 || runningUP) && region.isFlipY()) 
-		{
-			region.flip(true , false);
-			runningUP = true;
-		}*/
-		
-		
 		stateTimer1 = currentState == previousState ? stateTimer1 + dt : 0 ;
 		previousState = currentState;
 		return region;
@@ -199,9 +165,9 @@ public class Heroi extends Sprite {
 	
 	public State getState() //possivel erro//
 	{
-		if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().y != 0)
+		if(b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
 			return State.RUNNING;
-	    else if(b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().x != 0)
+	    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0)
 	    	return State.RUNNING2;
 		else
 			return State.STANDING;
