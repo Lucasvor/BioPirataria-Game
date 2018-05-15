@@ -24,7 +24,7 @@ private static float timeCount;
 private static Integer pontos;
 private static Integer vida; 
 private Integer vidaInimigo;
-private Game game;
+private static Game game;
 private boolean timeUp;
 
 static Label timeCountLabel; // contagem Jogo
@@ -44,12 +44,12 @@ public Hud(SpriteBatch sb, Game gm) {
 	this.game = gm;
 	//contadores da HUD//
 
-	worldTimer = 1000 ;
+	worldTimer = 1000;
 
 	timeCount = 0;
 	pontos = 0;
 	vida = 100;
-	vidaInimigo = 500;
+	vidaInimigo = 1000;
 	
 	//configurações de tamanho , cor do contador e da fonte da HUD //
 	
@@ -113,16 +113,22 @@ public void update(float dt){
     	game.setScreen(new GameOverScreen(game));
     }
 } 
-public static void setvidaHeroi(int vida) {
-	vidaLabel.setText(String.format("%02d",vida));
+public static void setvidaHeroi(int vidaHeroi) {
+	vidaLabel.setText(String.format("%02d", vidaHeroi));
 }
-
 public static void setvidaInimigo(int vida) {
 	vidaInimigoLabel.setText(String.format("%02d",vida));
 }
 public static void lostLife(int life) {
 	vida -= life;
 	vidaLabel.setText(String.format("%02d",vida));
+	if(getVidaHeroi() <= 0) {
+		Gdx.app.log("Acabaram suas vidas, gameover!", "");
+		game.setScreen(new GameOverScreen(game));
+	}
+}
+public static int getVidaHeroi() {
+	return vida;
 }
 public static void addPontos(int ponto) {
 	pontos += ponto;
