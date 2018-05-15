@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.concurrent.TimeUnit;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import Tools.FloatingText;
 
 public class Hud implements Disposable{
 
@@ -36,7 +40,7 @@ Label timeCountTextLabel; // contagem Jogo
 Label pontosTextLabel; // pontos Heroi = score
 Label vidatextLabel; // vida Heroi
 Label vidaInimigoTextLabel; // vida Inimigo
-
+static FloatingText floatingText;
 public static float getTimeCount() {
 	return timeCount;
 }
@@ -51,6 +55,9 @@ public Hud(SpriteBatch sb, Game gm) {
 	pontos = 0;
 	vida = 100;
 	vidaInimigo = 1000;
+	
+	
+	
 	
 	//configurações de tamanho , cor do contador e da fonte da HUD //
 	
@@ -81,6 +88,12 @@ public Hud(SpriteBatch sb, Game gm) {
     table.add(pontosLabel).expandX();
     table.add(timeCountLabel).expandX();
     table.add(vidaInimigoLabel).expandX();
+    
+    floatingText = new FloatingText("SALVE OS ANIMAIS DA FAZENDA!!!!", TimeUnit.SECONDS.toMillis(150));
+    floatingText.setPosition(280, 250);
+    floatingText.setDeltaY(100);
+     
+    stage.addActor(floatingText);
 	
 	stage.addActor(table);
 }
@@ -121,7 +134,11 @@ public static void addPontos(int ponto) {
 	pontos += ponto;
 	pontosLabel.setText(String.format("%02d",pontos));
 }
-
+public static void hudanimtext() {
+	if(!floatingText.isAnimated())
+		floatingText.animate();
+	
+}
 public static Integer getLife() {
 	return vida;
 }

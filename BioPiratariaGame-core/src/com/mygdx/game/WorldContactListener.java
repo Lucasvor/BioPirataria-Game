@@ -81,11 +81,13 @@ public class WorldContactListener implements ContactListener {
         	if(fixA.getFilterData().categoryBits == BioPirataria.TIRO_BIT) {
         		((Tiro)fixA.getUserData()).setToDestroy();
         		Vilao.reverseVelocity(true,false);
+        		Hud.addPontos(30);
         	}else {
         		((Tiro)fixB.getUserData()).setToDestroy();
         		Vilao.reverseVelocity(true,false);
+        		Hud.addPontos(30);
         	}
-        	Vilao.lostVida(50);
+        	Vilao.lostVida(30);
         	Gdx.app.log("Bala encostou no Inimigo", "");
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:

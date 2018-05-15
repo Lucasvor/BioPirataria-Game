@@ -189,15 +189,18 @@ public class PlayScreen implements Screen
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
 		    
 		}else {
+			Hud.hudanimtext();
 			gamecam.position.set(gamecam.position.x,gamecam.position.y+1,0);
 		}
-	    if(stateTime > 3) {
+	    if(timePontos > 3) {
 	    	Hud.addPontos(1);
+	    	timePontos = 0;
 	    }
 	    if(tempolava > 1 && heroiLava) {
 	    	Hud.lostLife(1);
 	    	tempolava = 0;
 	    }
+	    
 	    //gamecam.position.x = heroi.b2body.getPosition().y;
 	    gamecam.update();
 	    
