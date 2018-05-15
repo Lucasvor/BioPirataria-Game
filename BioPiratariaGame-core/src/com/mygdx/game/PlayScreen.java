@@ -46,7 +46,9 @@ public class PlayScreen implements Screen
 	private BioPirataria game;
 	private Game gm;
 	private TextureAtlas atlas;
+	
 	//Sprite player;
+	
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 
@@ -60,6 +62,7 @@ public class PlayScreen implements Screen
 	public int velocity = 50;
 	
 	//private Player player;
+	
 	private Music music;
 	private Hud hud;
 	private Heroi heroi;
@@ -67,13 +70,15 @@ public class PlayScreen implements Screen
 	float stateTime;
 	float timePontos;
 	//avisa se o heroi está na lava
+	
 	public boolean heroiLava;
+	
 	// tempo para o heroi leva dano continuo
+	
 	private float tempolava;
 	
 	PlayScreen(BioPirataria game, Game gm) {
 		atlas = new TextureAtlas("heroi2.pack");
-		//atlas = new TextureAtlas("somenteHeroi.pack");
 		this.game = game;
 		this.gm = gm;
 		gamecam = new OrthographicCamera();
@@ -102,6 +107,7 @@ public class PlayScreen implements Screen
 //        bulletManager = new ArrayList<Bullet>();
         
         //Pegando colisão
+        
         world.setContactListener(new WorldContactListener(heroi,this,vilao));
         
         music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
@@ -117,19 +123,9 @@ public class PlayScreen implements Screen
 	}
 	
 	public void handleInput(float dt){
-	   // if(Gdx.input.isTouched())
-	    //    gamecam.position.y += 300 *dt;
-	    
-//	    if(Gdx.input.isKeyPressed(Input.Keys.UP))
-//	    	heroi.b2body.applyLinearImpulse(0,30f,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-//	    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-//	    	heroi.b2body.applyLinearImpulse(30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-//	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-//	    	heroi.b2body.applyLinearImpulse(-30f,0,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
-//	    if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
-//	    	heroi.b2body.applyLinearImpulse(0,-30,heroi.b2body.getPosition().x,heroi.b2body.getPosition().y,true);
 		
-	     //faz a camera se mover e  velocidade do heroi//
+	    
+		
 	if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){	
 		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,velocity), heroi.getBody().getWorldCenter(), true);
 		
@@ -156,8 +152,6 @@ public class PlayScreen implements Screen
 	    }else {
 	    	heroi.getBody().setLinearVelocity(0,0);
 	    }
-    //else if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
-	//    	new Bullet(world, this, new Texture("laser.png"), 100, 100);
 	    
     	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 //    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
@@ -177,9 +171,13 @@ public class PlayScreen implements Screen
 	    heroi.update(dt);
 	    vilao.update(dt);
 	    hud.update(dt);
+	    
 	    //atualiza vida/score e tempo.
+	    
 	    hud.update(dt);
+	    
 	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
+	    
 	    stateTime += dt;
 	    tempolava += dt;
 	    timePontos += dt;
@@ -211,7 +209,6 @@ public class PlayScreen implements Screen
 	public void show() 
 	{
 		
-		// textura do personagem principal //	
 	}
 
 	@Override
@@ -238,26 +235,22 @@ public class PlayScreen implements Screen
 	}	
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		gamePort.update(width, height);
 		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 	public TiledMap getMap() {
@@ -272,8 +265,6 @@ public class PlayScreen implements Screen
 	
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		//player.getTexture().dispose(); tirei ele pq ta tudo agora no Heroi.
 		map.dispose();
 		renderer.dispose();
 		world.dispose();

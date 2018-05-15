@@ -30,7 +30,9 @@ public class Heroi extends Sprite {
 	public State previousState;
 	public World world;
 	public Body b2body;
+	
 	// variaveis da animação//
+	
 	private TextureRegion heroiStand;
 	private Animation<TextureRegion> heroiRun;
 	private Animation<TextureRegion> heroiRun2;
@@ -48,7 +50,6 @@ public class Heroi extends Sprite {
 	
 
 	public Heroi(PlayScreen screen, int vidaHeroi, Game gm) {
-		//super(screen.getAtlas().findRegion("heroifrente"));
 		super(screen.getAtlas().findRegion("heroicosta"));
 		this.world = screen.getWorld();
 		this.screen = screen;
@@ -196,21 +197,15 @@ public class Heroi extends Sprite {
 	public void defineHeroi() {
 		BodyDef bdef = new BodyDef();
 		
-		//bdef.position.set(32 / BioPirataria.PPM,32 / BioPirataria.PPM);
-		//bdef.position.set(128,128);
-		//bdef.position.set(getX() / BioPirataria.PPM, getY() / BioPirataria.PPM);
+		//Posição Inicial do HEROI //
 		
-		//posição inicial antiga//
-		//bdef.position.set(120,120);
 		bdef.position.set(400,180);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		//shape.setAsBox((getWidth()/2)/BioPirataria.PPM,(getHeight()/2)/ BioPirataria.PPM);
 		shape.setAsBox(getWidth()/6, getHeight()/4);
-		//shape.setRadius(20/BioPirataria.PPM);
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;

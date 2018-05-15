@@ -35,7 +35,6 @@ public class Tiro extends Sprite{
     }
 
 	private void defineFireBall() {
-		// TODO Auto-generated method stub
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(getX(),getY()+20);
 		bdef.type = BodyType.DynamicBody;
@@ -58,9 +57,7 @@ public class Tiro extends Sprite{
 			world.destroyBody(b2body);
 			destroyed = true;
 			Gdx.app.log("Bala foi destruida", "");
-		}
-		
-		
+		}	
 	}
 	public  void setToDestroy(){
         setToDestroy = true;

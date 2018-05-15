@@ -19,6 +19,7 @@ public Stage stage;
 private Viewport viewport;
 
 //variaveis da HUD (tabela de pontos , vida etc.)//
+
 private Integer worldTimer;
 private static float timeCount;
 private static Integer pontos;
@@ -80,20 +81,6 @@ public Hud(SpriteBatch sb, Game gm) {
     table.add(pontosLabel).expandX();
     table.add(timeCountLabel).expandX();
     table.add(vidaInimigoLabel).expandX();
-//
-//			countdownLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//			scoreLabel = new Label(String.format("%05d",score), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//			TimeLabel = new Label("TIMER", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//			LevelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//			worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//			marioLabel = new Label("Mario", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//	table.add(marioLabel).expandX().padTop(10);
-//	table.add(worldLabel).expandX().padTop(10);
-//	table.add(TimeLabel).expandX().padTop(10);
-//	table.row();
-//	table.add(scoreLabel).expandX();
-//	table.add(LevelLabel).expandX();
-//	table.add(countdownLabel).expandX();
 	
 	stage.addActor(table);
 }
@@ -140,7 +127,7 @@ public static Integer getLife() {
 }
 @Override
 public void dispose() {
-	// TODO Auto-generated method stub
+	
 	stage.dispose();
 }
 public boolean isTimeUp() { 

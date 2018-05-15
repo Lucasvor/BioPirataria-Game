@@ -37,6 +37,7 @@ public class MenuScreen implements Screen{
 	private static final int QUIT_BUTTOM_HEIGHT = 26;
 	
 	//VARIÁVEIS PARA AS IMAGENS DOS BOTÕES 
+	
 	private Viewport viewport;
 	private Texture title;
 	private Texture playbtnactive;
@@ -52,7 +53,9 @@ public class MenuScreen implements Screen{
 	public MenuScreen (Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
+		
 		//Música do menu
+		
 		BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).play();
 		
 		title = new Texture("biopiratariatitle.png");
@@ -62,7 +65,7 @@ public class MenuScreen implements Screen{
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
-		//animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read());
+		//animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read()); //GIF da tela inicial
 	}
 	
 	@Override
@@ -74,15 +77,18 @@ public class MenuScreen implements Screen{
 	@Override
 	public void render(float dt) {
 		//Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
 		stateTime += dt;
 		//BioPirataria.batch.draw(animation.getKeyFrame(stateTime),-30,-40);
+		
 		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		
 		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis
 		
 		//se o botão JOGAR for ativado, passará para tela PlayScreen
+		
 		if(Gdx.input.getX() < x + PLAY_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 340 + PLAY_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 325) {
 		BioPirataria.batch.draw(playbtnactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - 50, 210 , PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT);
@@ -95,6 +101,7 @@ public class MenuScreen implements Screen{
 		}
 		
 		//Se a tela de créditos for ativada , passará para CreditsScreen
+		
 		 if(Gdx.input.getX() < x + CREDITS_BUTTOM_WIDTH && Gdx.input.getX() > x &&
 				 BioPirataria.V_HEIGHT - Gdx.input.getY() < 288 + CREDITS_BUTTOM_HEIGHT && BioPirataria.V_HEIGHT - Gdx.input.getY() > 280) {
 			BioPirataria.batch.draw(creditsbtnactive, x, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);

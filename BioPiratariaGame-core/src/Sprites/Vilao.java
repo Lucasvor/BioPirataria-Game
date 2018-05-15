@@ -34,7 +34,6 @@ public class Vilao extends Enemy{
 	}
 	public Vilao(PlayScreen screen, float x, float y, int vida,Game gm) {
 		super(screen, x, y);
-		// TODO Auto-generated constructor stub
 		vilaoStand = new TextureRegion(new Texture("Human1.png"),0,0,100,100);
 		setBounds(0, 0, 32, 60);
 		setRegion(vilaoStand);
@@ -52,23 +51,16 @@ public class Vilao extends Enemy{
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		}
 		
-//		b2body.setLinearVelocity(velocity);
-//		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 	}
 
 
 
 	@Override
 	protected void defineEnemy() {
-		// TODO Auto-generated method stub
 		BodyDef bdef = new BodyDef();
 		
-		//bdef.position.set(32 / BioPirataria.PPM,32 / BioPirataria.PPM);
-		//bdef.position.set(128,128);
-		//bdef.position.set(getX() / BioPirataria.PPM, getY() / BioPirataria.PPM);
+		//posição de inicio do inimigo //
 		
-		//posição inicial antiga//
-		//bdef.position.set(120,120);
 		bdef.position.set(getX(), getY()+350);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
@@ -80,10 +72,7 @@ public class Vilao extends Enemy{
 		//PolygonShape shape = new PolygonShape();
 		CircleShape dynamicCircle = new CircleShape(); 
 		
-		//shape.setAsBox((getWidth()/2)/BioPirataria.PPM,(getHeight()/2)/ BioPirataria.PPM);
-		//shape.setAsBox(100, 100);
 		dynamicCircle.setRadius(30f); 
-		//shape.setRadius(20/BioPirataria.PPM);
 		
 		fdef.shape = dynamicCircle;
 		fdef.restitution = 80;
