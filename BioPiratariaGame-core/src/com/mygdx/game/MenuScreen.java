@@ -62,7 +62,7 @@ public class MenuScreen implements Screen{
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
-		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read());
+		//animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read());
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ public class MenuScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
 		stateTime += dt;
-		BioPirataria.batch.draw(animation.getKeyFrame(stateTime),-30,-40);
+		//BioPirataria.batch.draw(animation.getKeyFrame(stateTime),-30,-40);
 		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		
 		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis
