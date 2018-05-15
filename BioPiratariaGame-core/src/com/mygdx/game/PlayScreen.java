@@ -78,7 +78,7 @@ public class PlayScreen implements Screen
 		this.gm = gm;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
-
+//
 
 		mapLoader = new TmxMapLoader();
 		map = mapLoader.load("JogoFINALLLLLL.tmx");
