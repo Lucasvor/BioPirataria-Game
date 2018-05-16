@@ -173,14 +173,14 @@ public class Heroi extends Sprite {
 	
 	public State getState() // esse metodo so pode ser alterado por quem trabalha na UBISOFT //
 	{
-		if(b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
-			return State.RUNNING;
-		else if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x)
-	    	return State.RUNNING;
-	    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0)
-	    	return State.RUNNING2;
-		else
-			return State.STANDING;
+		if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x)
+    	return State.RUNNING;
+	else if (b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
+		return State.RUNNING;
+    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0)
+    	return State.RUNNING2;
+	else
+		return State.STANDING;
 	}
 	
 	public Body getBody() {
@@ -211,6 +211,8 @@ public class Heroi extends Sprite {
 		bdef.position.set(400,180);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
+		
+		//textura e area de colisão//
 		
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();

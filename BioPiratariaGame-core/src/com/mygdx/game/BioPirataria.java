@@ -22,6 +22,8 @@ public class BioPirataria extends Game {
 	public static final short BORDAS_BIT = 50;
 	public static final short TIRO_BIT = 32;
 	public static final short TIROENEMY_BIT = 8;
+	public static final short LASER_BIT = 32;
+	public static final short LASERENEMY_BIT = 8;
 	
 	
 	//Audio

@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
 import com.mygdx.game.Hud;
+import com.mygdx.game.Laser;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
@@ -22,7 +23,7 @@ public class Vilao extends Enemy{
 	private TextureRegion vilaoStand;
 	private static int vida;
 	private boolean startgamevilao = false;
-	private Array<Tiro> tiros;
+	private Array<Laser> tiros;
 	PlayScreen screen;
 	public static int getVida() {
 		return vida;
@@ -38,13 +39,14 @@ public class Vilao extends Enemy{
 	}
 	public Vilao(PlayScreen screen, float x, float y, int vida,Game gm) {
 		super(screen, x, y);
-		vilaoStand = new TextureRegion(new Texture("Human1.png"),0,0,100,100);
-		setBounds(0, 0, 32, 60);
+		vilaoStand = new TextureRegion(new Texture("navetransparente.png"),0,0,100,36);
+		//setBounds(0, 0, 32, 60);
+		setBounds(0, 0, 100, 36);
 		setRegion(vilaoStand);
 		this.vida = vida;
 		this.game = gm;
 		this.screen = screen;
-		tiros = new Array<Tiro>();
+		tiros = new Array<Laser>();
 	}
 
 	public void update(float dt) {
@@ -56,17 +58,17 @@ public class Vilao extends Enemy{
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		}
-		for(Tiro tiro: tiros) {
-			tiro.update(dt);
+		for(Laser laser: tiros) {
+			laser.update(dt);
 			
-			if(tiro.isDestroyed()) {
-				tiros.removeValue(tiro, true);
+			if(laser.isDestroyed()) {
+				tiros.removeValue(laser, true);
 			}
 		}
 		
 	}
 	public void atirar() {
-		tiros.add(new Tiro(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
+		tiros.add(new Laser(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
 		Gdx.app.log("Vilao atirou", "");
 	}
 
@@ -108,8 +110,8 @@ public class Vilao extends Enemy{
 		}
 	public void draw(Batch batch) {
 		super.draw(batch);
-		for(Tiro tiro:tiros)
-			tiro.draw(batch);
+		for(Laser laser:tiros)
+			laser.draw(batch);
 	}
 
 
