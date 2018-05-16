@@ -55,7 +55,7 @@ public class YouWinScreen implements Screen {
 	@Override
 	public void render(float dt) {
 		if (Gdx.input.justTouched()) { 
-			game.setScreen(new MenuScreen((BioPirataria)game));
+			game.setScreen(new MenuScreenRetorno((BioPirataria)game));
 			dispose();
 		}
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO

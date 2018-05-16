@@ -71,7 +71,7 @@ public class Credits implements Screen {
 	//ONDE ESTÁ O POSSÍVEL ERRO
 	public void render(float dt) {
 		if (Gdx.input.justTouched()) { 
-			game.setScreen(new MenuScreen((BioPirataria)game));
+			game.setScreen(new MenuScreenRetorno((BioPirataria)game));
 			dispose();
 		}
 	//ONDE ESTÁ O POSSÍVEEL ERRO	
