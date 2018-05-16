@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Laser extends Sprite {
 	
+	//podia ter feito outro objeto mas preferi copiar a classe // 
+	
 	PlayScreen screen;
     World world;
     //Array<TextureRegion> frames;
