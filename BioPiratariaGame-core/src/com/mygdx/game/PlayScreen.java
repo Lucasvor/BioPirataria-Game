@@ -203,9 +203,13 @@ public class PlayScreen implements Screen
 				   vilao.setVida(1000);
 			   vilao.setVelocity(90, 0);
 			   paraInimigo = false;
+			   tempohudmessage= 0;
 		   }
+			   if(tempohudmessage > 1) {
 			   vilao.atirar();
+			   tempohudmessage= 0;
 		}
+			   }
 		    
 		}else {
 			if(tempohudmessage > 1 && tempohudmessage < 2) {
