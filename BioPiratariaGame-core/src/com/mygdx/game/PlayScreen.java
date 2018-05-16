@@ -194,7 +194,7 @@ public class PlayScreen implements Screen
 	    	vilao.startgamevilao();
 	    	Vector3 position = gamecam.position;
 		    position.y = gamecam.position.y+1.5f;
-		    //Gdx.app.log("Posição y:"+vilao.getY(), "");
+		   // //Gdx.app.log("Posição y:"+vilao.getY(), "");
 		    
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
 		   if(vilao.getY() >= 18999) {
