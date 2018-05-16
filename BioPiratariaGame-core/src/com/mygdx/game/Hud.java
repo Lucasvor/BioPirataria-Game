@@ -41,12 +41,14 @@ Label pontosTextLabel; // pontos Heroi = score
 Label vidatextLabel; // vida Heroi
 Label vidaInimigoTextLabel; // vida Inimigo
 static FloatingText floatingText;
+
 public static float getTimeCount() {
 	return timeCount;
 }
 
 public Hud(SpriteBatch sb, Game gm) {
 	this.game = gm;
+	
 	//contadores da HUD//
 
 	worldTimer = 1000;
@@ -55,8 +57,6 @@ public Hud(SpriteBatch sb, Game gm) {
 	pontos = 0;
 	vida = 100;
 	vidaInimigo = 1000;
-	
-	
 	
 	
 	//configurações de tamanho , cor do contador e da fonte da HUD //
@@ -68,21 +68,24 @@ public Hud(SpriteBatch sb, Game gm) {
 	Table table = new Table();
 	table.top();
 	table.setFillParent(true);
-    timeCountLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-    pontosLabel = new Label(String.format("%05d",pontos), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-    vidaLabel = new Label(String.format("%02d",vida), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-    vidaInimigoLabel = new Label(String.format("%02d",vidaInimigo), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-    pontosTextLabel = new Label(String.format("Pontos",pontosTextLabel), new Label.LabelStyle(new BitmapFont(),Color.BLUE));
-    timeCountTextLabel = new Label(String.format("Tempo",timeCountTextLabel), new Label.LabelStyle(new BitmapFont(),Color.GREEN));
-    vidatextLabel = new Label(String.format("Vida",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.RED));
-    vidaInimigoTextLabel = new Label(String.format("Vida Inimigo",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.YELLOW));
+	
+    timeCountLabel = new Label(String.format("%03d",worldTimer), new Label.LabelStyle(new BitmapFont(),Color.WHITE)); //numeros do tempo da HUD na cor branca //
+    pontosLabel = new Label(String.format("%05d",pontos), new Label.LabelStyle(new BitmapFont(),Color.WHITE));//numeros de pontos da HUD na cor branca //
+    vidaLabel = new Label(String.format("%02d",vida), new Label.LabelStyle(new BitmapFont(),Color.WHITE));//numeros da vida do heroi HUD na cor branca //
+    vidaInimigoLabel = new Label(String.format("%02d",vidaInimigo), new Label.LabelStyle(new BitmapFont(),Color.WHITE));//numeros da vida do inimigo  HUD na cor branca //
+    pontosTextLabel = new Label(String.format("Pontos",pontosTextLabel), new Label.LabelStyle(new BitmapFont(),Color.BLUE)); //palavra (pontos) na cor azul//
+    timeCountTextLabel = new Label(String.format("Tempo",timeCountTextLabel), new Label.LabelStyle(new BitmapFont(),Color.GREEN));//palavra (tempo) na cor verde//
+    vidatextLabel = new Label(String.format("Vida",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.RED));//palavra (vida) na cor vermelha//
+    vidaInimigoTextLabel = new Label(String.format("Vida Inimigo",vidatextLabel), new Label.LabelStyle(new BitmapFont(),Color.YELLOW));//palavra (inimigo) na cor amarela//
     
     
 
-    table.add(vidatextLabel).expandX().padTop(10);
-    table.add(pontosTextLabel).expandX().padTop(10);
-    table.add(timeCountTextLabel).expandX().padTop(10);
-    table.add(vidaInimigoTextLabel).expandX().padTop(10);
+    // tamanhos da fonte //
+    
+    table.add(vidatextLabel).expandX().padTop(20);
+    table.add(pontosTextLabel).expandX().padTop(20);
+    table.add(timeCountTextLabel).expandX().padTop(20);
+    table.add(vidaInimigoTextLabel).expandX().padTop(20);
     table.row();
     table.add(vidaLabel).expandX();
     table.add(pontosLabel).expandX();

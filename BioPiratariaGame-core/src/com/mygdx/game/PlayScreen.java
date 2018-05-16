@@ -115,9 +115,9 @@ public class PlayScreen implements Screen
         
         world.setContactListener(new WorldContactListener(heroi,this,vilao));
         
-        music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
-        music.setLooping(true);
-        music.play();
+        //music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
+        //music.setLooping(true);
+       // music.play();
         
         
         //Gdx.input.setCursorImage

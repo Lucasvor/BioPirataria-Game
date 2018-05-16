@@ -24,7 +24,7 @@ import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
 
 public class Heroi extends Sprite {
-	public enum State {STANDING , RUNNING, RUNNING2, DEAD};
+	public enum State {STANDING , RUNNING, RUNNING2, RUNNING3, DEAD};
 	public PlayScreen screen;
 	public State currentState;
 	public State previousState;
@@ -36,6 +36,7 @@ public class Heroi extends Sprite {
 	private TextureRegion heroiStand;
 	private Animation<TextureRegion> heroiRun;
 	private Animation<TextureRegion> heroiRun2;
+	private Animation<TextureRegion> heroiRun3;
 	
 	private float stateTimer1;
 	private boolean runningRigth;
@@ -71,7 +72,10 @@ public class Heroi extends Sprite {
 		for(int i = 8; i < 12;i++)
 			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
 		heroiRun2 = new Animation(0.1f,frames);
-		//frames.clear();
+		
+		for(int i = 4; i < 8;i++)
+			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
+		heroiRun3 = new Animation(0.1f,frames);
 		
 		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
 		setBounds(0,0, 29, 62);
@@ -142,9 +146,12 @@ public class Heroi extends Sprite {
 			case RUNNING2:
 				region = heroiRun2.getKeyFrame(stateTimer1,true);
 				break;
+			case RUNNING3:
+				region = heroiRun3.getKeyFrame(stateTimer1,true);
+				break;
 		   case STANDING:
 			   default:
-				   region = heroiStand; //possivel erro//
+				   region = heroiStand;
 				   break;
 		}
 		
@@ -164,10 +171,12 @@ public class Heroi extends Sprite {
 		return region;
 	}
 	
-	public State getState() //possivel erro//
+	public State getState() // esse metodo so pode ser alterado por quem trabalha na UBISOFT //
 	{
 		if(b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
 			return State.RUNNING;
+		else if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x)
+	    	return State.RUNNING;
 	    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0)
 	    	return State.RUNNING2;
 		else
