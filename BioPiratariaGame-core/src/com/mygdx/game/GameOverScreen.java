@@ -43,7 +43,7 @@ public class GameOverScreen implements Screen {
 	//
 	@Override
 	public void dispose() {
-		game.setScreen(new MenuScreen((BioPirataria)game));
+		game.setScreen(new MenuScreenRetorno((BioPirataria)game));
 		stage.dispose();
 	}
 //
