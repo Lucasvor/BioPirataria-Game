@@ -10,9 +10,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
 import com.mygdx.game.Hud;
 import com.mygdx.game.PlayScreen;
+import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
 
 public class Vilao extends Enemy{
@@ -20,6 +22,8 @@ public class Vilao extends Enemy{
 	private TextureRegion vilaoStand;
 	private static int vida;
 	private boolean startgamevilao = false;
+	private Array<Tiro> tiros;
+	PlayScreen screen;
 	public static int getVida() {
 		return vida;
 	}
@@ -39,6 +43,8 @@ public class Vilao extends Enemy{
 		setRegion(vilaoStand);
 		this.vida = vida;
 		this.game = gm;
+		this.screen = screen;
+		tiros = new Array<Tiro>();
 	}
 
 	public void update(float dt) {
@@ -50,9 +56,19 @@ public class Vilao extends Enemy{
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		}
+		for(Tiro tiro: tiros) {
+			tiro.update(dt);
+			
+			if(tiro.isDestroyed()) {
+				tiros.removeValue(tiro, true);
+			}
+		}
 		
 	}
-
+	public void atirar() {
+		tiros.add(new Tiro(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
+		Gdx.app.log("Vilao atirou", "");
+	}
 
 
 	@Override
@@ -86,12 +102,14 @@ public class Vilao extends Enemy{
 	}
 	public void startgamevilao() {
 		if(!startgamevilao) {
-			setVelocity(90, 90);
+			setVelocity(500, 500);
 			startgamevilao = true;
 	}
 		}
-	public void draw(Batch batch){
+	public void draw(Batch batch) {
 		super.draw(batch);
+		for(Tiro tiro:tiros)
+			tiro.draw(batch);
 	}
 
 

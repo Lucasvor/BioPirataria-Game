@@ -56,7 +56,7 @@ public class WorldContactListener implements ContactListener {
         	BioPirataria.manager.get("Songs/sfx_movement_jump2.wav", Sound.class).play();
         	break;
         case BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT:
-        	Vilao.lostVida(10);
+        	//Vilao.lostVida(10);
         	Gdx.app.log("Enemy encostou na borda. - Inicio \nVida: "+Vilao.getVida(), "");
             Vilao.reverseVelocity(true,false);
         	break;
@@ -90,6 +90,24 @@ public class WorldContactListener implements ContactListener {
         	Vilao.lostVida(30);
         	Gdx.app.log("Bala encostou no Inimigo", "");
         	break;
+        case BioPirataria.TIROENEMY_BIT | BioPirataria.HEROI_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.TIROENEMY_BIT) {
+        		Hud.lostLife(10);
+        		Gdx.app.log("Levou um tirou do inimigo", "");
+        		((Tiro)fixA.getUserData()).setToDestroy();
+        	}else {
+        		Hud.lostLife(10);
+        		Gdx.app.log("Levou um tirou do inimigo", "");
+        		((Tiro)fixB.getUserData()).setToDestroy();
+        	}
+        case BioPirataria.TIROENEMY_BIT | BioPirataria.TERRAIN_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.TIROENEMY_BIT) {
+        		Gdx.app.log("tiro inimigo pegou no terreno", "");
+        		((Tiro)fixA.getUserData()).setToDestroy();
+        	}else {
+        		Gdx.app.log("tiro inimigo pegou no terreno", "");
+        		((Tiro)fixB.getUserData()).setToDestroy();
+        	}
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
         	screen.velocity = 2;
         	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");

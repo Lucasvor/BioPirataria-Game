@@ -45,10 +45,19 @@ public class Tiro extends Sprite{
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(getWidth(), getHeight());
 		fdef.shape = shape;
+		if(fireRight) {
 		fdef.filter.categoryBits = BioPirataria.TIRO_BIT;
 		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT;
+		}else {
+			fdef.filter.categoryBits = BioPirataria.TIROENEMY_BIT;
+			fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.HEROI_BIT;
+		}
 		b2body.createFixture(fdef).setUserData(this);
-		b2body.setLinearVelocity(new Vector2(0,200));
+		
+		if(fireRight)
+		b2body.setLinearVelocity(new Vector2(0,1000));
+		else
+		b2body.setLinearVelocity(new Vector2(0,-1000));
 	}
 	public void update(float dt) {
 		stateTime += dt;

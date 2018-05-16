@@ -49,6 +49,7 @@ public class FloatingText extends Actor{
      
             // The text will be fading.
             font.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * (1 - elapsed / animationDuration));
+            font.getData().setScale(3);
      
             font.draw(batch, text, getX() + deltaX * elapsed / 1000f, getY() + deltaY * elapsed / 1000f);
             //font.draw(batch, text, getX() + deltaX * elapsed / 1000f, getY());

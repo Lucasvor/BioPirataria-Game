@@ -76,6 +76,10 @@ public class PlayScreen implements Screen
 	// tempo para o heroi leva dano continuo
 	
 	private float tempolava;
+	private float tempohudmessage;
+	private boolean timemessage1 = true, timemessage2 = true,timemessage3 = true,timemessage4 = true,timemessage5 = true;
+	private boolean paraInimigo = true;
+
 	
 	PlayScreen(BioPirataria game, Game gm) {
 		atlas = new TextureAtlas("heroi2.pack");
@@ -97,8 +101,9 @@ public class PlayScreen implements Screen
         
 
 		hud = new Hud(BioPirataria.batch, gm);
+		vilao = new Vilao(this, 100,200,1000,gm);
         heroi = new Heroi(this, 100, gm);
-        vilao = new Vilao(this, 100,200,1000,gm);
+        
 
         // bullet
 //        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
@@ -159,6 +164,9 @@ public class PlayScreen implements Screen
     		BioPirataria.manager.get("Songs/sfx_weapon_singleshot13.wav",Sound.class).play();
     		heroi.atirar();
     	}
+    	if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+    		vilao.atirar();
+    	}
 	    // personagem com desenho
 		
 		//heroi.b2body.getLinearVelocityFromLocalPoint(new Vector2(0,0));
@@ -181,15 +189,56 @@ public class PlayScreen implements Screen
 	    stateTime += dt;
 	    tempolava += dt;
 	    timePontos += dt;
-	    if(stateTime > 5) {
+	    tempohudmessage += dt;
+	    if(stateTime > 6) {
 	    	vilao.startgamevilao();
 	    	Vector3 position = gamecam.position;
 		    position.y = gamecam.position.y+1.5f;
+		    //Gdx.app.log("Posição y:"+vilao.getY(), "");
 		    
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
+		   if(vilao.getY() >= 18999) {
+			   if(paraInimigo) {
+				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",200, 250);
+				   vilao.setVida(1000);
+			   vilao.setVelocity(90, 0);
+			   paraInimigo = false;
+		   }
+			   vilao.atirar();
+		}
 		    
 		}else {
-			Hud.hudanimtext();
+			if(tempohudmessage > 1 && tempohudmessage < 2) {
+				if(timemessage1) {
+					timemessage1 = false;
+			Hud.hudanimtext("Salve os seus animais!!!",200, 250);
+				}
+				
+			}
+			else if(tempohudmessage > 2 && tempohudmessage < 3) {
+				if(timemessage2) {
+					timemessage2 = false;
+				Hud.hudanimtext("3",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				}
+				}
+			else if(tempohudmessage > 3 && tempohudmessage < 4) {
+				if(timemessage3) {
+					timemessage3 = false;
+				Hud.hudanimtext("2",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				}}
+			else if(tempohudmessage > 4 && tempohudmessage < 5) {
+				if(timemessage4) {
+					timemessage4 = false;
+				Hud.hudanimtext("1",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				}
+			}
+			else if(tempohudmessage > 5 && tempohudmessage < 6) {
+				if(timemessage5) {
+					timemessage5 = false;
+				Hud.hudanimtext("Vaaaaaaaiiiiiiii",280, 250);
+				}
+			}
+				
 			gamecam.position.set(gamecam.position.x,gamecam.position.y+1,0);
 		}
 	    if(timePontos > 3) {

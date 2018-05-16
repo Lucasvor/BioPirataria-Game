@@ -19,7 +19,7 @@ import Tools.FloatingText;
 
 public class Hud implements Disposable{
 
-public Stage stage;
+public static Stage stage;
 private Viewport viewport;
 
 //variaveis da HUD (tabela de pontos , vida etc.)//
@@ -89,11 +89,11 @@ public Hud(SpriteBatch sb, Game gm) {
     table.add(timeCountLabel).expandX();
     table.add(vidaInimigoLabel).expandX();
     
-    floatingText = new FloatingText("SALVE OS ANIMAIS DA FAZENDA!!!!", TimeUnit.SECONDS.toMillis(150));
-    floatingText.setPosition(280, 250);
-    floatingText.setDeltaY(100);
+//    floatingText = new FloatingText("SALVE OS ANIMAIS DA FAZENDA!!!!", TimeUnit.SECONDS.toMillis(150));
+//    floatingText.setPosition(280, 250);
+//    floatingText.setDeltaY(100);
      
-    stage.addActor(floatingText);
+    //stage.addActor(floatingText);
 	
 	stage.addActor(table);
 }
@@ -134,7 +134,12 @@ public static void addPontos(int ponto) {
 	pontos += ponto;
 	pontosLabel.setText(String.format("%02d",pontos));
 }
-public static void hudanimtext() {
+
+public static void hudanimtext(String text,float x,float y) {
+	floatingText = new FloatingText(text, TimeUnit.SECONDS.toMillis(150));
+    floatingText.setPosition(x,y);
+    floatingText.setDeltaY(100);
+    stage.addActor(floatingText);
 	if(!floatingText.isAnimated())
 		floatingText.animate();
 	

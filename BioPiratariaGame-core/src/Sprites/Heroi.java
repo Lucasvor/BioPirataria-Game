@@ -209,7 +209,7 @@ public class Heroi extends Sprite {
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
-		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT;
+		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT | BioPirataria.TIROENEMY_BIT;
 		b2body.createFixture(fdef).setUserData("Corpo");
 		
 //		EdgeShape head = new EdgeShape();
