@@ -161,7 +161,7 @@ public class PlayScreen implements Screen
     	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 //    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
 //    		bulletManager.add(myBullet);
-    		BioPirataria.manager.get("Songs/sfx_weapon_singleshot13.wav",Sound.class).play();
+    		BioPirataria.manager.get("Songs/Tiro2.mp3",Sound.class).play();
     		heroi.atirar();
     	}
     	if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {

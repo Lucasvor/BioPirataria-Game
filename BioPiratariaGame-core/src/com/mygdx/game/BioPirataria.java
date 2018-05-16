@@ -32,9 +32,11 @@ public class BioPirataria extends Game {
         batch = new SpriteBatch();
         manager = new AssetManager();
         manager.load("Songs/Venus.ogg", Music.class);
-        manager.load("Songs/sfx_weapon_singleshot13.wav", Sound.class);
+        manager.load("Songs/Tiro2.mp3", Sound.class);
         manager.load("Songs/sfx_movement_jump2.wav", Sound.class);
         manager.load("Songs/Mercury.wav", Sound.class);
+        manager.load("Songs/Fogo.mp3", Sound.class);
+        manager.load("Songs/ocean3.mp3", Sound.class);
         manager.finishLoading();
         //player = new Sprite(new Texture("Human.jpg"));
         //setScreen(new PlayScreen(this));
