@@ -199,7 +199,7 @@ public class PlayScreen implements Screen
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
 		   if(vilao.getY() >= 18999) {
 			   if(paraInimigo) {
-				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",200, 250);
+				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",100, 250);
 				   vilao.setVida(1000);
 			   vilao.setVelocity(90, 0);
 			   paraInimigo = false;
