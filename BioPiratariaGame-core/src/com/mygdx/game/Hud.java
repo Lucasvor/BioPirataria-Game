@@ -51,7 +51,7 @@ public Hud(SpriteBatch sb, Game gm) {
 	
 	//contadores da HUD//
 
-	worldTimer = 1000;
+	worldTimer = 1;
 
 	timeCount = 0;
 	pontos = 0;
@@ -104,7 +104,7 @@ public void update(float dt){
     timeCount += dt;
     if(timeCount >= 1){
         if (worldTimer > 0) {
-            worldTimer--;
+            worldTimer++;
         } else {
             timeUp = true;
         }

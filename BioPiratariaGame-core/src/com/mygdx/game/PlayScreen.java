@@ -210,11 +210,14 @@ public class PlayScreen implements Screen
 			   paraInimigo = false;
 			   tempohudmessage= 0;
 		   }
-			   if(tempohudmessage > 1) {
+			   
+			   if(tempohudmessage > 0.5) {
 			   vilao.atirar();
 			   tempohudmessage= 0;
-		}
 			   }
+			   
+			   
+}
 		    
 		}else {
 			if(tempohudmessage > 1 && tempohudmessage < 2) {
