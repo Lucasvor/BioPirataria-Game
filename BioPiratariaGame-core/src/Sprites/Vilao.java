@@ -2,6 +2,7 @@ package Sprites;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -69,6 +70,7 @@ public class Vilao extends Enemy{
 	public void atirar() {
 		tiros.add(new Tiro(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
 		Gdx.app.log("Vilao atirou", "");
+		BioPirataria.manager.get("Songs/laser6.wav", Sound.class).play();
 	}
 
 

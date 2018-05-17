@@ -38,6 +38,7 @@ public class BioPirataria extends Game {
         manager.load("Songs/Mercury.wav", Sound.class);
         manager.load("Songs/Fogo.mp3", Sound.class); // som para quando pisar na lava
         manager.load("Songs/ocean3.mp3", Sound.class); // som para quando pisar na agua
+        manager.load("Songs/laser6.wav", Sound.class);
         manager.finishLoading();
         this.setScreen(new MenuScreen(this));
 	}

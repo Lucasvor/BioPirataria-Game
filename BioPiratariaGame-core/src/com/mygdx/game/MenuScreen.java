@@ -110,6 +110,7 @@ public class MenuScreen implements Screen{
 			BioPirataria.batch.draw(creditsbtnactive, x, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
 			if(Gdx.input.isTouched()) {
 			game.setScreen(new Credits(game));
+			BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).stop();
 			}
 		}else {
 			BioPirataria.batch.draw(creditsbtninactive, BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35, 160, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);

@@ -62,6 +62,7 @@ public class MenuScreenRetorno implements Screen{
 OrthographicCamera());
 		
 		//Música do menu
+		BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).play();
 		
 		title = new Texture("biopiratariatitle.png");
 		playbtnactive = new Texture("playbtnactv.png"); //JOGAR ATIVO
@@ -98,7 +99,7 @@ OrthographicCamera());
 BioPirataria.V_HEIGHT - Gdx.input.getY() > 325) {
 		BioPirataria.batch.draw(playbtnactive, BioPirataria.V_WIDTH/2 - QUIT_BUTTOM_WIDTH - (-33), 250 
 
-, PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT);
+, PLAY_BUTTOM_WIDTH, PLAY_BUTTOM_HEIGHT); 
 		if(Gdx.input.isTouched()) {
 			BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).pause();
 			game.setScreen(new PlayScreen(null,game));
@@ -118,6 +119,7 @@ BioPirataria.V_HEIGHT - Gdx.input.getY() > 280) {
 
 (-17), 187, CREDITS_BUTTOM_WIDTH, CREDITS_BUTTOM_HEIGHT);
 			if(Gdx.input.isTouched()) {
+				BioPirataria.manager.get("Songs/Mercury.wav", Sound.class).stop();
 			game.setScreen(new Credits(game));
 			}
 		}else {

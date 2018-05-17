@@ -282,7 +282,10 @@ public class PlayScreen implements Screen
 		BioPirataria.batch.setProjectionMatrix(gamecam.combined);
 		
 		renderer.render();
-		b2ddr.render(world,gamecam.combined);
+		
+		//b2ddr.render(world,gamecam.combined);
+		
+		
 		BioPirataria.batch.begin();
 		heroi.draw(game.batch);
 		vilao.draw(game.batch);
