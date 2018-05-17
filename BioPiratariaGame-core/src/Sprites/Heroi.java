@@ -252,5 +252,8 @@ public class Heroi extends Sprite {
 //		b2body.createFixture(fdef).setUserData("Head");
 		
 	}
+	public void finaldojogo() {
+		b2body.setTransform(new Vector2(450,18700), 0);
+	}
 
 }

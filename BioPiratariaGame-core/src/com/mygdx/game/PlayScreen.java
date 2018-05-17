@@ -167,6 +167,11 @@ public class PlayScreen implements Screen
     	if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {
     		vilao.atirar();
     	}
+    	if(Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+    		vilao.finaldoJogo();
+    		heroi.finaldojogo();
+    	}
+    		
 	    // personagem com desenho
 		
 		//heroi.b2body.getLinearVelocityFromLocalPoint(new Vector2(0,0));

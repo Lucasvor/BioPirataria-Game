@@ -112,6 +112,9 @@ public class Vilao extends Enemy{
 		for(Tiro laser:tiros)
 			laser.draw(batch);
 	}
+	public void finaldoJogo() {
+		b2body.setTransform(new Vector2(400,18900), 0);
+	}
 
 
 
