@@ -24,7 +24,8 @@ public class MenuScreen implements Screen{
 	
 	//tela Menu Principal//
 	//ALTURA E LARGURA DOS BOTÕES DO MENU
-	Animation<TextureRegion> animation;;
+	Animation<TextureRegion> animation;
+	Animation<TextureRegion> anim;
 	
 	float stateTime;
 	private static final int PLAY_BUTTOM_WIDTH = 92;
@@ -65,7 +66,7 @@ public class MenuScreen implements Screen{
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
-		//animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read()); //GIF da tela inicial
+		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menugif.gif").read()); //GIF da tela inicial
 	}
 	
 	@Override
@@ -81,7 +82,8 @@ public class MenuScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
 		stateTime += dt;
-		//BioPirataria.batch.draw(animation.getKeyFrame(stateTime),-30,-40);
+		
+		BioPirataria.batch.draw(animation.getKeyFrame(stateTime),0,0);
 		
 		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		

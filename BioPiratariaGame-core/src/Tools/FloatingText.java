@@ -12,13 +12,15 @@ public class FloatingText extends Actor{
     private boolean animated = false;
     private long animationStart;
     float statetime;
+    int scale;
     
  
     private BitmapFont font = new BitmapFont();
  
-    public FloatingText(String text, long animationDuration) {
+    public FloatingText(String text, long animationDuration,int scale) {
         this.text = text;
         this.animationDuration = animationDuration;
+        this.scale = scale;
     }
     
     public void setDeltaX(float deltaX) {
@@ -48,8 +50,11 @@ public class FloatingText extends Actor{
            float elapsed = System.currentTimeMillis() - animationStart;
      
             // The text will be fading.
-            font.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * (1 - elapsed / animationDuration));
-            font.getData().setScale(3);
+           if(scale == 2)
+            font.setColor(getColor().r, 0, 0, parentAlpha * (1 - elapsed / animationDuration));
+           else
+        	   font.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * (1 - elapsed / animationDuration));
+            font.getData().setScale(scale);
      
             font.draw(batch, text, getX() + deltaX * elapsed / 1000f, getY() + deltaY * elapsed / 1000f);
             //font.draw(batch, text, getX() + deltaX * elapsed / 1000f, getY());

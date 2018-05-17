@@ -138,8 +138,8 @@ public static void addPontos(int ponto) {
 	pontosLabel.setText(String.format("%02d",pontos));
 }
 
-public static void hudanimtext(String text,float x,float y) {
-	floatingText = new FloatingText(text, TimeUnit.SECONDS.toMillis(150));
+public static void hudanimtext(String text,float x,float y,int scale) {
+	floatingText = new FloatingText(text, TimeUnit.SECONDS.toMillis(150),scale);
     floatingText.setPosition(x,y);
     floatingText.setDeltaY(100);
     stage.addActor(floatingText);

@@ -202,9 +202,9 @@ public class PlayScreen implements Screen
 		   // //Gdx.app.log("Posição y:"+vilao.getY(), "");
 		    
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
-		   if(vilao.getY() >= 18999) {
+		   if(vilao.getY() >= 19050) {
 			   if(paraInimigo) {
-				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",0, 250);
+				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",150, 250,2);
 				   vilao.setVida(1000);
 			   vilao.setVelocity(90, 0);
 			   paraInimigo = false;
@@ -216,38 +216,37 @@ public class PlayScreen implements Screen
 			   tempohudmessage= 0;
 			   }
 			   
-			   
-}
+		   }
 		    
 		}else {
 			if(tempohudmessage > 1 && tempohudmessage < 2) {
 				if(timemessage1) {
 					timemessage1 = false;
-			Hud.hudanimtext("Mate o inimigo e Salve os animais",100, 250);
+			Hud.hudanimtext("Mate o inimigo e Salve os animais",70, 250,3);
 				}
 				
 			}
 			else if(tempohudmessage > 2 && tempohudmessage < 3) {
 				if(timemessage2) {
 					timemessage2 = false;
-				Hud.hudanimtext("3",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				Hud.hudanimtext("3",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2,3);
 				}
 				}
 			else if(tempohudmessage > 3 && tempohudmessage < 4) {
 				if(timemessage3) {
 					timemessage3 = false;
-				Hud.hudanimtext("2",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				Hud.hudanimtext("2",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2,3);
 				}}
 			else if(tempohudmessage > 4 && tempohudmessage < 5) {
 				if(timemessage4) {
 					timemessage4 = false;
-				Hud.hudanimtext("1",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2);
+				Hud.hudanimtext("1",BioPirataria.V_WIDTH/2,BioPirataria.V_HEIGHT/2,3);
 				}
 			}
 			else if(tempohudmessage > 5 && tempohudmessage < 6) {
 				if(timemessage5) {
 					timemessage5 = false;
-				Hud.hudanimtext("Vaaaaaaaiiiiiiii",280, 250);
+				Hud.hudanimtext("GOOOOOOOO",280, 250,3);
 				}
 			}
 				
@@ -263,6 +262,7 @@ public class PlayScreen implements Screen
 	    }
 	    
 	    //gamecam.position.x = heroi.b2body.getPosition().y;
+	    
 	    gamecam.update();
 	    
 	    //gamecam.position.y *= 5;

@@ -9,5 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new BioPirataria(), config);
 		config.resizable = false;
+		config.title = "Game - BioPirataria";
+		
 	}
 }

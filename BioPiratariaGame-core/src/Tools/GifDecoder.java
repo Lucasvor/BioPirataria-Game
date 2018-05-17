@@ -27,8 +27,8 @@ public class GifDecoder {
     protected static final int MAX_STACK_SIZE = 4096;
     protected InputStream in;
     protected int status;
-    protected int width; // full image width
-    protected int height; // full image height
+    protected int width = 800; // full image width
+    protected int height = 600; // full image height
     protected boolean gctFlag; // global color table used
     protected int gctSize; // size of global color table
     protected int loopCount = 1; // iterations; 0 = repeat forever
