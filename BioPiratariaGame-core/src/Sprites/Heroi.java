@@ -173,6 +173,28 @@ public class Heroi extends Sprite {
 	
 	public State getState() // esse metodo so pode ser alterado por quem trabalha na UBISOFT //
 	{
+		/*(if(b2body.getLinearVelocity().y > 0 && b2body.getLinearVelocity().x < 0) {
+			Gdx.app.log("Estou andando para Y> e X<", "");
+			return State.RUNNING2;
+			
+		}
+		else if (b2body.getLinearVelocity().y > 0 && b2body.getLinearVelocity().x > 0)
+			return State.RUNNING2;
+		else if(b2body.getLinearVelocity().y < 0 && b2body.getLinearVelocity().x > 0)
+			return State.RUNNING2;
+		else if(b2body.getLinearVelocity().x < 0 && b2body.getLinearVelocity().y < 0)
+				return State.RUNNING2;
+		else if(b2body.getLinearVelocity().y > 0)		
+				return State.RUNNING;
+		else if(b2body.getLinearVelocity().y < 0)
+			   return State.RUNNING;
+		else if(b2body.getLinearVelocity().x > 0)
+			return State.RUNNING2;
+		else if(b2body.getLinearVelocity().x < 0)
+			return State.RUNNING2;
+		else
+			return State.STANDING;*/
+		
 		if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x)
     	return State.RUNNING;
 	else if (b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
@@ -220,7 +242,7 @@ public class Heroi extends Sprite {
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
-		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT | BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT | BioPirataria.TIROENEMY_BIT;
+		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT |BioPirataria.TIROENEMY_BIT| BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT  ;
 		b2body.createFixture(fdef).setUserData("Corpo");
 		
 //		EdgeShape head = new EdgeShape();

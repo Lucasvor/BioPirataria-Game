@@ -199,7 +199,7 @@ public class PlayScreen implements Screen
 		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
 		   if(vilao.getY() >= 18999) {
 			   if(paraInimigo) {
-				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",100, 250);
+				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",0, 250);
 				   vilao.setVida(1000);
 			   vilao.setVelocity(90, 0);
 			   paraInimigo = false;
@@ -215,7 +215,7 @@ public class PlayScreen implements Screen
 			if(tempohudmessage > 1 && tempohudmessage < 2) {
 				if(timemessage1) {
 					timemessage1 = false;
-			Hud.hudanimtext("Salve os seus animais!!!",200, 250);
+			Hud.hudanimtext("Mate o inimigo e Salve os animais",100, 250);
 				}
 				
 			}

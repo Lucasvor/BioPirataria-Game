@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BioPirataria;
 import com.mygdx.game.Hud;
-import com.mygdx.game.Laser;
 import com.mygdx.game.PlayScreen;
 import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
@@ -23,7 +22,7 @@ public class Vilao extends Enemy{
 	private TextureRegion vilaoStand;
 	private static int vida;
 	private boolean startgamevilao = false;
-	private Array<Laser> tiros;
+	private Array<Tiro> tiros;
 	PlayScreen screen;
 	public static int getVida() {
 		return vida;
@@ -46,7 +45,7 @@ public class Vilao extends Enemy{
 		this.vida = vida;
 		this.game = gm;
 		this.screen = screen;
-		tiros = new Array<Laser>();
+		tiros = new Array<Tiro>();
 	}
 
 	public void update(float dt) {
@@ -58,7 +57,7 @@ public class Vilao extends Enemy{
 		b2body.setLinearVelocity(velocity);
 		setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight() / 2);
 		}
-		for(Laser laser: tiros) {
+		for(Tiro laser: tiros) {
 			laser.update(dt);
 			
 			if(laser.isDestroyed()) {
@@ -68,7 +67,7 @@ public class Vilao extends Enemy{
 		
 	}
 	public void atirar() {
-		tiros.add(new Laser(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
+		tiros.add(new Tiro(screen,b2body.getPosition().x-50,b2body.getPosition().y-50,false));
 		Gdx.app.log("Vilao atirou", "");
 	}
 
@@ -95,7 +94,7 @@ public class Vilao extends Enemy{
 		fdef.shape = dynamicCircle;
 		fdef.restitution = 80;
 		fdef.filter.categoryBits = BioPirataria.ENEMY_BIT;
-		fdef.filter.maskBits = BioPirataria.HEROI_BIT | BioPirataria.BORDAS_BIT;
+		fdef.filter.maskBits = BioPirataria.HEROI_BIT | BioPirataria.BORDAS_BIT | BioPirataria.TIRO_BIT;
 		
 		b2body.createFixture(fdef).setUserData("Enemy");
 		
@@ -110,7 +109,7 @@ public class Vilao extends Enemy{
 		}
 	public void draw(Batch batch) {
 		super.draw(batch);
-		for(Laser laser:tiros)
+		for(Tiro laser:tiros)
 			laser.draw(batch);
 	}
 

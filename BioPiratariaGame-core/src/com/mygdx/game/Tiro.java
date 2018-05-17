@@ -28,8 +28,15 @@ public class Tiro extends Sprite{
     	this.fireRight = fireRight;
         this.screen = screen;
         this.world = screen.getWorld();
+        if(fireRight) {
         tiroStand = new TextureRegion(new Texture("bala.png"),0,0,16,16);
-		setBounds(x, y, 16, 16);
+        setBounds(x, y, 16, 16);
+        }
+        else
+        {
+        	tiroStand = new TextureRegion(new Texture("laser.png"),0,0,11,39);
+		setBounds(x, y, 11, 39);
+        }
 		setRegion(tiroStand);
         defineFireBall();
     }

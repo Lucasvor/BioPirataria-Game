@@ -109,15 +109,29 @@ public class WorldContactListener implements ContactListener {
         		((Tiro)fixB.getUserData()).setToDestroy();
         	}
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
         	screen.velocity = 2;
         	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");
         	BioPirataria.manager.get("Songs/ocean3.mp3", Sound.class).play();
+        	}
+        	if(fixB.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
+        		screen.velocity = 2;
+            	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");
+            	BioPirataria.manager.get("Songs/ocean3.mp3", Sound.class).play();
+        	}
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.LAVA_BIT:
+        	if(fixA.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
         	//Hud.lostLife(1);
         	screen.heroiLava = true;
         	Gdx.app.log("Heroi encostou na lava", "");
         	BioPirataria.manager.get("Songs/Fogo.mp3", Sound.class).play();
+        	}
+        	if(fixB.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
+        		screen.heroiLava = true;
+            	Gdx.app.log("Heroi encostou na lava", "");
+            	BioPirataria.manager.get("Songs/Fogo.mp3", Sound.class).play();
+        	}
         	break;
         }
 	}
