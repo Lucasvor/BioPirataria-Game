@@ -70,7 +70,7 @@ OrthographicCamera());
 		creditsbtninactive = new Texture("creditsbtninactv.png"); //CRÉDITOS INATIVO
 		quitbtnactive = new Texture("quitbtnactv.png"); //SAIR ATIVO
 		quitbtninactive = new Texture("quitbtninactv.png"); // SAIR INATIVO
-		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal ("menugif.gif").read()); //GIF da tela inicial
+		//animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal ("menugif.gif").read()); //GIF da tela inicial
 	}
 	
 	@Override
@@ -85,9 +85,9 @@ OrthographicCamera());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
 		stateTime += dt;
-		BioPirataria.batch.draw(animation.getKeyFrame(stateTime),0,0);
+		//BioPirataria.batch.draw(animation.getKeyFrame(stateTime),0,0);
 		
-		BioPirataria.batch.draw(title, 110, 345, TITLE_WIDTH, TITLE_HEIGHT); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
+		BioPirataria.batch.draw(title, 140, 420, TITLE_WIDTH, TITLE_HEIGHT); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 
 		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis
 		
