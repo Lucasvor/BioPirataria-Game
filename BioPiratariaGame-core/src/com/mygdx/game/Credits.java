@@ -21,6 +21,7 @@ public class Credits implements Screen {
 	private Stage stage;
 	private Game game;
 	
+	// cria testura com nome dos participantes do grupo e os dados do curso
 	private Texture unip;
 	private Texture semestres;
 	private Texture annyg;
@@ -31,12 +32,17 @@ public class Credits implements Screen {
 	private Texture luize;
 	private Texture phelipet;
 	
+	
+	// 
 	public Credits(Game game) {
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, ((BioPirataria)game).batch);
 		Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
+		
+		//adiciona a imagem a textura 
+		
 		unip = new Texture("creditsImages/unip.png");
 		semestres = new Texture("creditsImages/semestres.png");
 		annyg = new Texture("creditsImages/annyg.png");
@@ -47,6 +53,7 @@ public class Credits implements Screen {
 		luize = new Texture("creditsImages/luize.png");
 		phelipet = new Texture("creditsImages/phelipet.png");
 		
+		// retorna para tela inicial
 		Table table = new Table();
 		table.center();
 		table.setFillParent(true);
@@ -68,14 +75,15 @@ public class Credits implements Screen {
 	public void pause() {}
 
 	@Override
-	//ONDE ESTÁ O POSSÍVEL ERRO
 	public void render(float dt) {
 		if (Gdx.input.justTouched()) { 
 			game.setScreen(new MenuScreenRetorno((BioPirataria)game));
 			dispose();
 		}
-	//ONDE ESTÁ O POSSÍVEEL ERRO	
 	
+		
+		//posição de cada textura da tela
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();

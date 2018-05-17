@@ -131,7 +131,7 @@ public class PlayScreen implements Screen
 	public void handleInput(float dt){
 		
 	    
-		//Define as teclas que serão utilizadas para a movimentação do personagem
+		//Define as teclas que serão utilizadas para a movimentação do personagem e para qual lado elas levam
 		
 	if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)){	
 		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,velocity), heroi.getBody().getWorldCenter(), true);

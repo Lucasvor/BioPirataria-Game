@@ -91,15 +91,11 @@ public Hud(SpriteBatch sb, Game gm) {
     table.add(pontosLabel).expandX();
     table.add(timeCountLabel).expandX();
     table.add(vidaInimigoLabel).expandX();
-    
-//    floatingText = new FloatingText("SALVE OS ANIMAIS DA FAZENDA!!!!", TimeUnit.SECONDS.toMillis(150));
-//    floatingText.setPosition(280, 250);
-//    floatingText.setDeltaY(100);
-     
-    //stage.addActor(floatingText);
 	
 	stage.addActor(table);
 }
+// condições para adicionar tempo ao jogo
+
 public void update(float dt){
     timeCount += dt;
     if(timeCount >= 1){
@@ -112,7 +108,7 @@ public void update(float dt){
         timeCount = 0;
     }  
     if(worldTimer == 0) {
-    	Gdx.app.log("Seu tempo acabou, gameover!", "");
+    	Gdx.app.log("Seu tempo acabou, gameover!", ""); // se o tempo chegar a 0 aparece a tela game over
     	game.setScreen(new GameOverScreen(game));
     }
 } 
@@ -122,7 +118,7 @@ public static void setvidaHeroi(int vidaHeroi) {
 public static void setvidaInimigo(int vida) {
 	vidaInimigoLabel.setText(String.format("%02d",vida));
 }
-public static void lostLife(int life) {
+public static void lostLife(int life) { // se a vida chegar a 0 aparece a tela game over
 	vida -= life;
 	vidaLabel.setText(String.format("%02d",vida));
 	if(getVidaHeroi() <= 0) {

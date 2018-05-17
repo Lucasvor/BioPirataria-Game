@@ -92,7 +92,8 @@ public class Heroi extends Sprite {
 	public void update(float dt) {
 
 		if(afastaheroi) {
-			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100), 0);// move o personagem para baixo.
+			// move o personagem para baixo.
+			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100), 0);
 			
 			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100);
 			afastaheroi= false;

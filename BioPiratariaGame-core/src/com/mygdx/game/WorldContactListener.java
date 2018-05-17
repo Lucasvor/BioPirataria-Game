@@ -27,6 +27,8 @@ public class WorldContactListener implements ContactListener {
 	}
 	public void beginContact(Contact contact) {
 		
+		// retorna mensagens e sons com base na colisão de cada coisa
+		
 		Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;

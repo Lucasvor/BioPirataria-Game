@@ -19,14 +19,15 @@ public class YouWinScreen implements Screen {
 	private Stage stage;
 	private Game game;
 	
-	private static final int youWin_width = 190;
+	// tamanho na tela//
+	private static final int youWin_width = 190; 
 	private static final int youWin_height = 70;
 	
 	private Texture youWinBanner;
 	
 	public YouWinScreen(Game game) {
 		this.game = game;
-		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
+		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera()); 
 		stage = new Stage(viewport, ((BioPirataria)game).batch);
 		Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 		
@@ -35,7 +36,7 @@ public class YouWinScreen implements Screen {
 		table.center();
 		table.setFillParent(true);
 		
-		Label clickToReturn = new Label("Click para Retornar ao Menu ", font);
+		Label clickToReturn = new Label("Click para Retornar ao Menu ", font); //texto clique para retornar na tela YouWin
 		table.add(clickToReturn).expandX().padTop(500f);
 		table.row();
 		stage.addActor(table);

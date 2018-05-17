@@ -15,8 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Tiro extends Sprite{
     PlayScreen screen;
     World world;
-    //Array<TextureRegion> frames;
-    //Animation fireAnimation;
+    
     float stateTime;
     boolean destroyed;
     boolean setToDestroy=false;
@@ -29,12 +28,12 @@ public class Tiro extends Sprite{
         this.screen = screen;
         this.world = screen.getWorld();
         if(fireRight) {
-        tiroStand = new TextureRegion(new Texture("bala.png"),0,0,16,16);
+        tiroStand = new TextureRegion(new Texture("bala.png"),0,0,16,16); //cria uma textura da bala do heroi
         setBounds(x, y, 16, 16);
         }
         else
         {
-        	tiroStand = new TextureRegion(new Texture("laser.png"),0,0,11,39);
+        	tiroStand = new TextureRegion(new Texture("laser.png"),0,0,11,39); //cria uma textura do laser do inimigo
 		setBounds(x, y, 11, 39);
         }
 		setRegion(tiroStand);
@@ -42,6 +41,9 @@ public class Tiro extends Sprite{
     }
 
 	private void defineFireBall() {
+		
+		//cria a colisão das balas e indica quando elas são destruidas
+		
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(getX(),getY()+20);
 		bdef.type = BodyType.DynamicBody;

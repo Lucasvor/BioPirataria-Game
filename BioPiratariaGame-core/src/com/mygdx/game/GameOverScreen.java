@@ -19,7 +19,7 @@ public class GameOverScreen implements Screen {
 	private Stage stage;
 	private Game game;
 	
-	private static final int gameOver_width = 190;
+	private static final int gameOver_width = 190; //tamanho na tela 
 	private static final int gameOver_height = 70;
 	
 	private Texture gameOverBanner;
@@ -30,7 +30,7 @@ public class GameOverScreen implements Screen {
 		stage = new Stage(viewport, ((BioPirataria)game).batch);
 		Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 		
-		gameOverBanner = new Texture("gameover.png");
+		gameOverBanner = new Texture("gameover.png"); // cria textura do banner da tela game over
 		
 		Table table = new Table();
 		table.center();
