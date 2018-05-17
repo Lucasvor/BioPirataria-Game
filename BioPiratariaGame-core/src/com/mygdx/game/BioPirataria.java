@@ -31,15 +31,14 @@ public class BioPirataria extends Game {
 	public void create () {
         batch = new SpriteBatch();
         manager = new AssetManager();
-        manager.load("Songs/Venus.ogg", Music.class);
-        manager.load("Songs/Tiro2.mp3", Sound.class);
-        manager.load("Songs/sfx_movement_jump2.wav", Sound.class);
+        manager.load("Songs/Venus.ogg", Music.class); // musica do jogo
+        manager.load("Songs/Tiro2.mp3", Sound.class); // som para tiro do heroi
+        manager.load("Songs/sfx_weapon_singleshot13.wav", Sound.class); // som para tiro do inimigo
+        manager.load("Songs/sfx_movement_jump2.wav", Sound.class); // som para colisões
         manager.load("Songs/Mercury.wav", Sound.class);
-        manager.load("Songs/Fogo.mp3", Sound.class);
-        manager.load("Songs/ocean3.mp3", Sound.class);
+        manager.load("Songs/Fogo.mp3", Sound.class); // som para quando pisar na lava
+        manager.load("Songs/ocean3.mp3", Sound.class); // som para quando pisar na agua
         manager.finishLoading();
-        //player = new Sprite(new Texture("Human.jpg"));
-        //setScreen(new PlayScreen(this));
         this.setScreen(new MenuScreen(this));
 	}
 

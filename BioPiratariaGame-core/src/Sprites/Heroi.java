@@ -24,83 +24,69 @@ import com.mygdx.game.Tiro;
 import com.mygdx.game.YouWinScreen;
 
 public class Heroi extends Sprite {
-	public enum State {STANDING , RUNNING, RUNNING2, RUNNING3, DEAD};
-	public PlayScreen screen;
-	public State currentState;
-	public State previousState;
-	public World world;
-	public Body b2body;
+	public enum State {STANDING , RUNNING, RUNNING2, RUNNING3, DEAD}; //variaveis de estado
+	public PlayScreen screen; //tela
+	public State currentState; //estado atual
+	public State previousState; // estado anterior
+	public World world; // mundo 
+	public Body b2body; //box2dbody
 	
 	// variaveis da animação//
 	
-	private TextureRegion heroiStand;
-	private Animation<TextureRegion> heroiRun;
-	private Animation<TextureRegion> heroiRun2;
-	private Animation<TextureRegion> heroiRun3;
+	private TextureRegion heroiStand; //textura estatica
+	private Animation<TextureRegion> heroiRun; //textura que armazena a animação 1
+	private Animation<TextureRegion> heroiRun2; //textura que armazena a animação 2
 	
-	private float stateTimer1;
-	private boolean runningRigth;
-	private boolean runningUP;
-	private boolean runningLeft;
-	private boolean runningDown;
+	private float stateTimer1; //tempo do estado
+	private boolean runningRigth; //variavel booleana para rodar a textura
 
 	private boolean afastaheroi; //afasta o heroi quando encosta nele
-	private Array<Tiro> tiros;
+	private Array<Tiro> tiros; // importa os tiros da classe tiro e define a variavel
 	
 	private Game game;
 	
-
 	public Heroi(PlayScreen screen, int vidaHeroi, Game gm) {
-		super(screen.getAtlas().findRegion("heroicosta"));
+		super(screen.getAtlas().findRegion("heroicosta")); //textura utilizada para as animações do heroi
 		this.world = screen.getWorld();
 		this.screen = screen;
 
 		this.game = gm;
 		
+		//dando valor as variaveis
+		
 		currentState = State.STANDING;
 		previousState = State.STANDING;
 		stateTimer1 = 0;
-		runningUP = true;
 		runningRigth = true;
 		
+		//ANIMAÇÕES//
+		
+		//cria vetores para animação
+		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for(int i = 1; i < 4;i++)
-			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
-		heroiRun = new Animation(0.1f,frames);
+		for(int i = 1; i < 4;i++)// imagem 1 até imagem que for menor que a imagem 4 incrementa imagem
+			frames.add(new TextureRegion(getTexture(),i*16,0,15,31)); //cria textura com a posição da imagem png
+		heroiRun = new Animation(0.1f,frames); // armazena a animação na variavel 1
 		frames.clear();
 	
-		for(int i = 8; i < 12;i++)
-			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
-		heroiRun2 = new Animation(0.1f,frames);
+		for(int i = 8; i < 12;i++) // imagem 8 até imagem que for menor que a imagem 12 incrementa imagem
+			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));//cria textura com a posição da imagem png
+		heroiRun2 = new Animation(0.1f,frames);// armazena a animação na variavel 2
 		
-		for(int i = 4; i < 8;i++)
-			frames.add(new TextureRegion(getTexture(),i*16,0,15,31));
-		heroiRun3 = new Animation(0.1f,frames);
-		
-		heroiStand = new TextureRegion(getTexture(),0,0,15,31);
+		heroiStand = new TextureRegion(getTexture(),0,0,15,31); //cria a textura para quando pesonagem estiver parado
 		setBounds(0,0, 29, 62);
 		setRegion(heroiStand);
 		
-		
-		currentState = State.STANDING;
-		previousState = State.STANDING;
-		stateTimer1 = 0;
-		runningRigth = true;
-		
-		
 		defineHeroi();
 		
-		
+		//cria vetor para os tiros
 		tiros = new Array<Tiro>();
-		
-		//ANIMAÇÕES//
 		
 	}
 
 	public void afastaheroi() {
 		Gdx.app.log("Afasta heroi", "");
 		afastaheroi = true;
-		//setPosition(b2body.getPosition().x - 200, b2body.getPosition().y);
 	}
 	
 	public void update(float dt) {
@@ -109,11 +95,9 @@ public class Heroi extends Sprite {
 			b2body.setTransform(new Vector2(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100), 0);// move o personagem para baixo.
 			
 			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2-100);
-			//setRegion(getFrame(dt));
 			afastaheroi= false;
 		}else {
 			setPosition(b2body.getPosition().x - getWidth() / 2,b2body.getPosition().y - getHeight() /2);
-			//setPosition(b2body.getPosition().x, b2body.getPosition().y);
 			setRegion(getFrame(dt));
 		}
 		
@@ -127,15 +111,15 @@ public class Heroi extends Sprite {
 			}
 		}
 	}
-	public void atirar() {
+	public void atirar() { //cria colisão para os tiros do heroi
 		tiros.add(new Tiro(screen,b2body.getPosition().x,b2body.getPosition().y,true));
 	}
-	public void draw(Batch batch) {
+	public void draw(Batch batch) { //desenha os tiros na tela
 		super.draw(batch);
 		for(Tiro tiro:tiros)
 			tiro.draw(batch);
 	}
-	public TextureRegion getFrame(float dt) {
+	public TextureRegion getFrame(float dt) { // estado atual das animações
 		currentState = getState();
 		TextureRegion region;
 		switch(currentState) 
@@ -146,15 +130,13 @@ public class Heroi extends Sprite {
 			case RUNNING2:
 				region = heroiRun2.getKeyFrame(stateTimer1,true);
 				break;
-			case RUNNING3:
-				region = heroiRun3.getKeyFrame(stateTimer1,true);
-				break;
 		   case STANDING:
 			   default:
 				   region = heroiStand;
 				   break;
 		}
 		
+		// faz com que a textura mude de lado
 		if((b2body.getLinearVelocity().x > 0 || !runningRigth) && !region.isFlipX()) 
 		{
 			region.flip(true, false);
@@ -173,35 +155,13 @@ public class Heroi extends Sprite {
 	
 	public State getState() // esse metodo so pode ser alterado por quem trabalha na UBISOFT //
 	{
-		/*(if(b2body.getLinearVelocity().y > 0 && b2body.getLinearVelocity().x < 0) {
-			Gdx.app.log("Estou andando para Y> e X<", "");
-			return State.RUNNING2;
-			
-		}
-		else if (b2body.getLinearVelocity().y > 0 && b2body.getLinearVelocity().x > 0)
-			return State.RUNNING2;
-		else if(b2body.getLinearVelocity().y < 0 && b2body.getLinearVelocity().x > 0)
-			return State.RUNNING2;
-		else if(b2body.getLinearVelocity().x < 0 && b2body.getLinearVelocity().y < 0)
-				return State.RUNNING2;
-		else if(b2body.getLinearVelocity().y > 0)		
-				return State.RUNNING;
-		else if(b2body.getLinearVelocity().y < 0)
-			   return State.RUNNING;
-		else if(b2body.getLinearVelocity().x > 0)
-			return State.RUNNING2;
-		else if(b2body.getLinearVelocity().x < 0)
-			return State.RUNNING2;
-		else
-			return State.STANDING;*/
-		
-		if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x)
+		if(b2body.getLinearVelocity().y > b2body.getLinearVelocity().x) // se eixo y for maior que x retorna animação 1
     	return State.RUNNING;
-	else if (b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0)
+	else if (b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0) //se eixo x for igual 0 e eixo y difernte de 0 retorna animação 1
 		return State.RUNNING;
-    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0)
+    else if(b2body.getLinearVelocity().y != 0 || b2body.getLinearVelocity().x != 0) //se eixo y for diferente de 0 ou eixo x for diferente de 0 retorna animação 2
     	return State.RUNNING2;
-	else
+	else // se os 2 eixos forem iguais a 0 retorna textura padrao
 		return State.STANDING;
 	}
 	
@@ -209,24 +169,8 @@ public class Heroi extends Sprite {
 		return this.b2body;
 	}
 	
-//	public Body getBulletBody() {
-//		BodyDef bodDef = new BodyDef();
-//		bodDef.type = BodyType.KinematicBody;
-//		bodDef.position.set(getX() + 10,getY() + 10);
-//		
-//		b2body = world.createBody(bodDef);
-//		PolygonShape shape = new PolygonShape();
-//		shape.setAsBox(10, 10);
-//		FixtureDef fdef = new FixtureDef();
-//		fdef.shape = shape;
-//		fdef.density = 2f;
-//		shape.dispose();
-//		return b2body;
-//	
-//	}
-	
 	public void defineHeroi() {
-		BodyDef bdef = new BodyDef();
+		BodyDef bdef = new BodyDef(); // cria a area de colisão do heroi
 		
 		//Posição Inicial do HEROI //
 		
@@ -234,26 +178,20 @@ public class Heroi extends Sprite {
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
-		//textura e area de colisão//
+		//area de colisão//
 		
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(getWidth()/6, getHeight()/4);
 		
+		// heroi reconhece quando esta tocando no terreno , no tiro do inimigo , no imimigo , nas bordas do mapa , na lava e na agua
 		fdef.shape = shape;
 		fdef.filter.categoryBits = BioPirataria.HEROI_BIT;
 		fdef.filter.maskBits = BioPirataria.TERRAIN_BIT |BioPirataria.TIROENEMY_BIT| BioPirataria.ENEMY_BIT | BioPirataria.BORDAS_BIT | BioPirataria.LAVA_BIT | BioPirataria.AGUA_BIT  ;
-		b2body.createFixture(fdef).setUserData("Corpo");
-		
-//		EdgeShape head = new EdgeShape();
-//		head.set(new Vector2(-10,35),new Vector2(10,35));
-//		fdef.shape = head;
-//		fdef.isSensor = true;
-//		b2body.createFixture(fdef).setUserData("Head");
-		
+		b2body.createFixture(fdef).setUserData("Corpo");	
 	}
 	public void finaldojogo() {
-		b2body.setTransform(new Vector2(450,18700), 0);
+		b2body.setTransform(new Vector2(450,18700), 0); 
 	}
 
 }

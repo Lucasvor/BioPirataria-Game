@@ -52,6 +52,8 @@ public class MenuScreen implements Screen{
 	
 	
 	public MenuScreen (Game game) {
+		
+		//camera do menu , altura e largura//
 		this.game = game;
 		viewport = new FitViewport(BioPirataria.V_WIDTH, BioPirataria.V_HEIGHT, new OrthographicCamera());
 		
@@ -77,15 +79,14 @@ public class MenuScreen implements Screen{
 
 	@Override
 	public void render(float dt) {
-		//Gdx.gl.glClearColor(0, 0, 0, 1); //COR DA TELA = PRETO
-		
+	
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		BioPirataria.batch.begin();
 		stateTime += dt;
 		
 		BioPirataria.batch.draw(animation.getKeyFrame(stateTime),0,0);
 		
-		BioPirataria.batch.draw(title, 110, 345); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
+		BioPirataria.batch.draw(title, 110, 345 ); //POSIÇÃO DA IMAGEM TITULO na TELA DO JOGO
 		
 		int x = BioPirataria.V_WIDTH/2 - CREDITS_BUTTOM_WIDTH - 35; //posição x para tornar as imagens selecionaveis
 		

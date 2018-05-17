@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.PlayScreen;
 
 public abstract class Enemy extends Sprite{
+	
 	protected World world;
 	protected PlayScreen screen;
 	public Body b2body;

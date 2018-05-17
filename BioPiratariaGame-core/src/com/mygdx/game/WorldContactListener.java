@@ -26,20 +26,7 @@ public class WorldContactListener implements ContactListener {
 		this.vilao = vilao;
 	}
 	public void beginContact(Contact contact) {
-		// TODO Auto-generated method stub
-//		Fixture fixA = contact.getFixtureA();
-//		Fixture fixB = contact.getFixtureB();
-//		if(fixA.getUserData().toString().equals("Corpo") || fixB.getUserData().toString().equals("Corpo")){
-//		Fixture head = fixA.getUserData() == "Corpo" ? fixA:fixB;
-//		Fixture object = head == fixA? fixB: fixA;
-//		
-//		if(object.getUserData() != null) {
-//			Gdx.app.log("Corpo encostou no terreno. - Inicio", "");
-//			Hud.lostLife(10);
-//		}
-//		}else {
-//			Gdx.app.log("Head encostou no terreno. - Inicio", "");
-//		}
+		
 		Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
@@ -110,6 +97,11 @@ public class WorldContactListener implements ContactListener {
         		((Tiro)fixB.getUserData()).setToDestroy();
         	}
         	break;
+       /* case BioPirataria.BORDAS_BIT | BioPirataria.HEROI_BIT:
+        	Gdx.app.log("Corpo encostou na borda. - Inicio", "");
+        	Hud.lostLife(10);
+        	BioPirataria.manager.get("Songs/sfx_weapon_singleshot13.wav", Sound.class).play();
+        	break; */
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
         	screen.velocity = 2;
         	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");

@@ -47,21 +47,25 @@ public class PlayScreen implements Screen
 	private Game gm;
 	private TextureAtlas atlas;
 	
-	//Sprite player;
+	// variaveis da camera //
 	
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 
+	//variaveis do mapa TIled //
+	
 	private TmxMapLoader mapLoader;
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
+	
+	//variaveis do b2dbody//
 	
 	private World world;
 	private Box2DDebugRenderer b2ddr;
 	
 	public int velocity = 50;
 	
-	//private Player player;
+	
 	
 	private Music music;
 	private Hud hud;
@@ -69,6 +73,7 @@ public class PlayScreen implements Screen
 	private Vilao vilao;
 	float stateTime;
 	float timePontos;
+	
 	//avisa se o heroi está na lava
 	
 	public boolean heroiLava;
@@ -82,45 +87,41 @@ public class PlayScreen implements Screen
 
 	
 	PlayScreen(BioPirataria game, Game gm) {
-		atlas = new TextureAtlas("heroi2.pack");
+		atlas = new TextureAtlas("heroi2.pack"); // pack de texturas do personagem principal
 		this.game = game;
 		this.gm = gm;
-		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam);
+		gamecam = new OrthographicCamera(); // cria nova camera 
+		gamePort = new FitViewport(BioPirataria.V_WIDTH , BioPirataria.V_HEIGHT,gamecam); // cria resolução da tela
 //
 
-		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("JogoFINALLLLLL.tmx");
-		renderer = new OrthogonalTiledMapRenderer(map);
-		gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2, 0);
+		mapLoader = new TmxMapLoader(); // cria o mapa 
+		map = mapLoader.load("JogoFINALLLLLL.tmx"); // textura do mapa em arquivo Tiled
+		renderer = new OrthogonalTiledMapRenderer(map); // renderiza o mapa
+		gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2, 0); //posição da camera
 		
-        world = new World(new Vector2(0,0), true);
-        b2ddr = new Box2DDebugRenderer();
+        world = new World(new Vector2(0,0), true); //Vector 2 para movimentação
+        b2ddr = new Box2DDebugRenderer(); // box2dbody para colisão
         
         new B2WorldCreator(this);
         
 
-		hud = new Hud(BioPirataria.batch, gm);
-		vilao = new Vilao(this, 100,200,1000,gm);
-        heroi = new Heroi(this, 100, gm);
+		hud = new Hud(BioPirataria.batch, gm); // cria HUD
+		vilao = new Vilao(this, 100,200,1000,gm); //cria vilao
+        heroi = new Heroi(this, 100, gm); // cria heroi
         
 
-        // bullet
-//        bullet = new Bullet(heroi.b2body.getPosition(), new Vector2(10,0));
-//        bulletTexture = new Texture("bala1.png");
-//        
-//        bulletManager = new ArrayList<Bullet>();
         
         //Pegando colisão
         
         world.setContactListener(new WorldContactListener(heroi,this,vilao));
         
-        //music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
-        //music.setLooping(true);
-       // music.play();
         
+        // Musica do jogo
         
-        //Gdx.input.setCursorImage
+        music = BioPirataria.manager.get("Songs/Venus.ogg", Music.class);
+        music.setLooping(true);
+        music.play();
+        
 	}
 	
 	public TextureAtlas getAtlas() {
@@ -130,52 +131,45 @@ public class PlayScreen implements Screen
 	public void handleInput(float dt){
 		
 	    
+		//Define as teclas que serão utilizadas para a movimentação do personagem
 		
-	if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)){	
+	if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)){	
 		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,velocity), heroi.getBody().getWorldCenter(), true);
 		
-	}else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+	}else if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)){
 		heroi.getBody().applyLinearImpulse(new Vector2(-velocity,-velocity), heroi.getBody().getWorldCenter(), true);
-	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+	}else if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W)){
 		heroi.getBody().applyLinearImpulse(new Vector2(velocity,velocity), heroi.getBody().getWorldCenter(), true);
-	}else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+	}else if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)){
 		heroi.getBody().applyLinearImpulse(new Vector2(velocity,-velocity), heroi.getBody().getWorldCenter(), true);
 	}
-	else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-    	//gamecam.position.x -= 100 * dt;
+	else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
     heroi.getBody().applyLinearImpulse(new Vector2(-velocity,0), heroi.getBody().getWorldCenter(), true);
     	
-    }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-    	//gamecam.position.x += 100 * dt;
+    }else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
 	    	heroi.getBody().applyLinearImpulse(new Vector2(velocity,0), heroi.getBody().getWorldCenter(), true);
-	    }else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-	    	//gamecam.position.y += 100 * dt;
+	    }else if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	    	heroi.getBody().applyLinearImpulse(new Vector2(0,velocity), heroi.getBody().getWorldCenter(), true);
-    }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-    	//gamecam.position.y -= 100 * dt;
+    }else if(Gdx.input.isKeyPressed(Input.Keys.S)) {
 	    	heroi.getBody().applyLinearImpulse(new Vector2(0,-velocity), heroi.getBody().getWorldCenter(), true);
 	    }else {
 	    	heroi.getBody().setLinearVelocity(0,0);
 	    }
 	    
+	// define o botão para atirar e o som que faz ao realizar o disparo
     	if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-//    		Bullet myBullet = new Bullet(heroi.b2body.getPosition(),new Vector2(0,20));
-//    		bulletManager.add(myBullet);
     		BioPirataria.manager.get("Songs/Tiro2.mp3",Sound.class).play();
     		heroi.atirar();
     	}
+    	// define o botão para o vilão atirar (somente para teste)
     	if(Gdx.input.isKeyJustPressed(Input.Keys.N)) {
     		vilao.atirar();
     	}
+    	//define o botão para levar o pesonagem ao fim do jogo (somente para teste)
     	if(Gdx.input.isKeyJustPressed(Input.Keys.P)) {
     		vilao.finaldoJogo();
     		heroi.finaldojogo();
     	}
-    		
-	    // personagem com desenho
-		
-		//heroi.b2body.getLinearVelocityFromLocalPoint(new Vector2(0,0));
-		//heroi.getBody().setLinearVelocity(new Vector2(0,0));
 
     }
 	public void update(float dt){
@@ -189,28 +183,28 @@ public class PlayScreen implements Screen
 	    
 	    hud.update(dt);
 	    
-	    //gamecam.position.set(heroi.getX(),heroi.getY(),0);
-	    
 	    stateTime += dt;
 	    tempolava += dt;
 	    timePontos += dt;
 	    tempohudmessage += dt;
-	    if(stateTime > 6) {
+	    
+	    if(stateTime > 6) { // define quanto tempo o vilão demora para começar a andar no inicio do jogo e a posição da camera
 	    	vilao.startgamevilao();
 	    	Vector3 position = gamecam.position;
 		    position.y = gamecam.position.y+1.5f;
-		   // //Gdx.app.log("Posição y:"+vilao.getY(), "");
 		    
-		   gamecam.position.set(gamecam.position.x,vilao.getY(),0);
-		   if(vilao.getY() >= 19050) {
+		   gamecam.position.set(gamecam.position.x,vilao.getY(),0); //coloca a camera em uma posição especifica
+		   if(vilao.getY() >= 19050) { //quando vilão atingir um certo ponto do mapa ele para de andar
 			   if(paraInimigo) {
-				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",150, 250,2);
-				   vilao.setVida(1000);
-			   vilao.setVelocity(90, 0);
+				   Hud.hudanimtext("É Agora que a verdadeira batalha começa!",150, 250,2); // mostra na tela a mensagem nas coordenadas apresentadas
+				   vilao.setVida(1000); // muda a vida do vilão para 1000 (boss final)
+			   vilao.setVelocity(90, 0); // muda a velocidade em que se move
 			   paraInimigo = false;
 			   tempohudmessage= 0;
 		   }
 			   
+			   
+			   //Tempo das mensagens na tela no fim do jogo
 			   if(tempohudmessage > 0.5) {
 			   vilao.atirar();
 			   tempohudmessage= 0;
@@ -218,7 +212,7 @@ public class PlayScreen implements Screen
 			   
 		   }
 		    
-		}else {
+		}else {  //Tempo das mensagens na tela no inicio do jogo
 			if(tempohudmessage > 1 && tempohudmessage < 2) {
 				if(timemessage1) {
 					timemessage1 = false;
@@ -252,27 +246,28 @@ public class PlayScreen implements Screen
 				
 			gamecam.position.set(gamecam.position.x,gamecam.position.y+1,0);
 		}
-	    if(timePontos > 3) {
+	    
+	    
+	    if(timePontos > 3) { // acrescenta 1 ponto na HUD a cada 3 segundos
 	    	Hud.addPontos(1);
 	    	timePontos = 0;
 	    }
-	    if(tempolava > 1 && heroiLava) {
+	    if(tempolava > 1 && heroiLava) { // diminui 1 ponto da vida a cada segundo que se passa sobre a lava
 	    	Hud.lostLife(1);
 	    	tempolava = 0;
 	    }
 	    
-	    //gamecam.position.x = heroi.b2body.getPosition().y;
+	    
+	 // atualiza a camera
 	    
 	    gamecam.update();
-	    
-	    //gamecam.position.y *= 5;
 	    renderer.setView(gamecam);
     }
 
 	@Override
 	public void show() 
 	{
-		
+		//metodo vazio
 	}
 
 	@Override
