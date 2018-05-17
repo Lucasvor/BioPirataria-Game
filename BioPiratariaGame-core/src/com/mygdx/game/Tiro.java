@@ -72,7 +72,10 @@ public class Tiro extends Sprite{
 		if((stateTime > 3 || setToDestroy)&& !destroyed) {
 			world.destroyBody(b2body);
 			destroyed = true;
+			if(fireRight)
 			Gdx.app.log("Bala foi destruida", "");
+			else
+				Gdx.app.log("Bala inimiga foi destruida", "");
 		}	
 	}
 	public  void setToDestroy(){

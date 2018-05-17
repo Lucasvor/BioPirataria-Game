@@ -100,6 +100,7 @@ public class WorldContactListener implements ContactListener {
         		Gdx.app.log("Levou um tirou do inimigo", "");
         		((Tiro)fixB.getUserData()).setToDestroy();
         	}
+        	break;
         case BioPirataria.TIROENEMY_BIT | BioPirataria.TERRAIN_BIT:
         	if(fixA.getFilterData().categoryBits == BioPirataria.TIROENEMY_BIT) {
         		Gdx.app.log("tiro inimigo pegou no terreno", "");
@@ -108,30 +109,19 @@ public class WorldContactListener implements ContactListener {
         		Gdx.app.log("tiro inimigo pegou no terreno", "");
         		((Tiro)fixB.getUserData()).setToDestroy();
         	}
+        	break;
         case BioPirataria.HEROI_BIT | BioPirataria.AGUA_BIT:
-        	if(fixA.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
         	screen.velocity = 2;
         	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");
         	BioPirataria.manager.get("Songs/ocean3.mp3", Sound.class).play();
-        	}
-        	if(fixB.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
-        		screen.velocity = 2;
-            	Gdx.app.log("Heroi encostou na agua" + screen.velocity, "");
-            	BioPirataria.manager.get("Songs/ocean3.mp3", Sound.class).play();
-        	}
+        	
         	break;
         case BioPirataria.HEROI_BIT | BioPirataria.LAVA_BIT:
-        	if(fixA.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
         	//Hud.lostLife(1);
         	screen.heroiLava = true;
         	Gdx.app.log("Heroi encostou na lava", "");
         	BioPirataria.manager.get("Songs/Fogo.mp3", Sound.class).play();
-        	}
-        	if(fixB.getFilterData().categoryBits == BioPirataria.HEROI_BIT) {
-        		screen.heroiLava = true;
-            	Gdx.app.log("Heroi encostou na lava", "");
-            	BioPirataria.manager.get("Songs/Fogo.mp3", Sound.class).play();
-        	}
+        	
         	break;
         }
 	}
